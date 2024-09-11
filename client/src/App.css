@@ -1,103 +1,88 @@
-:root {
-  --primary-color: #131111; /* iOS black */
-  --secondary-color: #f5f5f7; /* Light gray background */
-  --accent-color: #007AFF; /* iOS blue */
-  --border-radius: 8px; /* Rounded corners */
-  --padding: 16px; /* Padding for elements */
-  --transition-duration: 0.3s; /* Transition duration */
-}
+/* App.css */
 
 body {
-  font-family: cursive;
-  background-color: var(--secondary-color); /* Light gray background */
-  color: var(--primary-color); /* Black text color */
-  margin:0;
-  padding:0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  margin: 0;
+  padding: 0;
 }
 
 .main-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  height: 91vh;
-  width: 97vw;
-  background-color: var(--secondary-color); /* Light gray background */
-  border-radius: 10px;
-  box-shadow: 10px 5px 5px red; /* iOS-like shadow */
-  padding: var(--padding); /* Padding */
-  background-image: linear-gradient(rgba(122, 179, 245, 0.5), rgba(250, 250, 250, 0.5));  background-size: cover;
-  background-position: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .title {
-  background-color: hsl(0, 0%, 99%);; /* iOS blue background */
-  min-height: 11vh;
+  text-align: center;
+  color: #1e90ff;
+  margin-bottom: 20px;
+}
+
+.content-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem; /* Larger font size */
-  font-weight: bold; /* Bold font weight */
-  color: var(--primary-color); /* black text color */
-  border-top-left-radius: var(--border-radius); /* Rounded corners for top */
-  border-top-right-radius: var(--border-radius);
-  padding: var(--padding); /* Padding */
-  width: 100%;
-  text-align: center; /* Center align text */
-  text-transform: uppercase; /* Uppercase text */
-  letter-spacing: 2px; /* Letter spacing for emphasis */
+  gap: 20px;
 }
 
-.main-content {
-  margin-top: 20px;
-  color: var(--primary-color); /* Black text color */
+.section {
+  padding: 20px;
+  border: 1px solid #1e90ff;
+  border-radius: 8px;
+  background-color: #e6f7ff;
 }
 
-input {
-  margin: 8px 0;
-  padding: 12px;
-  font-size: 1rem; /* Regular font size */
-  border: 1px solid var(--accent-color); /* iOS blue border */
-  border-radius: var(--border-radius);
-  background-color: #FFFFFF; /* White background */
-  color: var(--primary-color); /* Black text color */
-  transition: border-color var(--transition-duration) ease; /* Smooth transition */
-  width: 100%;
+.section h2 {
+  color: #1e90ff;
+  margin-bottom: 10px;
 }
 
-input:focus {
-  border-color: #0047AB; /* Darker iOS blue on focus */
-  outline: none; /* Remove default outline */
+input[type="text"],
+input[type="number"] {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #1e90ff;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-button {
-  border-radius: var(--border-radius);
+.button {
+  background-color: #1e90ff;
+  color: #ffffff;
+  padding: 10px 20px;
   border: none;
-  padding: 12px 24px;
-  font-size: 1rem; /* Regular font size */
-  font-weight: 600; /* Bold font weight */
-  background-color: var(--accent-color); /* iOS blue background */
-  color: var(--secondary-color); /* White text color */
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color var(--transition-duration) ease, transform 0.2s ease; /* Smooth transition */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* iOS-like shadow */
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #0056b3; /* Darker shade of blue on hover */
-  transform: translateY(-2px); /* Lift effect on hover */
+.button:hover {
+  background-color: #1c86ee;
 }
 
-button:active {
-  background-color: #004999; /* Even darker shade on click */
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Deeper shadow on click */
+.loading {
+  text-align: center;
+  color: #1e90ff;
+  font-size: 18px;
 }
 
-button:focus,
-button:focus-visible {
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.4); /* iOS-like focus ring */
+.patient-details {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #1e90ff;
+  border-radius: 4px;
+  background-color: #f0f8ff;
+}
+
+.patient-details h3 {
+  margin-top: 0;
+  color: #1e90ff;
+}
+
+.patient-details p {
+  margin: 5px 0;
 }
