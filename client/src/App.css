@@ -5,15 +5,22 @@ body {
   background-color: #f0f8ff;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .main-container {
   max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
@@ -26,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 
 .section {
@@ -33,6 +41,7 @@ body {
   border: 1px solid #1e90ff;
   border-radius: 8px;
   background-color: #e6f7ff;
+  width: 100%;
 }
 
 .section h2 {
