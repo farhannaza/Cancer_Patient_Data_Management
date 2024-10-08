@@ -610,13 +610,12 @@ function SignUpRoute2() {
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
-  default: () => DashboardAndAccordion,
+  default: () => AccordionDemo,
   loader: () => loader2,
   meta: () => meta
 });
 import { getAuth } from "@clerk/remix/ssr.server";
 import { redirect } from "@remix-run/node";
-import { UserButton } from "@clerk/remix";
 
 // app/components/ui/accordion.tsx
 import * as React2 from "react";
@@ -704,39 +703,6 @@ var meta = () => [
   let { userId } = await getAuth(args);
   return userId ? { data: { userId } } : redirect("/sign-in");
 };
-function DashboardAndAccordion() {
-  return /* @__PURE__ */ jsxDEV10("div", { children: [
-    /* @__PURE__ */ jsxDEV10("div", { className: "p-4", children: /* @__PURE__ */ jsxDEV10("div", { className: "flex justify-between items-center gap-4", children: [
-      /* @__PURE__ */ jsxDEV10("h1", { children: "For those cutie pie\u2764" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 34,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ jsxDEV10(UserButton, { afterSignOutUrl: "/" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 35,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 33,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 32,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ jsxDEV10(AccordionDemo, {}, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 39,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/routes/_index.tsx",
-    lineNumber: 31,
-    columnNumber: 5
-  }, this);
-}
 function AccordionDemo() {
   return /* @__PURE__ */ jsxDEV10(Accordion, { type: "single", collapsible: !0, className: "w-full", children: [
     /* @__PURE__ */ jsxDEV10(AccordionItem, { value: "item-1", children: [
@@ -795,7 +761,7 @@ function AccordionDemo() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-7TNYBITK.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-UHVG2CDN.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-VIFVOP3A.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-DN33IVI7.js", imports: ["/build/_shared/chunk-EBZWCYY3.js", "/build/_shared/chunk-FLJNNEON.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-JY63MTDL.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-77MMQP3X.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-ZBPZKSEX.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-WKFYGDJ4.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "90624f69", hmr: { runtime: "/build/_shared\\chunk-VIFVOP3A.js", timestamp: 1728389423282 }, url: "/build/manifest-90624F69.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-7TNYBITK.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-UHVG2CDN.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-VIFVOP3A.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-3FW2QU2Q.js", imports: ["/build/_shared/chunk-FLJNNEON.js", "/build/_shared/chunk-EBZWCYY3.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-LPDYRDWL.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-77MMQP3X.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-ZBPZKSEX.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-WKFYGDJ4.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "04bc1aa5", hmr: { runtime: "/build/_shared\\chunk-VIFVOP3A.js", timestamp: 1728398270453 }, url: "/build/manifest-04BC1AA5.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public\\build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

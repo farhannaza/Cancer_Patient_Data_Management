@@ -14,10 +14,6 @@ import {
   cn,
   require_ssr
 } from "/build/_shared/chunk-EBZWCYY3.js";
-import {
-  require_dist
-} from "/build/_shared/chunk-FLJNNEON.js";
-import "/build/_shared/chunk-UHVG2CDN.js";
 import "/build/_shared/chunk-GIAAE3CH.js";
 import {
   createHotContext,
@@ -46,7 +42,6 @@ var require_node = __commonJS({
 init_remix_hmr();
 var import_ssr = __toESM(require_ssr(), 1);
 var import_node = __toESM(require_node(), 1);
-var import_remix = __toESM(require_dist(), 1);
 
 // app/components/ui/accordion.tsx
 init_remix_hmr();
@@ -572,7 +567,7 @@ if (import.meta) {
     //@ts-expect-error
     "app\\routes\\_index.tsx"
   );
-  import.meta.hot.lastModified = "1728387775214.1956";
+  import.meta.hot.lastModified = "1728398268894.417";
 }
 var meta = () => {
   return [{
@@ -582,105 +577,69 @@ var meta = () => {
     content: "Welcome to Remix!"
   }];
 };
-function DashboardAndAccordion() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "p-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "flex justify-between items-center gap-4", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("h1", { children: "For those cutie pie\u2764" }, void 0, false, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 49,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_remix.UserButton, { afterSignOutUrl: "/" }, void 0, false, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 50,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, true, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 48,
-      columnNumber: 9
-    }, this) }, void 0, false, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 47,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionDemo, {}, void 0, false, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 54,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, true, {
-    fileName: "app/routes/_index.tsx",
-    lineNumber: 46,
-    columnNumber: 10
-  }, this);
-}
-_c7 = DashboardAndAccordion;
 function AccordionDemo() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(Accordion, { type: "single", collapsible: true, className: "w-full", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionItem, { value: "item-1", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionTrigger, { children: "Why Syafika so Comel??" }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 61,
+        lineNumber: 62,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionContent, { children: "Because no one more Comel in the whole world!!" }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 62,
+        lineNumber: 63,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 60,
+      lineNumber: 61,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionItem, { value: "item-2", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionTrigger, { children: "Is it True?" }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 67,
+        lineNumber: 68,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionContent, { children: "Yes, no one can prove otherwise." }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 68,
+        lineNumber: 69,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 66,
+      lineNumber: 67,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionItem, { value: "item-3", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionTrigger, { children: "Can Anyone Challenge her cutenes?" }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 73,
+        lineNumber: 74,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(AccordionContent, { children: "Yes. But actually No." }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 74,
+        lineNumber: 75,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 72,
+      lineNumber: 73,
       columnNumber: 7
     }, this)
   ] }, void 0, true, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 59,
+    lineNumber: 60,
     columnNumber: 10
   }, this);
 }
-_c22 = AccordionDemo;
+_c7 = AccordionDemo;
 var _c7;
-var _c22;
-$RefreshReg$(_c7, "DashboardAndAccordion");
-$RefreshReg$(_c22, "AccordionDemo");
+$RefreshReg$(_c7, "AccordionDemo");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 export {
-  DashboardAndAccordion as default,
+  AccordionDemo as default,
   meta
 };
-//# sourceMappingURL=/build/routes/_index-JY63MTDL.js.map
+//# sourceMappingURL=/build/routes/_index-LPDYRDWL.js.map
