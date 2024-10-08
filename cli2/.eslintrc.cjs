@@ -1,4 +1,4 @@
-1/**
+/**
  * This is intended to be a basic starting point for linting in your app.
  * It relies on recommended configs out of the box for simplicity, but you can
  * and should modify this configuration to best suit your team's needs.
@@ -19,7 +19,6 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  ignorePatterns: ["!**/.server", "!**/.client"],
 
   // Base config
   extends: ["eslint:recommended"],
@@ -75,7 +74,7 @@ module.exports = {
 
     // Node
     {
-      files: [".eslintrc.cjs"],
+      files: [".eslintrc.js"],
       env: {
         node: true,
       },

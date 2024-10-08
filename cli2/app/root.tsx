@@ -1,29 +1,40 @@
+import { cssBundleHref } from "@remix-run/css-bundle";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
 
 import styles from "./tailwind.css"
+import Navigation from "./components/custom/Navigation";
+import Footer from "./components/custom/Footer";
+
+import { ClerkApp } from "@clerk/remix";
+// Import rootAuthLoader
+import { rootAuthLoader } from "@clerk/remix/ssr.server";
+
+export const loader: LoaderFunction = args => {
+  return rootAuthLoader(args, ({ request }) => {
+    const { sessionId, userId, getToken } = request.auth;
+    console.log("sessionID", sessionId);
+    console.log("userID", userId);
+    console.log("getToken", getToken);
+    console.log("request", request);
+    // fetch data
+    return { yourData: 'here' };
+  });
+};
 
 export const links: LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  // { rel: "stylesheet", href: styles },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
+  { rel: "stylesheet", href: styles },
+  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+]
 
-export function Layout({ children }: { children: React.ReactNode }) {
+function App() {
   return (
     <html lang="en">
       <head>
@@ -32,15 +43,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="container mx-auto">
+        <Navigation />
+        <main><Outlet /></main>
+        <Footer />
         <ScrollRestoration />
         <Scripts />
+        <LiveReload />
       </body>
     </html>
   );
 }
 
-export default function App() {
-  return <Outlet />;
-}
+export default ClerkApp(App);
