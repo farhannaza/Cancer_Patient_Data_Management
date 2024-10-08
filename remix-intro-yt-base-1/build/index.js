@@ -115,9 +115,8 @@ function handleBrowserRequest(request, responseStatusCode, responseHeaders, remi
 // app/root.tsx
 var root_exports = {};
 __export(root_exports, {
-  default: () => root_default,
-  links: () => links,
-  loader: () => loader
+  default: () => App,
+  links: () => links
 });
 import {
   Links,
@@ -129,7 +128,7 @@ import {
 } from "@remix-run/react";
 
 // app/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-RD7AJQ3Q.css";
+var tailwind_default = "/build/_assets/tailwind-DSEVZ2QC.css";
 
 // app/components/custom/Navigation.tsx
 import { Link as Link2 } from "@remix-run/react";
@@ -314,7 +313,7 @@ function Navigation() {
       {
         to: "/",
         className: "text-2xl font-bold text-gray-900 dark:text-gray-100",
-        children: "CuteLove"
+        children: "MyApp"
       },
       void 0,
       !1,
@@ -449,7 +448,7 @@ function Navigation() {
 // app/components/custom/Footer.tsx
 import { jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
 function Footer() {
-  return /* @__PURE__ */ jsxDEV4("div", { className: "w-full h-20 flex items-center justify-center border-t text-gray-600 dark:border-gray-800 dark:text-gray-300", children: /* @__PURE__ */ jsxDEV4("p", { children: "\xA9 SyafikaComel. All rights reserved." }, void 0, !1, {
+  return /* @__PURE__ */ jsxDEV4("div", { className: "w-full h-20 flex items-center justify-center border-t text-gray-600 dark:border-gray-800 dark:text-gray-300", children: /* @__PURE__ */ jsxDEV4("p", { children: "\xA9 MyApp. All rights reserved." }, void 0, !1, {
     fileName: "app/components/custom/Footer.tsx",
     lineNumber: 4,
     columnNumber: 7
@@ -461,13 +460,8 @@ function Footer() {
 }
 
 // app/root.tsx
-import { ClerkApp } from "@clerk/remix";
-import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { jsxDEV as jsxDEV5 } from "react/jsx-dev-runtime";
-var loader = (args) => rootAuthLoader(args, ({ request }) => {
-  let { sessionId, userId, getToken } = request.auth;
-  return console.log("sessionID", sessionId), console.log("userID", userId), console.log("getToken", getToken), console.log("request", request), { yourData: "here" };
-}), links = () => [
+var links = () => [
   { rel: "stylesheet", href: tailwind_default },
   ...void 0 ? [{ rel: "stylesheet", href: void 0 }] : []
 ];
@@ -476,76 +470,75 @@ function App() {
     /* @__PURE__ */ jsxDEV5("head", { children: [
       /* @__PURE__ */ jsxDEV5("meta", { charSet: "utf-8" }, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 41,
+        lineNumber: 25,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 42,
+        lineNumber: 26,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5(Meta, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 43,
+        lineNumber: 27,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5(Links, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 44,
+        lineNumber: 28,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 40,
+      lineNumber: 24,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ jsxDEV5("body", { className: "container mx-auto", children: [
       /* @__PURE__ */ jsxDEV5(Navigation, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 47,
+        lineNumber: 31,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5("main", { children: /* @__PURE__ */ jsxDEV5(Outlet, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 48,
+        lineNumber: 32,
         columnNumber: 15
       }, this) }, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 48,
+        lineNumber: 32,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5(Footer, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 49,
+        lineNumber: 33,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5(ScrollRestoration, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 50,
+        lineNumber: 34,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5(Scripts, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 51,
+        lineNumber: 35,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV5(LiveReload, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 52,
+        lineNumber: 36,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 46,
+      lineNumber: 30,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/root.tsx",
-    lineNumber: 39,
+    lineNumber: 23,
     columnNumber: 5
   }, this);
 }
-var root_default = ClerkApp(App);
 
 // app/routes/dashboard.tsx
 var dashboard_exports = {};
@@ -554,7 +547,7 @@ __export(dashboard_exports, {
 });
 import { jsxDEV as jsxDEV6 } from "react/jsx-dev-runtime";
 function DashboardRoute() {
-  return /* @__PURE__ */ jsxDEV6("div", { className: "p-4", children: /* @__PURE__ */ jsxDEV6("div", { className: "flex justify-between items-center gap-4", children: /* @__PURE__ */ jsxDEV6("h1", { children: "Route to love Syafika - the more the better " }, void 0, !1, {
+  return /* @__PURE__ */ jsxDEV6("div", { className: "p-4", children: /* @__PURE__ */ jsxDEV6("div", { className: "flex justify-between items-center gap-4", children: /* @__PURE__ */ jsxDEV6("h1", { children: "Dashboard Route - private " }, void 0, !1, {
     fileName: "app/routes/dashboard.tsx",
     lineNumber: 5,
     columnNumber: 9
@@ -569,233 +562,103 @@ function DashboardRoute() {
   }, this);
 }
 
-// app/routes/sign-in.$.tsx
-var sign_in_exports = {};
-__export(sign_in_exports, {
-  default: () => SignUpRoute
-});
-import { SignIn } from "@clerk/remix";
-import { jsxDEV as jsxDEV7 } from "react/jsx-dev-runtime";
-function SignUpRoute() {
-  return /* @__PURE__ */ jsxDEV7("div", { className: "flex items-center justify-center h-[calc(100vh-80px)]", children: /* @__PURE__ */ jsxDEV7(SignIn, {}, void 0, !1, {
-    fileName: "app/routes/sign-in.$.tsx",
-    lineNumber: 6,
-    columnNumber: 13
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/sign-in.$.tsx",
-    lineNumber: 5,
-    columnNumber: 9
-  }, this);
-}
-
-// app/routes/sign-up.$.tsx
-var sign_up_exports = {};
-__export(sign_up_exports, {
-  default: () => SignUpRoute2
-});
-import { SignUp } from "@clerk/remix";
-import { jsxDEV as jsxDEV8 } from "react/jsx-dev-runtime";
-function SignUpRoute2() {
-  return /* @__PURE__ */ jsxDEV8("div", { className: "flex items-center justify-center h-[calc(100vh-80px)]", children: /* @__PURE__ */ jsxDEV8(SignUp, {}, void 0, !1, {
-    fileName: "app/routes/sign-up.$.tsx",
-    lineNumber: 6,
-    columnNumber: 13
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/sign-up.$.tsx",
-    lineNumber: 5,
-    columnNumber: 9
-  }, this);
-}
-
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
-  default: () => DashboardAndAccordion,
-  loader: () => loader2,
+  default: () => RootRoute,
   meta: () => meta
 });
-import { getAuth } from "@clerk/remix/ssr.server";
-import { redirect } from "@remix-run/node";
-import { UserButton } from "@clerk/remix";
 
-// app/components/ui/accordion.tsx
-import * as React2 from "react";
-import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDown as ChevronDown2 } from "lucide-react";
-import { jsxDEV as jsxDEV9 } from "react/jsx-dev-runtime";
-var Accordion = AccordionPrimitive.Root, AccordionItem = React2.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxDEV9(
-  AccordionPrimitive.Item,
-  {
-    ref,
-    className: cn("border-b", className),
-    ...props
-  },
-  void 0,
-  !1,
-  {
-    fileName: "app/components/ui/accordion.tsx",
-    lineNumber: 13,
-    columnNumber: 3
-  },
-  this
-));
-AccordionItem.displayName = "AccordionItem";
-var AccordionTrigger = React2.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxDEV9(AccordionPrimitive.Header, { className: "flex", children: /* @__PURE__ */ jsxDEV9(
-  AccordionPrimitive.Trigger,
-  {
-    ref,
-    className: cn(
-      "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
-      className
-    ),
-    ...props,
-    children: [
-      children,
-      /* @__PURE__ */ jsxDEV9(ChevronDown2, { className: "h-4 w-4 shrink-0 transition-transform duration-200" }, void 0, !1, {
-        fileName: "app/components/ui/accordion.tsx",
-        lineNumber: 35,
-        columnNumber: 7
-      }, this)
-    ]
-  },
-  void 0,
-  !0,
-  {
-    fileName: "app/components/ui/accordion.tsx",
-    lineNumber: 26,
-    columnNumber: 5
-  },
-  this
-) }, void 0, !1, {
-  fileName: "app/components/ui/accordion.tsx",
-  lineNumber: 25,
-  columnNumber: 3
-}, this));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
-var AccordionContent = React2.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxDEV9(
-  AccordionPrimitive.Content,
-  {
-    ref,
-    className: "overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-    ...props,
-    children: /* @__PURE__ */ jsxDEV9("div", { className: cn("pb-4 pt-0", className), children }, void 0, !1, {
-      fileName: "app/components/ui/accordion.tsx",
-      lineNumber: 50,
-      columnNumber: 5
-    }, this)
-  },
-  void 0,
-  !1,
-  {
-    fileName: "app/components/ui/accordion.tsx",
-    lineNumber: 45,
-    columnNumber: 3
-  },
-  this
-));
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
-
-// app/routes/_index.tsx
-import { jsxDEV as jsxDEV10 } from "react/jsx-dev-runtime";
-var meta = () => [
-  { title: "OnchologyChain" },
-  { name: "description", content: "Welcome to Remix!" }
-], loader2 = async (args) => {
-  let { userId } = await getAuth(args);
-  return userId ? { data: { userId } } : redirect("/sign-in");
-};
-function DashboardAndAccordion() {
-  return /* @__PURE__ */ jsxDEV10("div", { children: [
-    /* @__PURE__ */ jsxDEV10("div", { className: "p-4", children: /* @__PURE__ */ jsxDEV10("div", { className: "flex justify-between items-center gap-4", children: [
-      /* @__PURE__ */ jsxDEV10("h1", { children: "For those cutie pie\u2764" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 30,
-        columnNumber: 11
+// app/components/custom/Hero.tsx
+import { Link as Link3 } from "@remix-run/react";
+import { jsxDEV as jsxDEV7 } from "react/jsx-dev-runtime";
+function Hero() {
+  return /* @__PURE__ */ jsxDEV7("section", { className: "w-full min-h-screen py-12 md:py-24 lg:py-32", children: /* @__PURE__ */ jsxDEV7("div", { className: "container px-4 md:px-6", children: /* @__PURE__ */ jsxDEV7("div", { className: "flex flex-col items-center justify-center space-y-4 text-center", children: [
+    /* @__PURE__ */ jsxDEV7("div", { className: "space-y-2", children: [
+      /* @__PURE__ */ jsxDEV7("h1", { className: "text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none my-8", children: "My First Remix App" }, void 0, !1, {
+        fileName: "app/components/custom/Hero.tsx",
+        lineNumber: 9,
+        columnNumber: 13
       }, this),
-      /* @__PURE__ */ jsxDEV10(UserButton, { afterSignOutUrl: "/" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 31,
-        columnNumber: 11
+      /* @__PURE__ */ jsxDEV7("p", { className: "mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400 pb-3", children: "Covering basic Remix concepts like routing, data fetching, and more.." }, void 0, !1, {
+        fileName: "app/components/custom/Hero.tsx",
+        lineNumber: 12,
+        columnNumber: 13
       }, this)
     ] }, void 0, !0, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 29,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 28,
-      columnNumber: 7
+      fileName: "app/components/custom/Hero.tsx",
+      lineNumber: 8,
+      columnNumber: 11
     }, this),
-    /* @__PURE__ */ jsxDEV10(AccordionDemo, {}, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 35,
-      columnNumber: 7
+    /* @__PURE__ */ jsxDEV7("div", { className: "space-x-4", children: [
+      /* @__PURE__ */ jsxDEV7(
+        Link3,
+        {
+          className: "inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300",
+          to: "#",
+          children: "Get Started"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/components/custom/Hero.tsx",
+          lineNumber: 18,
+          columnNumber: 13
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV7(
+        Link3,
+        {
+          className: "inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300",
+          to: "#",
+          children: "Learn More"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/components/custom/Hero.tsx",
+          lineNumber: 24,
+          columnNumber: 13
+        },
+        this
+      )
+    ] }, void 0, !0, {
+      fileName: "app/components/custom/Hero.tsx",
+      lineNumber: 17,
+      columnNumber: 11
     }, this)
   ] }, void 0, !0, {
-    fileName: "app/routes/_index.tsx",
-    lineNumber: 27,
+    fileName: "app/components/custom/Hero.tsx",
+    lineNumber: 7,
+    columnNumber: 9
+  }, this) }, void 0, !1, {
+    fileName: "app/components/custom/Hero.tsx",
+    lineNumber: 6,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/components/custom/Hero.tsx",
+    lineNumber: 5,
     columnNumber: 5
   }, this);
 }
-function AccordionDemo() {
-  return /* @__PURE__ */ jsxDEV10(Accordion, { type: "single", collapsible: !0, className: "w-full", children: [
-    /* @__PURE__ */ jsxDEV10(AccordionItem, { value: "item-1", children: [
-      /* @__PURE__ */ jsxDEV10(AccordionTrigger, { children: "Why Syafika so Comel??" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 44,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV10(AccordionContent, { children: "Because no one more Comel in the whole world!!" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 45,
-        columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 43,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ jsxDEV10(AccordionItem, { value: "item-2", children: [
-      /* @__PURE__ */ jsxDEV10(AccordionTrigger, { children: "Is it True?" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 50,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV10(AccordionContent, { children: "Yes, no one can prove otherwise." }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 51,
-        columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 49,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ jsxDEV10(AccordionItem, { value: "item-3", children: [
-      /* @__PURE__ */ jsxDEV10(AccordionTrigger, { children: "Can Anyone Challenge her cutenes?" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 56,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV10(AccordionContent, { children: "Yes. But actually No." }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 57,
-        columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 55,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
+
+// app/routes/_index.tsx
+import { jsxDEV as jsxDEV8 } from "react/jsx-dev-runtime";
+var meta = () => [
+  { title: "New Remix App" },
+  { name: "description", content: "Welcome to Remix!" }
+];
+function RootRoute() {
+  return /* @__PURE__ */ jsxDEV8(Hero, {}, void 0, !1, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 42,
-    columnNumber: 5
+    lineNumber: 13,
+    columnNumber: 10
   }, this);
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-GHUIPH6A.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-P5OVQBKN.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-WI45ZEBI.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-MNRTOPNW.js", imports: ["/build/_shared/chunk-K47NBBJG.js", "/build/_shared/chunk-PCKPTWKJ.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-MCMHC3EV.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-EZWF2HQP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-B7XIWGYV.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-LRKCZPLK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "87fb77eb", hmr: { runtime: "/build/_shared\\chunk-WI45ZEBI.js", timestamp: 1728403190120 }, url: "/build/manifest-87FB77EB.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A7JF6FEJ.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-RTCGGSKO.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-LS2LPRW5.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-LSPXLLOA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-EAJBXYJH.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-E6DDGNKY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "00b55c46", hmr: { runtime: "/build/_shared\\chunk-LS2LPRW5.js", timestamp: 1728403752163 }, url: "/build/manifest-00B55C46.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public\\build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -814,22 +677,6 @@ var mode = "development", assetsBuildDirectory = "public\\build", future = { v3_
     index: void 0,
     caseSensitive: void 0,
     module: dashboard_exports
-  },
-  "routes/sign-in.$": {
-    id: "routes/sign-in.$",
-    parentId: "root",
-    path: "sign-in/*",
-    index: void 0,
-    caseSensitive: void 0,
-    module: sign_in_exports
-  },
-  "routes/sign-up.$": {
-    id: "routes/sign-up.$",
-    parentId: "root",
-    path: "sign-up/*",
-    index: void 0,
-    caseSensitive: void 0,
-    module: sign_up_exports
   },
   "routes/_index": {
     id: "routes/_index",
