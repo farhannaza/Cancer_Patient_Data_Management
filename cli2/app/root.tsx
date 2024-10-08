@@ -1,5 +1,6 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { ClerkProvider, GoogleOneTap } from "@clerk/remix";
 import {
   Links,
   LiveReload,
@@ -44,12 +45,15 @@ function App() {
         <Links />
       </head>
       <body className="container mx-auto">
-        <Navigation />
-        <main><Outlet /></main>
-        <Footer />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <ClerkProvider>
+          <GoogleOneTap />
+          <Navigation />
+          <main><Outlet /></main>
+          <Footer />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </ClerkProvider>
       </body>
     </html>
   );
