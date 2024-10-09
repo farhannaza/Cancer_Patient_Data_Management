@@ -6799,7 +6799,7 @@ var init_components = __esm({
     LiveReload = // Dead Code Elimination magic for production builds.
     // This way devs don't have to worry about doing the NODE_ENV check themselves.
     false ? () => null : function LiveReload2({
-      origin = "http://localhost:3002/",
+      origin = "http://localhost:3001/",
       port,
       timeoutMs = 1e3,
       nonce = void 0
@@ -8567,4 +8567,4 @@ react-router-dom/dist/index.js:
    * @license MIT
    *)
 */
-//# sourceMappingURL=/build/_shared/chunk-Q2YYKVNL.js.map
+//# sourceMappingURL=/build/_shared/chunk-UHVG2CDN.js.map

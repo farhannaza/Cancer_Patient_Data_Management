@@ -4,7 +4,7 @@ import {
 import {
   RemixBrowser,
   init_esm
-} from "/build/_shared/chunk-Q2YYKVNL.js";
+} from "/build/_shared/chunk-UHVG2CDN.js";
 import "/build/_shared/chunk-GIAAE3CH.js";
 import {
   createHotContext,
@@ -48,4 +48,4 @@ if (import.meta) {
     }, this)
   );
 });
-//# sourceMappingURL=/build/entry.client-T6FYEPIG.js.map
+//# sourceMappingURL=/build/entry.client-7TNYBITK.js.map

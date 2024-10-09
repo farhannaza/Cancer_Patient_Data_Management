@@ -26,22 +26,22 @@ import {
   AccordionTrigger,
 } from "~/components/ui/accordion"
 []
-// export default function DashboardAndAccordion() {
-//   return (
-//     <div>
-//       <div className="p-4">
-//         <div className="flex justify-between items-center gap-4">
-//           <h1>For those cutie pie❤</h1>
-//           <UserButton afterSignOutUrl="/" />
-//         </div>
-//       </div>
+export default function DashboardAndAccordion() {
+  return (
+    <div>
+      <div className="p-4">
+        <div className="flex justify-between items-center gap-4">
+          <h1>For those cutie pie❤</h1>
+          <UserButton afterSignOutUrl="/" />
+        </div>
+      </div>
 
-//       <AccordionDemo />
-//     </div>
-//   );
-// }
+      <AccordionDemo />
+    </div>
+  );
+}
 
-export default function AccordionDemo() {
+function AccordionDemo() {
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
