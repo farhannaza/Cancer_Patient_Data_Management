@@ -18,7 +18,7 @@ export default function Navigation() {
           to="/"
           className="text-2xl font-bold text-gray-900 dark:text-gray-100"
         >
-          MyApp
+          OnchologyChain
         </Link>
         <NavigationMenu>
           <NavigationMenuList className="flex gap-4">

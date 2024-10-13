@@ -4,8 +4,8 @@ import Hero from "~/components/custom/Hero";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "OnchologyChain" },
+    { name: "description", content: "Welcome to OnchologyChain!" },
   ];
 };
 
