@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Bell, Calendar, FilePlus, MoreVertical, User } from "lucide-react"
+import { Bell, Calendar, FilePlus, MoreVertical, AlignJustify } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
 import {
@@ -28,36 +28,38 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">Patient Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <User className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-      </header>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <h1 className="text-2xl font-semibold text-gray-900">Hello, Dr.Rahim</h1>
+    <div className="flex items-center space-x-4">
+      <Button variant="ghost" size="icon">
+        <Bell className="h-5 w-5" />
+      </Button>
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
+          <Button className="flex">
+            <AlignJustify className="h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="z-50">
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem>Logout</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  </div>
+</header>
+
+
 
       <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
-              <User className="h-4 w-4 text-muted-foreground" />
+              <AlignJustify className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">1,234</div>
@@ -113,19 +115,19 @@ export default function Dashboard() {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>John Doe</TableCell>
+                    <TableCell>Alia Rahim</TableCell>
                     <TableCell>2023-05-15</TableCell>
                     <TableCell>09:00 AM</TableCell>
                     <TableCell>Chemotherapy</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Jane Smith</TableCell>
+                    <TableCell>Maria Kasim</TableCell>
                     <TableCell>2023-05-15</TableCell>
                     <TableCell>11:30 AM</TableCell>
                     <TableCell>Radiation</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Bob Johnson</TableCell>
+                    <TableCell>Abu Ali</TableCell>
                     <TableCell>2023-05-16</TableCell>
                     <TableCell>02:00 PM</TableCell>
                     <TableCell>Follow-up</TableCell>
@@ -147,7 +149,7 @@ export default function Dashboard() {
                     <p className="text-2xl font-bold">{treatmentProgress}%</p>
                   </div>
                   <div
-                    className="w-20 h-20 rounded-full border-8 border-primary"
+                    className="w-32 h-32 rounded-full border-8 border-primary"
                     style={{
                       background: `conic-gradient(var(--primary) ${treatmentProgress}%, transparent 0)`,
                     }}

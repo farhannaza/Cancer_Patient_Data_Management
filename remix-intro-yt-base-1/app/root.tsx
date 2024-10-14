@@ -27,7 +27,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="container mx-auto">
+      <body className="mx-auto min-w-full">
         <Navigation />
         <main><Outlet /></main>
         <Footer />

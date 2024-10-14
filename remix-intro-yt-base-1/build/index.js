@@ -128,7 +128,7 @@ import {
 } from "@remix-run/react";
 
 // app/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-MMLGRMHE.css";
+var tailwind_default = "/build/_assets/tailwind-AZIWSFG5.css";
 
 // app/components/custom/Navigation.tsx
 import { Link as Link2 } from "@remix-run/react";
@@ -369,8 +369,8 @@ function Navigation() {
         Link2,
         {
           className: "text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100",
-          to: "#",
-          children: "Pricing"
+          to: "form",
+          children: "Update"
         },
         void 0,
         !1,
@@ -493,7 +493,7 @@ function App() {
       lineNumber: 24,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ jsxDEV5("body", { className: "container mx-auto", children: [
+    /* @__PURE__ */ jsxDEV5("body", { className: "mx-auto min-w-full", children: [
       /* @__PURE__ */ jsxDEV5(Navigation, {}, void 0, !1, {
         fileName: "app/root.tsx",
         lineNumber: 31,
@@ -546,7 +546,7 @@ __export(dashboard_exports, {
   default: () => Dashboard
 });
 import { useState } from "react";
-import { Bell, Calendar, FilePlus, MoreVertical, User } from "lucide-react";
+import { Bell, Calendar, FilePlus, MoreVertical, AlignJustify } from "lucide-react";
 
 // app/components/ui/button.tsx
 import * as React2 from "react";
@@ -1118,80 +1118,80 @@ function Dashboard() {
   let [treatmentProgress, setTreatmentProgress] = useState(65);
   return /* @__PURE__ */ jsxDEV11("div", { className: "flex flex-col min-h-screen bg-gray-100", children: [
     /* @__PURE__ */ jsxDEV11("header", { className: "bg-white shadow-sm", children: /* @__PURE__ */ jsxDEV11("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between", children: [
-      /* @__PURE__ */ jsxDEV11("h1", { className: "text-2xl font-semibold text-gray-900", children: "Patient Dashboard" }, void 0, !1, {
+      /* @__PURE__ */ jsxDEV11("h1", { className: "text-2xl font-semibold text-gray-900", children: "Hello, Dr.Rahim" }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
         lineNumber: 32,
-        columnNumber: 11
+        columnNumber: 5
       }, this),
       /* @__PURE__ */ jsxDEV11("div", { className: "flex items-center space-x-4", children: [
         /* @__PURE__ */ jsxDEV11(Button, { variant: "ghost", size: "icon", children: /* @__PURE__ */ jsxDEV11(Bell, { className: "h-5 w-5" }, void 0, !1, {
           fileName: "app/routes/dashboard.tsx",
           lineNumber: 35,
-          columnNumber: 15
+          columnNumber: 9
         }, this) }, void 0, !1, {
           fileName: "app/routes/dashboard.tsx",
           lineNumber: 34,
-          columnNumber: 13
+          columnNumber: 7
         }, this),
-        /* @__PURE__ */ jsxDEV11(DropdownMenu, { children: [
-          /* @__PURE__ */ jsxDEV11(DropdownMenuTrigger, { asChild: !0, children: /* @__PURE__ */ jsxDEV11(Button, { variant: "ghost", className: "relative h-8 w-8 rounded-full", children: /* @__PURE__ */ jsxDEV11(User, { className: "h-5 w-5" }, void 0, !1, {
+        /* @__PURE__ */ jsxDEV11(DropdownMenu, { modal: !1, children: [
+          /* @__PURE__ */ jsxDEV11(DropdownMenuTrigger, { asChild: !0, children: /* @__PURE__ */ jsxDEV11(Button, { className: "flex", children: /* @__PURE__ */ jsxDEV11(AlignJustify, { className: "h-5 w-5" }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
             lineNumber: 40,
-            columnNumber: 19
+            columnNumber: 13
           }, this) }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
             lineNumber: 39,
-            columnNumber: 17
+            columnNumber: 11
           }, this) }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
             lineNumber: 38,
-            columnNumber: 15
+            columnNumber: 9
           }, this),
-          /* @__PURE__ */ jsxDEV11(DropdownMenuContent, { align: "end", children: [
+          /* @__PURE__ */ jsxDEV11(DropdownMenuContent, { align: "end", className: "z-50", children: [
             /* @__PURE__ */ jsxDEV11(DropdownMenuLabel, { children: "My Account" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
               lineNumber: 44,
-              columnNumber: 17
+              columnNumber: 11
             }, this),
             /* @__PURE__ */ jsxDEV11(DropdownMenuSeparator, {}, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
               lineNumber: 45,
-              columnNumber: 17
+              columnNumber: 11
             }, this),
             /* @__PURE__ */ jsxDEV11(DropdownMenuItem, { children: "Profile" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
               lineNumber: 46,
-              columnNumber: 17
+              columnNumber: 11
             }, this),
             /* @__PURE__ */ jsxDEV11(DropdownMenuItem, { children: "Settings" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
               lineNumber: 47,
-              columnNumber: 17
+              columnNumber: 11
             }, this),
             /* @__PURE__ */ jsxDEV11(DropdownMenuItem, { children: "Logout" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
               lineNumber: 48,
-              columnNumber: 17
+              columnNumber: 11
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
             lineNumber: 43,
-            columnNumber: 15
+            columnNumber: 9
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
           lineNumber: 37,
-          columnNumber: 13
+          columnNumber: 7
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/dashboard.tsx",
         lineNumber: 33,
-        columnNumber: 11
+        columnNumber: 5
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/dashboard.tsx",
       lineNumber: 31,
-      columnNumber: 9
+      columnNumber: 3
     }, this) }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
       lineNumber: 30,
@@ -1203,307 +1203,307 @@ function Dashboard() {
           /* @__PURE__ */ jsxDEV11(CardHeader, { className: "flex flex-row items-center justify-between space-y-0 pb-2", children: [
             /* @__PURE__ */ jsxDEV11(CardTitle, { className: "text-sm font-medium", children: "Total Patients" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 59,
+              lineNumber: 61,
               columnNumber: 15
             }, this),
-            /* @__PURE__ */ jsxDEV11(User, { className: "h-4 w-4 text-muted-foreground" }, void 0, !1, {
+            /* @__PURE__ */ jsxDEV11(AlignJustify, { className: "h-4 w-4 text-muted-foreground" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 60,
+              lineNumber: 62,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 58,
+            lineNumber: 60,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV11(CardContent, { children: [
             /* @__PURE__ */ jsxDEV11("div", { className: "text-2xl font-bold", children: "1,234" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 63,
+              lineNumber: 65,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV11("p", { className: "text-xs text-muted-foreground", children: "+20% from last month" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 64,
+              lineNumber: 66,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 62,
+            lineNumber: 64,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 57,
+          lineNumber: 59,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV11(Card, { children: [
           /* @__PURE__ */ jsxDEV11(CardHeader, { className: "flex flex-row items-center justify-between space-y-0 pb-2", children: [
             /* @__PURE__ */ jsxDEV11(CardTitle, { className: "text-sm font-medium", children: "Active Treatments" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 69,
+              lineNumber: 71,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV11(FilePlus, { className: "h-4 w-4 text-muted-foreground" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 70,
+              lineNumber: 72,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 68,
+            lineNumber: 70,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV11(CardContent, { children: [
             /* @__PURE__ */ jsxDEV11("div", { className: "text-2xl font-bold", children: "567" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 73,
+              lineNumber: 75,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV11("p", { className: "text-xs text-muted-foreground", children: "+5% from last week" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 74,
+              lineNumber: 76,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 72,
+            lineNumber: 74,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 67,
+          lineNumber: 69,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV11(Card, { children: [
           /* @__PURE__ */ jsxDEV11(CardHeader, { className: "flex flex-row items-center justify-between space-y-0 pb-2", children: [
             /* @__PURE__ */ jsxDEV11(CardTitle, { className: "text-sm font-medium", children: "Upcoming Appointments" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 79,
+              lineNumber: 81,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV11(Calendar, { className: "h-4 w-4 text-muted-foreground" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 80,
+              lineNumber: 82,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 78,
+            lineNumber: 80,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV11(CardContent, { children: [
             /* @__PURE__ */ jsxDEV11("div", { className: "text-2xl font-bold", children: "89" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 83,
+              lineNumber: 85,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV11("p", { className: "text-xs text-muted-foreground", children: "For the next 7 days" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 84,
+              lineNumber: 86,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 82,
+            lineNumber: 84,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 77,
+          lineNumber: 79,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV11(Card, { children: [
           /* @__PURE__ */ jsxDEV11(CardHeader, { className: "flex flex-row items-center justify-between space-y-0 pb-2", children: [
             /* @__PURE__ */ jsxDEV11(CardTitle, { className: "text-sm font-medium", children: "Treatment Success Rate" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 89,
+              lineNumber: 91,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV11(MoreVertical, { className: "h-4 w-4 text-muted-foreground" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 90,
+              lineNumber: 92,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 88,
+            lineNumber: 90,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV11(CardContent, { children: [
             /* @__PURE__ */ jsxDEV11("div", { className: "text-2xl font-bold", children: "78%" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 93,
+              lineNumber: 95,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV11("p", { className: "text-xs text-muted-foreground", children: "+2% from last year" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 94,
+              lineNumber: 96,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 92,
+            lineNumber: 94,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 87,
+          lineNumber: 89,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 56,
+        lineNumber: 58,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV11("div", { className: "grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6", children: [
         /* @__PURE__ */ jsxDEV11(Card, { className: "col-span-2", children: [
           /* @__PURE__ */ jsxDEV11(CardHeader, { children: /* @__PURE__ */ jsxDEV11(CardTitle, { children: "Upcoming Appointments" }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 102,
+            lineNumber: 104,
             columnNumber: 15
           }, this) }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 101,
+            lineNumber: 103,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV11(CardContent, { children: /* @__PURE__ */ jsxDEV11(Table, { children: [
             /* @__PURE__ */ jsxDEV11(TableHeader, { children: /* @__PURE__ */ jsxDEV11(TableRow, { children: [
               /* @__PURE__ */ jsxDEV11(TableHead, { children: "Patient" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 108,
+                lineNumber: 110,
                 columnNumber: 21
               }, this),
               /* @__PURE__ */ jsxDEV11(TableHead, { children: "Date" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 109,
+                lineNumber: 111,
                 columnNumber: 21
               }, this),
               /* @__PURE__ */ jsxDEV11(TableHead, { children: "Time" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 110,
+                lineNumber: 112,
                 columnNumber: 21
               }, this),
               /* @__PURE__ */ jsxDEV11(TableHead, { children: "Type" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 111,
+                lineNumber: 113,
                 columnNumber: 21
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 107,
+              lineNumber: 109,
               columnNumber: 19
             }, this) }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 106,
+              lineNumber: 108,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ jsxDEV11(TableBody, { children: [
               /* @__PURE__ */ jsxDEV11(TableRow, { children: [
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "John Doe" }, void 0, !1, {
-                  fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 116,
-                  columnNumber: 21
-                }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-15" }, void 0, !1, {
-                  fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 117,
-                  columnNumber: 21
-                }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "09:00 AM" }, void 0, !1, {
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Alia Rahim" }, void 0, !1, {
                   fileName: "app/routes/dashboard.tsx",
                   lineNumber: 118,
                   columnNumber: 21
                 }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Chemotherapy" }, void 0, !1, {
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-15" }, void 0, !1, {
                   fileName: "app/routes/dashboard.tsx",
                   lineNumber: 119,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "09:00 AM" }, void 0, !1, {
+                  fileName: "app/routes/dashboard.tsx",
+                  lineNumber: 120,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Chemotherapy" }, void 0, !1, {
+                  fileName: "app/routes/dashboard.tsx",
+                  lineNumber: 121,
                   columnNumber: 21
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 115,
+                lineNumber: 117,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableRow, { children: [
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Jane Smith" }, void 0, !1, {
-                  fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 122,
-                  columnNumber: 21
-                }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-15" }, void 0, !1, {
-                  fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 123,
-                  columnNumber: 21
-                }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "11:30 AM" }, void 0, !1, {
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Maria Kasim" }, void 0, !1, {
                   fileName: "app/routes/dashboard.tsx",
                   lineNumber: 124,
                   columnNumber: 21
                 }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Radiation" }, void 0, !1, {
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-15" }, void 0, !1, {
                   fileName: "app/routes/dashboard.tsx",
                   lineNumber: 125,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "11:30 AM" }, void 0, !1, {
+                  fileName: "app/routes/dashboard.tsx",
+                  lineNumber: 126,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Radiation" }, void 0, !1, {
+                  fileName: "app/routes/dashboard.tsx",
+                  lineNumber: 127,
                   columnNumber: 21
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 121,
+                lineNumber: 123,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableRow, { children: [
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Bob Johnson" }, void 0, !1, {
-                  fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 128,
-                  columnNumber: 21
-                }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-16" }, void 0, !1, {
-                  fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 129,
-                  columnNumber: 21
-                }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "02:00 PM" }, void 0, !1, {
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Abu Ali" }, void 0, !1, {
                   fileName: "app/routes/dashboard.tsx",
                   lineNumber: 130,
                   columnNumber: 21
                 }, this),
-                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Follow-up" }, void 0, !1, {
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-16" }, void 0, !1, {
                   fileName: "app/routes/dashboard.tsx",
                   lineNumber: 131,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "02:00 PM" }, void 0, !1, {
+                  fileName: "app/routes/dashboard.tsx",
+                  lineNumber: 132,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV11(TableCell, { children: "Follow-up" }, void 0, !1, {
+                  fileName: "app/routes/dashboard.tsx",
+                  lineNumber: 133,
                   columnNumber: 21
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 127,
+                lineNumber: 129,
                 columnNumber: 19
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 114,
+              lineNumber: 116,
               columnNumber: 17
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 105,
+            lineNumber: 107,
             columnNumber: 15
           }, this) }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 104,
+            lineNumber: 106,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 100,
+          lineNumber: 102,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV11(Card, { children: [
           /* @__PURE__ */ jsxDEV11(CardHeader, { children: /* @__PURE__ */ jsxDEV11(CardTitle, { children: "Treatment Progress" }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 140,
+            lineNumber: 142,
             columnNumber: 15
           }, this) }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 139,
+            lineNumber: 141,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV11(CardContent, { children: /* @__PURE__ */ jsxDEV11("div", { className: "space-y-4", children: [
@@ -1511,7 +1511,7 @@ function Dashboard() {
               /* @__PURE__ */ jsxDEV11("div", { className: "space-y-1", children: [
                 /* @__PURE__ */ jsxDEV11("p", { className: "text-sm font-medium", children: "Overall Progress" }, void 0, !1, {
                   fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 146,
+                  lineNumber: 148,
                   columnNumber: 21
                 }, this),
                 /* @__PURE__ */ jsxDEV11("p", { className: "text-2xl font-bold", children: [
@@ -1519,18 +1519,18 @@ function Dashboard() {
                   "%"
                 ] }, void 0, !0, {
                   fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 147,
+                  lineNumber: 149,
                   columnNumber: 21
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 145,
+                lineNumber: 147,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(
                 "div",
                 {
-                  className: "w-20 h-20 rounded-full border-8 border-primary",
+                  className: "w-32 h-32 rounded-full border-8 border-primary",
                   style: {
                     background: `conic-gradient(var(--primary) ${treatmentProgress}%, transparent 0)`
                   }
@@ -1539,199 +1539,199 @@ function Dashboard() {
                 !1,
                 {
                   fileName: "app/routes/dashboard.tsx",
-                  lineNumber: 149,
+                  lineNumber: 151,
                   columnNumber: 19
                 },
                 this
               )
             ] }, void 0, !0, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 144,
+              lineNumber: 146,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ jsxDEV11(Progress, { value: treatmentProgress, className: "w-full" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 156,
+              lineNumber: 158,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ jsxDEV11("p", { className: "text-sm text-muted-foreground", children: "Next milestone: 75% - Estimated 2 weeks" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 157,
+              lineNumber: 159,
               columnNumber: 17
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 143,
+            lineNumber: 145,
             columnNumber: 15
           }, this) }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 142,
+            lineNumber: 144,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 138,
+          lineNumber: 140,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 99,
+        lineNumber: 101,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV11(Card, { className: "mt-6", children: [
         /* @__PURE__ */ jsxDEV11(CardHeader, { children: /* @__PURE__ */ jsxDEV11(CardTitle, { children: "Recent Test Results" }, void 0, !1, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 167,
+          lineNumber: 169,
           columnNumber: 13
         }, this) }, void 0, !1, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 166,
+          lineNumber: 168,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDEV11(CardContent, { children: /* @__PURE__ */ jsxDEV11(Table, { children: [
           /* @__PURE__ */ jsxDEV11(TableHeader, { children: /* @__PURE__ */ jsxDEV11(TableRow, { children: [
             /* @__PURE__ */ jsxDEV11(TableHead, { children: "Date" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 173,
+              lineNumber: 175,
               columnNumber: 19
             }, this),
             /* @__PURE__ */ jsxDEV11(TableHead, { children: "Test Type" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 174,
+              lineNumber: 176,
               columnNumber: 19
             }, this),
             /* @__PURE__ */ jsxDEV11(TableHead, { children: "Result" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 175,
+              lineNumber: 177,
               columnNumber: 19
             }, this),
             /* @__PURE__ */ jsxDEV11(TableHead, { children: "Status" }, void 0, !1, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 176,
+              lineNumber: 178,
               columnNumber: 19
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 172,
+            lineNumber: 174,
             columnNumber: 17
           }, this) }, void 0, !1, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 171,
+            lineNumber: 173,
             columnNumber: 15
           }, this),
           /* @__PURE__ */ jsxDEV11(TableBody, { children: [
             /* @__PURE__ */ jsxDEV11(TableRow, { children: [
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-10" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 181,
+                lineNumber: 183,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "Blood Count" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 182,
+                lineNumber: 184,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "Normal" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 183,
+                lineNumber: 185,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: /* @__PURE__ */ jsxDEV11("span", { className: "inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800", children: "Good" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 185,
+                lineNumber: 187,
                 columnNumber: 21
               }, this) }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 184,
+                lineNumber: 186,
                 columnNumber: 19
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 180,
+              lineNumber: 182,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ jsxDEV11(TableRow, { children: [
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-05-05" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 191,
+                lineNumber: 193,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "MRI Scan" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 192,
+                lineNumber: 194,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "No significant changes" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 193,
+                lineNumber: 195,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: /* @__PURE__ */ jsxDEV11("span", { className: "inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800", children: "Stable" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 195,
+                lineNumber: 197,
                 columnNumber: 21
               }, this) }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 194,
+                lineNumber: 196,
                 columnNumber: 19
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 190,
+              lineNumber: 192,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ jsxDEV11(TableRow, { children: [
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "2023-04-28" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 201,
+                lineNumber: 203,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "Tumor Marker" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 202,
+                lineNumber: 204,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: "Slightly elevated" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 203,
+                lineNumber: 205,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ jsxDEV11(TableCell, { children: /* @__PURE__ */ jsxDEV11("span", { className: "inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800", children: "Monitor" }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 205,
+                lineNumber: 207,
                 columnNumber: 21
               }, this) }, void 0, !1, {
                 fileName: "app/routes/dashboard.tsx",
-                lineNumber: 204,
+                lineNumber: 206,
                 columnNumber: 19
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/dashboard.tsx",
-              lineNumber: 200,
+              lineNumber: 202,
               columnNumber: 17
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/dashboard.tsx",
-            lineNumber: 179,
+            lineNumber: 181,
             columnNumber: 15
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 170,
+          lineNumber: 172,
           columnNumber: 13
         }, this) }, void 0, !1, {
           fileName: "app/routes/dashboard.tsx",
-          lineNumber: 169,
+          lineNumber: 171,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 165,
+        lineNumber: 167,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 55,
+      lineNumber: 57,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
@@ -1836,8 +1836,1591 @@ function RootRoute() {
   }, this);
 }
 
+// app/routes/form.tsx
+var form_exports = {};
+__export(form_exports, {
+  default: () => NewPatientForm
+});
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+
+// app/components/ui/calendar.tsx
+import { ChevronLeft, ChevronRight as ChevronRight2 } from "lucide-react";
+import { DayPicker } from "react-day-picker";
+import { jsxDEV as jsxDEV14 } from "react/jsx-dev-runtime";
+function Calendar2({
+  className,
+  classNames,
+  showOutsideDays = !0,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxDEV14(
+    DayPicker,
+    {
+      showOutsideDays,
+      className: cn("p-3", className),
+      classNames: {
+        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+        month: "space-y-4",
+        caption: "flex justify-center pt-1 relative items-center",
+        caption_label: "text-sm font-medium",
+        nav: "space-x-1 flex items-center",
+        nav_button: cn(
+          buttonVariants({ variant: "outline" }),
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+        ),
+        nav_button_previous: "absolute left-1",
+        nav_button_next: "absolute right-1",
+        table: "w-full border-collapse space-y-1",
+        head_row: "flex",
+        head_cell: "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
+        row: "flex w-full mt-2",
+        cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+        day: cn(
+          buttonVariants({ variant: "ghost" }),
+          "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
+        ),
+        day_range_end: "day-range-end",
+        day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+        day_today: "bg-accent text-accent-foreground",
+        day_outside: "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+        day_disabled: "text-muted-foreground opacity-50",
+        day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+        day_hidden: "invisible",
+        ...classNames
+      },
+      components: {
+        IconLeft: ({ ...props2 }) => /* @__PURE__ */ jsxDEV14(ChevronLeft, { className: "h-4 w-4" }, void 0, !1, {
+          fileName: "app/components/ui/calendar.tsx",
+          lineNumber: 55,
+          columnNumber: 37
+        }, this),
+        IconRight: ({ ...props2 }) => /* @__PURE__ */ jsxDEV14(ChevronRight2, { className: "h-4 w-4" }, void 0, !1, {
+          fileName: "app/components/ui/calendar.tsx",
+          lineNumber: 56,
+          columnNumber: 38
+        }, this)
+      },
+      ...props
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/ui/calendar.tsx",
+      lineNumber: 17,
+      columnNumber: 5
+    },
+    this
+  );
+}
+Calendar2.displayName = "Calendar";
+
+// app/components/ui/form.tsx
+import * as React8 from "react";
+import { Slot as Slot2 } from "@radix-ui/react-slot";
+import {
+  Controller,
+  FormProvider,
+  useFormContext
+} from "react-hook-form";
+
+// app/components/ui/label.tsx
+import * as React7 from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { cva as cva3 } from "class-variance-authority";
+import { jsxDEV as jsxDEV15 } from "react/jsx-dev-runtime";
+var labelVariants = cva3(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+), Label2 = React7.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxDEV15(
+  LabelPrimitive.Root,
+  {
+    ref,
+    className: cn(labelVariants(), className),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/label.tsx",
+    lineNumber: 16,
+    columnNumber: 3
+  },
+  this
+));
+Label2.displayName = LabelPrimitive.Root.displayName;
+
+// app/components/ui/form.tsx
+import { jsxDEV as jsxDEV16 } from "react/jsx-dev-runtime";
+var Form = FormProvider, FormFieldContext = React8.createContext(
+  {}
+), FormField = ({
+  ...props
+}) => /* @__PURE__ */ jsxDEV16(FormFieldContext.Provider, { value: { name: props.name }, children: /* @__PURE__ */ jsxDEV16(Controller, { ...props }, void 0, !1, {
+  fileName: "app/components/ui/form.tsx",
+  lineNumber: 37,
+  columnNumber: 7
+}, this) }, void 0, !1, {
+  fileName: "app/components/ui/form.tsx",
+  lineNumber: 36,
+  columnNumber: 5
+}, this), useFormField = () => {
+  let fieldContext = React8.useContext(FormFieldContext), itemContext = React8.useContext(FormItemContext), { getFieldState, formState } = useFormContext(), fieldState = getFieldState(fieldContext.name, formState);
+  if (!fieldContext)
+    throw new Error("useFormField should be used within <FormField>");
+  let { id } = itemContext;
+  return {
+    id,
+    name: fieldContext.name,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
+    ...fieldState
+  };
+}, FormItemContext = React8.createContext(
+  {}
+), FormItem = React8.forwardRef(({ className, ...props }, ref) => {
+  let id = React8.useId();
+  return /* @__PURE__ */ jsxDEV16(FormItemContext.Provider, { value: { id }, children: /* @__PURE__ */ jsxDEV16("div", { ref, className: cn("space-y-2", className), ...props }, void 0, !1, {
+    fileName: "app/components/ui/form.tsx",
+    lineNumber: 81,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/components/ui/form.tsx",
+    lineNumber: 80,
+    columnNumber: 5
+  }, this);
+});
+FormItem.displayName = "FormItem";
+var FormLabel = React8.forwardRef(({ className, ...props }, ref) => {
+  let { error, formItemId } = useFormField();
+  return /* @__PURE__ */ jsxDEV16(
+    Label2,
+    {
+      ref,
+      className: cn(error && "text-destructive", className),
+      htmlFor: formItemId,
+      ...props
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/ui/form.tsx",
+      lineNumber: 94,
+      columnNumber: 5
+    },
+    this
+  );
+});
+FormLabel.displayName = "FormLabel";
+var FormControl = React8.forwardRef(({ ...props }, ref) => {
+  let { error, formItemId, formDescriptionId, formMessageId } = useFormField();
+  return /* @__PURE__ */ jsxDEV16(
+    Slot2,
+    {
+      ref,
+      id: formItemId,
+      "aria-describedby": error ? `${formDescriptionId} ${formMessageId}` : `${formDescriptionId}`,
+      "aria-invalid": !!error,
+      ...props
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/ui/form.tsx",
+      lineNumber: 111,
+      columnNumber: 5
+    },
+    this
+  );
+});
+FormControl.displayName = "FormControl";
+var FormDescription = React8.forwardRef(({ className, ...props }, ref) => {
+  let { formDescriptionId } = useFormField();
+  return /* @__PURE__ */ jsxDEV16(
+    "p",
+    {
+      ref,
+      id: formDescriptionId,
+      className: cn("text-sm text-muted-foreground", className),
+      ...props
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/ui/form.tsx",
+      lineNumber: 133,
+      columnNumber: 5
+    },
+    this
+  );
+});
+FormDescription.displayName = "FormDescription";
+var FormMessage = React8.forwardRef(({ className, children, ...props }, ref) => {
+  let { error, formMessageId } = useFormField(), body = error ? String(error?.message) : children;
+  return body ? /* @__PURE__ */ jsxDEV16(
+    "p",
+    {
+      ref,
+      id: formMessageId,
+      className: cn("text-sm font-medium text-destructive", className),
+      ...props,
+      children: body
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/ui/form.tsx",
+      lineNumber: 155,
+      columnNumber: 5
+    },
+    this
+  ) : null;
+});
+FormMessage.displayName = "FormMessage";
+
+// app/components/ui/input.tsx
+import * as React9 from "react";
+import { jsxDEV as jsxDEV17 } from "react/jsx-dev-runtime";
+var Input = React9.forwardRef(
+  ({ className, type, ...props }, ref) => /* @__PURE__ */ jsxDEV17(
+    "input",
+    {
+      type,
+      className: cn(
+        "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      ),
+      ref,
+      ...props
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/ui/input.tsx",
+      lineNumber: 11,
+      columnNumber: 7
+    },
+    this
+  )
+);
+Input.displayName = "Input";
+
+// app/components/ui/select.tsx
+import * as React10 from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { Check as Check2, ChevronDown as ChevronDown2, ChevronUp } from "lucide-react";
+import { jsxDEV as jsxDEV18 } from "react/jsx-dev-runtime";
+var Select = SelectPrimitive.Root;
+var SelectValue = SelectPrimitive.Value, SelectTrigger = React10.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxDEV18(
+  SelectPrimitive.Trigger,
+  {
+    ref,
+    className: cn(
+      "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      className
+    ),
+    ...props,
+    children: [
+      children,
+      /* @__PURE__ */ jsxDEV18(SelectPrimitive.Icon, { asChild: !0, children: /* @__PURE__ */ jsxDEV18(ChevronDown2, { className: "h-4 w-4 opacity-50" }, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 27,
+        columnNumber: 7
+      }, this) }, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 26,
+        columnNumber: 5
+      }, this)
+    ]
+  },
+  void 0,
+  !0,
+  {
+    fileName: "app/components/ui/select.tsx",
+    lineNumber: 17,
+    columnNumber: 3
+  },
+  this
+));
+SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+var SelectScrollUpButton = React10.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxDEV18(
+  SelectPrimitive.ScrollUpButton,
+  {
+    ref,
+    className: cn(
+      "flex cursor-default items-center justify-center py-1",
+      className
+    ),
+    ...props,
+    children: /* @__PURE__ */ jsxDEV18(ChevronUp, { className: "h-4 w-4" }, void 0, !1, {
+      fileName: "app/components/ui/select.tsx",
+      lineNumber: 45,
+      columnNumber: 5
+    }, this)
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/select.tsx",
+    lineNumber: 37,
+    columnNumber: 3
+  },
+  this
+));
+SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
+var SelectScrollDownButton = React10.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxDEV18(
+  SelectPrimitive.ScrollDownButton,
+  {
+    ref,
+    className: cn(
+      "flex cursor-default items-center justify-center py-1",
+      className
+    ),
+    ...props,
+    children: /* @__PURE__ */ jsxDEV18(ChevronDown2, { className: "h-4 w-4" }, void 0, !1, {
+      fileName: "app/components/ui/select.tsx",
+      lineNumber: 62,
+      columnNumber: 5
+    }, this)
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/select.tsx",
+    lineNumber: 54,
+    columnNumber: 3
+  },
+  this
+));
+SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
+var SelectContent = React10.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ jsxDEV18(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsxDEV18(
+  SelectPrimitive.Content,
+  {
+    ref,
+    className: cn(
+      "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+      className
+    ),
+    position,
+    ...props,
+    children: [
+      /* @__PURE__ */ jsxDEV18(SelectScrollUpButton, {}, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 84,
+        columnNumber: 7
+      }, this),
+      /* @__PURE__ */ jsxDEV18(
+        SelectPrimitive.Viewport,
+        {
+          className: cn(
+            "p-1",
+            position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+          ),
+          children
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/components/ui/select.tsx",
+          lineNumber: 85,
+          columnNumber: 7
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV18(SelectScrollDownButton, {}, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 94,
+        columnNumber: 7
+      }, this)
+    ]
+  },
+  void 0,
+  !0,
+  {
+    fileName: "app/components/ui/select.tsx",
+    lineNumber: 73,
+    columnNumber: 5
+  },
+  this
+) }, void 0, !1, {
+  fileName: "app/components/ui/select.tsx",
+  lineNumber: 72,
+  columnNumber: 3
+}, this));
+SelectContent.displayName = SelectPrimitive.Content.displayName;
+var SelectLabel = React10.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxDEV18(
+  SelectPrimitive.Label,
+  {
+    ref,
+    className: cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/select.tsx",
+    lineNumber: 104,
+    columnNumber: 3
+  },
+  this
+));
+SelectLabel.displayName = SelectPrimitive.Label.displayName;
+var SelectItem = React10.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxDEV18(
+  SelectPrimitive.Item,
+  {
+    ref,
+    className: cn(
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className
+    ),
+    ...props,
+    children: [
+      /* @__PURE__ */ jsxDEV18("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsxDEV18(SelectPrimitive.ItemIndicator, { children: /* @__PURE__ */ jsxDEV18(Check2, { className: "h-4 w-4" }, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 126,
+        columnNumber: 9
+      }, this) }, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 125,
+        columnNumber: 7
+      }, this) }, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 124,
+        columnNumber: 5
+      }, this),
+      /* @__PURE__ */ jsxDEV18(SelectPrimitive.ItemText, { children }, void 0, !1, {
+        fileName: "app/components/ui/select.tsx",
+        lineNumber: 130,
+        columnNumber: 5
+      }, this)
+    ]
+  },
+  void 0,
+  !0,
+  {
+    fileName: "app/components/ui/select.tsx",
+    lineNumber: 116,
+    columnNumber: 3
+  },
+  this
+));
+SelectItem.displayName = SelectPrimitive.Item.displayName;
+var SelectSeparator = React10.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxDEV18(
+  SelectPrimitive.Separator,
+  {
+    ref,
+    className: cn("-mx-1 my-1 h-px bg-muted", className),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/select.tsx",
+    lineNumber: 139,
+    columnNumber: 3
+  },
+  this
+));
+SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
+
+// app/components/ui/popover.tsx
+import * as React11 from "react";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { jsxDEV as jsxDEV19 } from "react/jsx-dev-runtime";
+var Popover = PopoverPrimitive.Root, PopoverTrigger = PopoverPrimitive.Trigger, PopoverContent = React11.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsxDEV19(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsxDEV19(
+  PopoverPrimitive.Content,
+  {
+    ref,
+    align,
+    sideOffset,
+    className: cn(
+      "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    ),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/popover.tsx",
+    lineNumber: 15,
+    columnNumber: 5
+  },
+  this
+) }, void 0, !1, {
+  fileName: "app/components/ui/popover.tsx",
+  lineNumber: 14,
+  columnNumber: 3
+}, this));
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+
+// app/components/ui/textarea.tsx
+import * as React12 from "react";
+import { jsxDEV as jsxDEV20 } from "react/jsx-dev-runtime";
+var Textarea = React12.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsxDEV20(
+    "textarea",
+    {
+      className: cn(
+        "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      ),
+      ref,
+      ...props
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/ui/textarea.tsx",
+      lineNumber: 11,
+      columnNumber: 7
+    },
+    this
+  )
+);
+Textarea.displayName = "Textarea";
+
+// app/components/ui/hooks/use-toast.ts
+import * as React13 from "react";
+var TOAST_LIMIT = 1, TOAST_REMOVE_DELAY = 1e6;
+var count = 0;
+function genId() {
+  return count = (count + 1) % Number.MAX_SAFE_INTEGER, count.toString();
+}
+var toastTimeouts = /* @__PURE__ */ new Map(), addToRemoveQueue = (toastId) => {
+  if (toastTimeouts.has(toastId))
+    return;
+  let timeout = setTimeout(() => {
+    toastTimeouts.delete(toastId), dispatch({
+      type: "REMOVE_TOAST",
+      toastId
+    });
+  }, TOAST_REMOVE_DELAY);
+  toastTimeouts.set(toastId, timeout);
+}, reducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_TOAST":
+      return {
+        ...state,
+        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT)
+      };
+    case "UPDATE_TOAST":
+      return {
+        ...state,
+        toasts: state.toasts.map(
+          (t) => t.id === action.toast.id ? { ...t, ...action.toast } : t
+        )
+      };
+    case "DISMISS_TOAST": {
+      let { toastId } = action;
+      return toastId ? addToRemoveQueue(toastId) : state.toasts.forEach((toast2) => {
+        addToRemoveQueue(toast2.id);
+      }), {
+        ...state,
+        toasts: state.toasts.map(
+          (t) => t.id === toastId || toastId === void 0 ? {
+            ...t,
+            open: !1
+          } : t
+        )
+      };
+    }
+    case "REMOVE_TOAST":
+      return action.toastId === void 0 ? {
+        ...state,
+        toasts: []
+      } : {
+        ...state,
+        toasts: state.toasts.filter((t) => t.id !== action.toastId)
+      };
+  }
+}, listeners = [], memoryState = { toasts: [] };
+function dispatch(action) {
+  memoryState = reducer(memoryState, action), listeners.forEach((listener) => {
+    listener(memoryState);
+  });
+}
+function toast({ ...props }) {
+  let id = genId(), update = (props2) => dispatch({
+    type: "UPDATE_TOAST",
+    toast: { ...props2, id }
+  }), dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
+  return dispatch({
+    type: "ADD_TOAST",
+    toast: {
+      ...props,
+      id,
+      open: !0,
+      onOpenChange: (open) => {
+        open || dismiss();
+      }
+    }
+  }), {
+    id,
+    dismiss,
+    update
+  };
+}
+
+// app/routes/form.tsx
+import { jsxDEV as jsxDEV21 } from "react/jsx-dev-runtime";
+var formSchema = z.object({
+  firstName: z.string().min(2, {
+    message: "First name must be at least 2 characters."
+  }),
+  lastName: z.string().min(2, {
+    message: "Last name must be at least 2 characters."
+  }),
+  dateOfBirth: z.date({
+    required_error: "A date of birth is required."
+  }),
+  gender: z.string({
+    required_error: "Please select a gender."
+  }),
+  contactNumber: z.string().min(10, {
+    message: "Contact number must be at least 10 digits."
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address."
+  }),
+  address: z.string().min(5, {
+    message: "Address must be at least 5 characters."
+  }),
+  cancerType: z.string({
+    required_error: "Please select a cancer type."
+  }),
+  stage: z.string({
+    required_error: "Please select a cancer stage."
+  }),
+  diagnosisDate: z.date({
+    required_error: "A diagnosis date is required."
+  }),
+  medicalHistory: z.string().min(10, {
+    message: "Medical history must be at least 10 characters."
+  }),
+  currentMedications: z.string(),
+  allergies: z.string(),
+  additionalNotes: z.string()
+});
+function NewPatientForm() {
+  let form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      contactNumber: "",
+      email: "",
+      address: "",
+      medicalHistory: "",
+      currentMedications: "",
+      allergies: "",
+      additionalNotes: ""
+    }
+  });
+  function onSubmit(values) {
+    console.log(values), toast({
+      title: "New patient data submitted",
+      description: "The form was submitted successfully."
+    });
+  }
+  return /* @__PURE__ */ jsxDEV21("div", { className: "max-w-2xl mx-auto p-4 bg-white shadow rounded-lg", children: [
+    /* @__PURE__ */ jsxDEV21("h1", { className: "text-2xl font-bold mb-6", children: "New Cancer Patient Registration" }, void 0, !1, {
+      fileName: "app/routes/form.tsx",
+      lineNumber: 103,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV21(Form, { ...form, children: /* @__PURE__ */ jsxDEV21("form", { onSubmit: form.handleSubmit(onSubmit), className: "space-y-8", children: [
+      /* @__PURE__ */ jsxDEV21("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "firstName",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "First name" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 112,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(Input, { placeholder: "first", ...field }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 114,
+                columnNumber: 21
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 113,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 116,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 111,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 107,
+            columnNumber: 13
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "lastName",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Last name" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 125,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(Input, { placeholder: "last", ...field }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 127,
+                columnNumber: 21
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 126,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 129,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 124,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 120,
+            columnNumber: 13
+          },
+          this
+        )
+      ] }, void 0, !0, {
+        fileName: "app/routes/form.tsx",
+        lineNumber: 106,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV21("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "dateOfBirth",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { className: "flex flex-col", children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Date of birth" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 140,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(Popover, { children: [
+                /* @__PURE__ */ jsxDEV21(PopoverTrigger, { asChild: !0, children: /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(
+                  Button,
+                  {
+                    variant: "outline",
+                    className: `w-full pl-3 text-left font-normal ${!field.value && "text-muted-foreground"}`,
+                    children: [
+                      field.value ? format(field.value, "PPP") : /* @__PURE__ */ jsxDEV21("span", { children: "Pick a date" }, void 0, !1, {
+                        fileName: "app/routes/form.tsx",
+                        lineNumber: 151,
+                        columnNumber: 29
+                      }, this),
+                      /* @__PURE__ */ jsxDEV21(CalendarIcon, { className: "ml-auto h-4 w-4 opacity-50" }, void 0, !1, {
+                        fileName: "app/routes/form.tsx",
+                        lineNumber: 153,
+                        columnNumber: 27
+                      }, this)
+                    ]
+                  },
+                  void 0,
+                  !0,
+                  {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 144,
+                    columnNumber: 25
+                  },
+                  this
+                ) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 143,
+                  columnNumber: 23
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 142,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV21(PopoverContent, { className: "w-auto p-0", align: "start", children: /* @__PURE__ */ jsxDEV21(
+                  Calendar2,
+                  {
+                    mode: "single",
+                    selected: field.value,
+                    onSelect: field.onChange,
+                    disabled: (date2) => date2 > /* @__PURE__ */ new Date() || date2 < /* @__PURE__ */ new Date("1900-01-01"),
+                    initialFocus: !0
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 158,
+                    columnNumber: 23
+                  },
+                  this
+                ) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 157,
+                  columnNumber: 21
+                }, this)
+              ] }, void 0, !0, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 141,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 169,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 139,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 135,
+            columnNumber: 13
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "gender",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Gender" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 179,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(Select, { onValueChange: field.onChange, defaultValue: field.value, children: [
+                /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(SelectTrigger, { children: /* @__PURE__ */ jsxDEV21(SelectValue, { placeholder: "Select gender" }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 183,
+                  columnNumber: 25
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 182,
+                  columnNumber: 23
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 181,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV21(SelectContent, { children: [
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "male", children: "Male" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 187,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "female", children: "Female" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 188,
+                    columnNumber: 23
+                  }, this)
+                ] }, void 0, !0, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 186,
+                  columnNumber: 21
+                }, this)
+              ] }, void 0, !0, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 180,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 191,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 178,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 173,
+            columnNumber: 13
+          },
+          this
+        )
+      ] }, void 0, !0, {
+        fileName: "app/routes/form.tsx",
+        lineNumber: 134,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV21("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "contactNumber",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Contact number" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 202,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(Input, { placeholder: "011-12345678", ...field }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 204,
+                columnNumber: 21
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 203,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 206,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 201,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 197,
+            columnNumber: 13
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "email",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Email" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 215,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(Input, { type: "email", placeholder: "email@gmail.com", ...field }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 217,
+                columnNumber: 21
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 216,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 219,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 214,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 210,
+            columnNumber: 13
+          },
+          this
+        )
+      ] }, void 0, !0, {
+        fileName: "app/routes/form.tsx",
+        lineNumber: 196,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV21(
+        FormField,
+        {
+          control: form.control,
+          name: "address",
+          render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+            /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Address" }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 229,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(Input, { placeholder: "No.3, Jln ST5, 43300 Seri Kembangan, Selangor", ...field }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 231,
+              columnNumber: 19
+            }, this) }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 230,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 233,
+              columnNumber: 17
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 228,
+            columnNumber: 15
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/form.tsx",
+          lineNumber: 224,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV21("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "cancerType",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Cancer Type" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 243,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(Select, { onValueChange: field.onChange, defaultValue: field.value, children: [
+                /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(SelectTrigger, { children: /* @__PURE__ */ jsxDEV21(SelectValue, { placeholder: "Select cancer type" }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 247,
+                  columnNumber: 25
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 246,
+                  columnNumber: 23
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 245,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV21(SelectContent, { children: [
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "breast", children: "Breast Cancer" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 251,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "lung", children: "Lung Cancer" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 252,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "prostate", children: "Prostate Cancer" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 253,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "colorectal", children: "Colorectal Cancer" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 254,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "melanoma", children: "Melanoma" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 255,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "leukemia", children: "Leukemia" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 256,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "lymphoma", children: "Lymphoma" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 257,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "other", children: "Other" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 258,
+                    columnNumber: 23
+                  }, this)
+                ] }, void 0, !0, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 250,
+                  columnNumber: 21
+                }, this)
+              ] }, void 0, !0, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 244,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 261,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 242,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 238,
+            columnNumber: 13
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV21(
+          FormField,
+          {
+            control: form.control,
+            name: "stage",
+            render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+              /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Cancer Stage" }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 270,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(Select, { onValueChange: field.onChange, defaultValue: field.value, children: [
+                /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(SelectTrigger, { children: /* @__PURE__ */ jsxDEV21(SelectValue, { placeholder: "Select cancer stage" }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 274,
+                  columnNumber: 25
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 273,
+                  columnNumber: 23
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 272,
+                  columnNumber: 21
+                }, this),
+                /* @__PURE__ */ jsxDEV21(SelectContent, { children: [
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "0", children: "Stage 0" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 278,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "1", children: "Stage I" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 279,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "2", children: "Stage II" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 280,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "3", children: "Stage III" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 281,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "4", children: "Stage IV" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 282,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV21(SelectItem, { value: "unknown", children: "Unknown" }, void 0, !1, {
+                    fileName: "app/routes/form.tsx",
+                    lineNumber: 283,
+                    columnNumber: 23
+                  }, this)
+                ] }, void 0, !0, {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 277,
+                  columnNumber: 21
+                }, this)
+              ] }, void 0, !0, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 271,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 286,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 269,
+              columnNumber: 17
+            }, this)
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 265,
+            columnNumber: 13
+          },
+          this
+        )
+      ] }, void 0, !0, {
+        fileName: "app/routes/form.tsx",
+        lineNumber: 237,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV21(
+        FormField,
+        {
+          control: form.control,
+          name: "diagnosisDate",
+          render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { className: "flex flex-col", children: [
+            /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Date of Diagnosis" }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 296,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(Popover, { children: [
+              /* @__PURE__ */ jsxDEV21(PopoverTrigger, { asChild: !0, children: /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(
+                Button,
+                {
+                  variant: "outline",
+                  className: `w-full pl-3 text-left font-normal ${!field.value && "text-muted-foreground"}`,
+                  children: [
+                    field.value ? format(field.value, "PPP") : /* @__PURE__ */ jsxDEV21("span", { children: "Pick a date" }, void 0, !1, {
+                      fileName: "app/routes/form.tsx",
+                      lineNumber: 307,
+                      columnNumber: 27
+                    }, this),
+                    /* @__PURE__ */ jsxDEV21(CalendarIcon, { className: "ml-auto h-4 w-4 opacity-50" }, void 0, !1, {
+                      fileName: "app/routes/form.tsx",
+                      lineNumber: 309,
+                      columnNumber: 25
+                    }, this)
+                  ]
+                },
+                void 0,
+                !0,
+                {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 300,
+                  columnNumber: 23
+                },
+                this
+              ) }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 299,
+                columnNumber: 21
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 298,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV21(PopoverContent, { className: "w-auto p-0", align: "start", children: /* @__PURE__ */ jsxDEV21(
+                Calendar2,
+                {
+                  mode: "single",
+                  selected: field.value,
+                  onSelect: field.onChange,
+                  disabled: (date2) => date2 > /* @__PURE__ */ new Date() || date2 < /* @__PURE__ */ new Date("1900-01-01"),
+                  initialFocus: !0
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/form.tsx",
+                  lineNumber: 314,
+                  columnNumber: 21
+                },
+                this
+              ) }, void 0, !1, {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 313,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 297,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 325,
+              columnNumber: 17
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 295,
+            columnNumber: 15
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/form.tsx",
+          lineNumber: 291,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV21(
+        FormField,
+        {
+          control: form.control,
+          name: "medicalHistory",
+          render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+            /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Medical History" }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 334,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(
+              Textarea,
+              {
+                placeholder: "Please provide any relevant medical history...",
+                className: "resize-none",
+                ...field
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 336,
+                columnNumber: 19
+              },
+              this
+            ) }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 335,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 342,
+              columnNumber: 17
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 333,
+            columnNumber: 15
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/form.tsx",
+          lineNumber: 329,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV21(
+        FormField,
+        {
+          control: form.control,
+          name: "currentMedications",
+          render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+            /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Current Medications" }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 351,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(
+              Textarea,
+              {
+                placeholder: "List any current medications...",
+                className: "resize-none",
+                ...field
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 353,
+                columnNumber: 19
+              },
+              this
+            ) }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 352,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 359,
+              columnNumber: 17
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 350,
+            columnNumber: 15
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/form.tsx",
+          lineNumber: 346,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV21(
+        FormField,
+        {
+          control: form.control,
+          name: "allergies",
+          render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+            /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Allergies" }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 368,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(
+              Textarea,
+              {
+                placeholder: "List any known allergies...",
+                className: "resize-none",
+                ...field
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 370,
+                columnNumber: 19
+              },
+              this
+            ) }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 369,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 376,
+              columnNumber: 17
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 367,
+            columnNumber: 15
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/form.tsx",
+          lineNumber: 363,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV21(
+        FormField,
+        {
+          control: form.control,
+          name: "additionalNotes",
+          render: ({ field }) => /* @__PURE__ */ jsxDEV21(FormItem, { children: [
+            /* @__PURE__ */ jsxDEV21(FormLabel, { children: "Additional Notes" }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 385,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormControl, { children: /* @__PURE__ */ jsxDEV21(
+              Textarea,
+              {
+                placeholder: "Any additional information...",
+                className: "resize-none",
+                ...field
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/routes/form.tsx",
+                lineNumber: 387,
+                columnNumber: 19
+              },
+              this
+            ) }, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 386,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV21(FormMessage, {}, void 0, !1, {
+              fileName: "app/routes/form.tsx",
+              lineNumber: 393,
+              columnNumber: 17
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/form.tsx",
+            lineNumber: 384,
+            columnNumber: 15
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/form.tsx",
+          lineNumber: 380,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV21(Button, { type: "submit", children: "Submit" }, void 0, !1, {
+        fileName: "app/routes/form.tsx",
+        lineNumber: 397,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/form.tsx",
+      lineNumber: 105,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/form.tsx",
+      lineNumber: 104,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/routes/form.tsx",
+    lineNumber: 102,
+    columnNumber: 5
+  }, this);
+}
+
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-A7JF6FEJ.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-RTCGGSKO.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-LS2LPRW5.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-TCGLLYIO.js", imports: ["/build/_shared/chunk-OCNFEN6V.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-VPANNSLU.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-ZXUKUQKF.js", imports: ["/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "82465672", hmr: { runtime: "/build/_shared\\chunk-LS2LPRW5.js", timestamp: 1728829682179 }, url: "/build/manifest-82465672.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-LUJ2QZ2N.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XAESSOVX.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-LS2LPRW5.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-GOBYY6SV.js", imports: ["/build/_shared/chunk-W2P7BTWD.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-VXQTEGPC.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-C3RI7H4D.js", imports: ["/build/_shared/chunk-AV5RZ7ED.js", "/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/form": { id: "routes/form", parentId: "root", path: "form", index: void 0, caseSensitive: void 0, module: "/build/routes/form-HVFCX6TZ.js", imports: ["/build/_shared/chunk-AV5RZ7ED.js", "/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "bbfcf045", hmr: { runtime: "/build/_shared\\chunk-LS2LPRW5.js", timestamp: 1728909807252 }, url: "/build/manifest-BBFCF045.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public\\build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -1864,6 +3447,14 @@ var mode = "development", assetsBuildDirectory = "public\\build", future = { v3_
     index: !0,
     caseSensitive: void 0,
     module: index_exports
+  },
+  "routes/form": {
+    id: "routes/form",
+    parentId: "root",
+    path: "form",
+    index: void 0,
+    caseSensitive: void 0,
+    module: form_exports
   }
 };
 export {
