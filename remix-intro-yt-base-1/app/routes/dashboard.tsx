@@ -36,11 +36,11 @@ export default function Dashboard() {
       </Button>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button className="flex">
-            <AlignJustify className="h-5 w-5" />
+          <Button variant="ghost" className="relative">
+            <AlignJustify  className=" relative h-5 w-5 rounded" />
           </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="z-50">
+        </DropdownMenuTrigger >
+        <DropdownMenuContent  align="end" className="z-50 " >
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>

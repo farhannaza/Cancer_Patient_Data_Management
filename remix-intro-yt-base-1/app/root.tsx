@@ -12,6 +12,7 @@ import {
 import styles from "./tailwind.css"
 import Navigation from "./components/custom/Navigation";
 import Footer from "./components/custom/Footer";
+import { Toaster } from "./components/ui/toaster"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -28,6 +29,7 @@ export default function App() {
         <Links />
       </head>
       <body className="mx-auto min-w-full">
+        <Toaster/>
         <Navigation />
         <main><Outlet /></main>
         <Footer />
