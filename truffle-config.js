@@ -57,7 +57,7 @@ module.exports = {
    * $ truffle test --network <network-name>
    */
 
-  contracts_build_directory: "./client/src/artifacts",
+  contracts_build_directory: "./remix-intro-yt-base-1/app/routes/artifacts",
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
