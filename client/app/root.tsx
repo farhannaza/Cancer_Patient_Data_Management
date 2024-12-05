@@ -1,5 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -12,13 +12,22 @@ import {
 import styles from "./tailwind.css"
 import Navigation from "./components/custom/Navigation";
 import Footer from "./components/custom/Footer";
+import { Toaster } from "./components/ui/toaster"
+
+import { ClerkApp } from "@clerk/remix";
+// Import rootAuthLoader
+import { rootAuthLoader } from "@clerk/remix/ssr.server";
+import { dark,neobrutalism, shadesOfPurple } from '@clerk/themes'
+
+
+export const loader: LoaderFunction = (args) => rootAuthLoader(args)
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ]
 
-export default function App() {
+function App() {
   return (
     <html lang="en">
       <head>
@@ -28,6 +37,7 @@ export default function App() {
         <Links />
       </head>
       <body className="container mx-auto">
+        <Toaster/>
         <Navigation />
         <main><Outlet /></main>
         <Footer />
@@ -38,3 +48,10 @@ export default function App() {
     </html>
   );
 }
+
+export default ClerkApp(App, {
+  appearance: {
+    baseTheme: [dark] 
+    
+  },
+})

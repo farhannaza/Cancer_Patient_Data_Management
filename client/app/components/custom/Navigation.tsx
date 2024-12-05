@@ -9,6 +9,8 @@ import {
   NavigationMenuList,
   NavigationMenu,
 } from "~/components/ui/navigation-menu";
+import { UserButton } from "@clerk/remix";
+
 
 export default function Navigation() {
   return (
@@ -18,7 +20,7 @@ export default function Navigation() {
           to="/"
           className="text-2xl font-bold text-gray-900 dark:text-gray-100"
         >
-          MyApp
+          OnchologyChain
         </Link>
         <NavigationMenu>
           <NavigationMenuList className="flex gap-4">
@@ -33,17 +35,17 @@ export default function Navigation() {
             <NavigationMenuLink asChild>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="#"
+                to="fetch"
               >
-                Features
+                Fetch
               </Link>
             </NavigationMenuLink>
             <NavigationMenuLink asChild>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="#"
+                to="form"
               >
-                Pricing
+                Form
               </Link>
             </NavigationMenuLink>
             <NavigationMenuLink asChild>
@@ -62,6 +64,7 @@ export default function Navigation() {
                 Dashboard
               </Link>
             </NavigationMenuLink>
+            <UserButton /> 
           </NavigationMenuList>
         </NavigationMenu>
       </div>

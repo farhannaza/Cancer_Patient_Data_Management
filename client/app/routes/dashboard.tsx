@@ -1,151 +1,155 @@
-import React, { useState, useEffect } from 'react';
-import Web3 from "web3";
-import PatientRegistryABI from "./artifacts/PatientRegistry.json";
+"use client"
 
+import { useState, useEffect } from "react"
+import { format } from "date-fns"
+import { Calendar, ChevronDown, Phone, Mail, MapPin, AlertCircle } from "lucide-react"
+import { Button } from "~/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
+import { Badge } from "~/components/ui/badge"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu"
 
-const App: React.FC = () => {
-    const [account, setAccount] = useState<string>('');
-    const [loader, setLoader] = useState<boolean>(true);
-    const [patientRegistry, setPatientRegistry] = useState<any>(null);
-
-    const [admin, setAdmin] = useState<string>('');
-    const [patients, setPatients] = useState<any[]>([]);
-    const [newPatient, setNewPatient] = useState({
-        address: '',
-        firstName: '',
-        lastName: '',
-        contactNumber: '',
-        gender: '',
-        cancerType: ''
-    });
-
-    useEffect(() => {
-        loadWeb3();
-        loadBlockchainData();
-    }, []);
-
-    const loadWeb3 = async () => {
-        if (window.ethereum) {
-            window.web3 = new Web3(window.ethereum);
-            await window.ethereum.enable();
-        } else {
-            window.alert(
-                "Non-Ethereum browser detected. You should consider trying MetaMask!"
-            );
-        }
-    };
-
-    const loadBlockchainData = async () => {
-        setLoader(true);
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
-
-        const networkId = await web3.eth.net.getId();
-        const networkData = PatientRegistryABI.networks[networkId];
-
-        if (networkData) {
-            const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
-            setPatientRegistry(registry);
-
-            const adminAddress = await registry.methods.admin().call();
-            setAdmin(adminAddress);
-
-            const patientCount = await registry.methods.getPatientCount().call();
-            const patientList = [];
-            for (let i = 0; i < patientCount; i++) {
-                const patientAddress = await registry.methods.patientAddresses(i).call();
-                const patient = await registry.methods.getPatient(patientAddress).call();
-                patientList.push({ address: patientAddress, ...patient });
-            }
-            setPatients(patientList);
-            setLoader(false);
-        } else {
-            window.alert('The smart contract is not deployed to the current network');
-        }
-    };
-
-    const registerPatient = async () => {
-        const { address, firstName, lastName, contactNumber, gender, cancerType } = newPatient;
-        await patientRegistry.methods.registerPatient(address, firstName, lastName, contactNumber, gender, cancerType).send({ from: account });
-        setNewPatient({ address: '', firstName: '', lastName: '', contactNumber: '', gender: '', cancerType: '' });
-        loadBlockchainData();
-    };
-
-    if (loader) {
-        return (
-            <div>
-                Loading....
-            </div>
-        );
-    }
-
-    return (
-        <div className="main-container">
-            <h1 className="title">Patient Registry DApp</h1>
-
-            <div className="main-content">
-                <div className="account">
-                    <b>Current Account:</b> {account}
-                    <b>Admin: </b> {admin}
-                </div>
-
-                <h2>Patients</h2>
-                <ul>
-                    {patients.map((patient, index) => (
-                        <li key={index}>
-                            {patient.firstName} {patient.lastName} - {patient.cancerType}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="main-process">
-                <div className="reg-patient">
-                    <h3>Register Patient</h3>
-                    <input
-                        type="text"
-                        value={newPatient.address}
-                        onChange={(e) => setNewPatient({ ...newPatient, address: e.target.value })}
-                        placeholder="Patient Address"
-                    />
-                    <input
-                        type="text"
-                        value={newPatient.firstName}
-                        onChange={(e) => setNewPatient({ ...newPatient, firstName: e.target.value })}
-                        placeholder="First Name"
-                    />
-                    <input
-                        type="text"
-                        value={newPatient.lastName}
-                        onChange={(e) => setNewPatient({ ...newPatient, lastName: e.target.value })}
-                        placeholder="Last Name"
-                    />
-                    <input
-                        type="text"
-                        value={newPatient.contactNumber}
-                        onChange={(e) => setNewPatient({ ...newPatient, contactNumber: e.target.value })}
-                        placeholder="Contact Number"
-                    />
-                    <input
-                        type="text"
-                        value={newPatient.gender}
-                        onChange={(e) => setNewPatient({ ...newPatient, gender: e.target.value })}
-                        placeholder="Gender"
-                    />
-                    <input
-                        type="text"
-                        value={newPatient.cancerType}
-                        onChange={(e) => setNewPatient({ ...newPatient, cancerType: e.target.value })}
-                        placeholder="Cancer Type"
-                    />
-                    <button className="button" onClick={registerPatient}>
-                        Register Patient
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
+// Mock fetch function to simulate API call
+const fetchNewPatientData = async () => {
+  return [
+    {
+      firstName: "Alia",
+      lastName: "Kasrina",
+      dateOfBirth: new Date(1985, 5, 15),
+      gender: "Female",
+      contactNumber: "+60 1110152931",
+      email: "alia.kasrinae@example.com",
+      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
+      cancerType: "Breast",
+      hash: "0xa53cb1ef2e82f5b9bf1168473b9824676bc29a6ccaac0daaff0365b312f7f1df",
+      diagnosisDate: new Date(2023, 2, 10),
+    },
+    {
+      firstName: "John",
+      lastName: "Abu",
+      dateOfBirth: new Date(1978, 11, 23),
+      gender: "Male",
+      contactNumber: "+601 23456789",
+      email: "john.abu@example.com",
+      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
+      cancerType: "Lung",
+      hash: "0x1bdd54d283ad8fdd84d7e794e4d17fa1b0ee987ae50db7c4178199c2b7980535",
+      diagnosisDate: new Date(2022, 5, 14),
+    },
+    {
+      firstName: "Alia",
+      lastName: "Kasrina",
+      dateOfBirth: new Date(1985, 5, 15),
+      gender: "Female",
+      contactNumber: "+60 1110152931",
+      email: "alia.kasrinae@example.com",
+      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
+      cancerType: "Breast",
+      hash: "0xa53cb1ef2e82f5b9bf1168473b9824676bc29a6ccaac0daaff0365b312f7f1df",
+      diagnosisDate: new Date(2023, 2, 10),
+    },
+  ]
 }
 
-export default App;
+export default function PatientDashboard() {
+  const [patients, setPatients] = useState([])
+
+  useEffect(() => {
+    // Simulate fetching new patient data from the backend
+    const fetchData = async () => {
+      const newPatientData = await fetchNewPatientData()
+      setPatients(newPatientData)
+    }
+
+    fetchData()
+  }, [])
+
+  const calculateAge = (birthDate: Date) => {
+    const today = new Date()
+    let age = today.getFullYear() - birthDate.getFullYear()
+    const monthDifference = today.getMonth() - birthDate.getMonth()
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    }
+    return age
+  }
+
+  return (
+    <div className="container mx-auto p-4 space-y-6">
+      {patients.map((patient, index) => (
+        <Card key={index}>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-20 w-20">
+                <AvatarImage alt={`${patient.firstName} ${patient.lastName}`} />
+                <AvatarFallback>{patient.firstName[0]}{patient.lastName[0]}</AvatarFallback>
+              </Avatar>
+              <div>
+                <CardTitle className="text-2xl">{patient.firstName} {patient.lastName}</CardTitle>
+                <CardDescription>
+                  {calculateAge(patient.dateOfBirth)} years old • {patient.gender}
+                </CardDescription>
+              </div>
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem>Edit Patient Info</DropdownMenuItem>
+                <DropdownMenuItem>View Medical Records</DropdownMenuItem>
+                <DropdownMenuItem>Schedule Appointment</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Print Summary</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2 text-sm">
+                  <Phone className="h-4 w-4" />
+                  <span>{patient.contactNumber}</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm">
+                  <Mail className="h-4 w-4" />
+                  <span>{patient.email}</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm">
+                  <Calendar className="h-4 w-4" />
+                  <span className="text-sm font-medium">Diagnosis Date:</span>
+                  <span className="text-sm">{format(patient.diagnosisDate, "MMM d, yyyy")}</span>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Cancer Type:</span>
+                  <Badge variant="secondary">{patient.cancerType}</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Transaction Hash:</span>
+                  <Badge variant="outline">{patient.hash}</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Editor Address:</span>
+                <Badge variant="outline">{patient.address}</Badge>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+}

@@ -14,10 +14,10 @@ contract PatientRegistry {
         string contactNumber;
         string gender;
         string cancerType;
+        uint256 timestamp; // Add a timestamp to each record
     }
 
-    mapping(address => Patient) public patients; // Mapping to store patient details
-    address[] public patientAddresses; // Array to keep track of patient addresses
+    mapping(address => Patient[]) public patientHistory; // Mapping to store patient history
 
     function registerPatient(
         address _patientAddress,
@@ -27,17 +27,18 @@ contract PatientRegistry {
         string memory _gender,
         string memory _cancerType
     ) public {
-        patients[_patientAddress] = Patient(
+        Patient memory newPatient = Patient(
             _firstName,
             _lastName,
             _contactNumber,
             _gender,
-            _cancerType
+            _cancerType,
+            block.timestamp // Record the current block timestamp
         );
-        patientAddresses.push(_patientAddress);
+        patientHistory[_patientAddress].push(newPatient); // Append the new record to the history
     }
 
-    function getPatient(address _patientAddress)
+    function getLatestPatient(address _patientAddress)
         public
         view
         returns (
@@ -45,20 +46,47 @@ contract PatientRegistry {
             string memory lastName,
             string memory contactNumber,
             string memory gender,
-            string memory cancerType
+            string memory cancerType,
+            uint256 timestamp
         )
     {
-        Patient memory patient = patients[_patientAddress];
+        require(patientHistory[_patientAddress].length > 0, "No records found for this address");
+        Patient memory latestPatient = patientHistory[_patientAddress][patientHistory[_patientAddress].length - 1];
+        return (
+            latestPatient.firstName,
+            latestPatient.lastName,
+            latestPatient.contactNumber,
+            latestPatient.gender,
+            latestPatient.cancerType,
+            latestPatient.timestamp
+        );
+    }
+
+    function getPatientHistoryCount(address _patientAddress) public view returns (uint256) {
+        return patientHistory[_patientAddress].length;
+    }
+
+    function getPatientByIndex(address _patientAddress, uint256 index)
+        public
+        view
+        returns (
+            string memory firstName,
+            string memory lastName,
+            string memory contactNumber,
+            string memory gender,
+            string memory cancerType,
+            uint256 timestamp
+        )
+    {
+        require(index < patientHistory[_patientAddress].length, "Index out of bounds");
+        Patient memory patient = patientHistory[_patientAddress][index];
         return (
             patient.firstName,
             patient.lastName,
             patient.contactNumber,
             patient.gender,
-            patient.cancerType
+            patient.cancerType,
+            patient.timestamp
         );
-    }
-
-    function getPatientCount() public view returns (uint256) {
-        return patientAddresses.length;
     }
 }
