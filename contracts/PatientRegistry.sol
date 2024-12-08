@@ -5,11 +5,12 @@ contract PatientRegistry {
     address public admin;
 
     struct PatientRecord {
-        string ipfsHash; // Store only the IPFS hash
+        string recordId; // Store only the record ID
         uint256 timestamp;
     }
 
     mapping(address => PatientRecord[]) private patientRecords;
+    mapping(address => mapping(string => string)) private dataHashes; // Mapping to store data hashes
 
     constructor() {
         admin = msg.sender;
@@ -17,17 +18,23 @@ contract PatientRegistry {
 
     function registerPatient(
         address patientAddress,
-        string memory ipfsHash
+        string memory recordId,
+        string memory dataHash
     ) public {
         PatientRecord memory newRecord = PatientRecord({
-            ipfsHash: ipfsHash,
+            recordId: recordId,
             timestamp: block.timestamp
         });
 
         patientRecords[patientAddress].push(newRecord);
+        dataHashes[patientAddress][recordId] = dataHash; // Store the hash
     }
 
     function getPatientRecords(address patientAddress) public view returns (PatientRecord[] memory) {
         return patientRecords[patientAddress];
+    }
+
+    function getDataHash(address patientAddress, string memory recordId) public view returns (string memory) {
+        return dataHashes[patientAddress][recordId]; // Retrieve the hash
     }
 }

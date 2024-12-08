@@ -51,9 +51,9 @@ export default function Navigation() {
             <NavigationMenuLink asChild>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="ipfs"
+                to="test"
               >
-                IPFS
+                test
               </Link>
             </NavigationMenuLink>
             <NavigationMenuLink asChild>
