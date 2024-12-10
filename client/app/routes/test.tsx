@@ -5,8 +5,6 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, get } from "firebase/database";
 import CryptoJS from 'crypto-js';
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
-import dotenv from 'dotenv';
-dotenv.config();
 
 // Firebase configuration
 const firebaseConfig = {
@@ -23,8 +21,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-const secretKey = process.env.SECRET_KEY || 'default-secret-key'; // Fallback to a default key if not set
-
 export default function TestIntegration() {
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
@@ -38,57 +34,36 @@ export default function TestIntegration() {
   // Load Web3 and Blockchain Data
   const loadBlockchainData = async () => {
     if (window.ethereum) {
-      try {
-        // Request account access
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
+      const web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+      const accounts = await web3.eth.getAccounts();
+      setAccount(accounts[0]);
 
-        const networkId = await web3.eth.net.getId();
-        const networkData = PatientRegistryABI.networks[networkId];
+      const networkId = await web3.eth.net.getId();
+      const networkData = PatientRegistryABI.networks[networkId];
 
-        if (networkData) {
-          const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
-          setPatientRegistry(registry);
-        } else {
-          alert('The smart contract is not deployed to the current network');
-        }
-      } catch (error) {
-        console.error("Failed to connect to Ethereum provider:", error);
-        alert('Failed to connect to Ethereum provider. Please check MetaMask.');
+      if (networkData) {
+        const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+        setPatientRegistry(registry);
+      } else {
+        alert('The smart contract is not deployed to the current network');
       }
     } else {
-      alert('Please install MetaMask!');
+      alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
     }
   };
 
-  const standardizeData = (data: any) => {
-    // Convert all values to strings and sort keys
-    const sortedKeys = Object.keys(data).sort();
-    const standardizedData: any = {};
-    sortedKeys.forEach(key => {
-      standardizedData[key] = String(data[key]);
-    });
-    return standardizedData;
+  const sortObjectKeys = (obj: any) => {
+    return Object.keys(obj).sort().reduce((result: any, key: string) => {
+      result[key] = obj[key];
+      return result;
+    }, {});
   };
 
   const generateHash = (data: any) => {
-    const standardizedData = standardizeData(data);
-    console.log("Generating hash for standardized data:", standardizedData);
-    return CryptoJS.SHA256(JSON.stringify(standardizedData)).toString();
-  };
-
-  const encryptData = (data: any, key: string) => {
-    const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), key).toString();
-    return ciphertext;
-  };
-
-  const decryptData = (ciphertext: string, key: string) => {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, key);
-    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return decryptedData;
+    const sortedData = sortObjectKeys(data);
+    console.log("Generating hash for sorted data:", sortedData);
+    return CryptoJS.SHA256(JSON.stringify(sortedData)).toString();
   };
 
   const registerPatient = async () => {
@@ -103,12 +78,9 @@ export default function TestIntegration() {
     console.log("Data before hash from blockchain:", patientData);
     const dataHash = generateHash(patientData); // Generate hash
 
-    // Encrypt data before storing in Firebase
-    const encryptedData = encryptData(patientData, secretKey);
-
-    // Store encrypted data in Firebase
+    // Store data in Firebase
     const dbRef = ref(database, `patients/${recordId}`);
-    await set(dbRef, encryptedData);
+    await set(dbRef, patientData);
 
     // Register patient on blockchain with hash
     try {
@@ -139,10 +111,8 @@ export default function TestIntegration() {
     const dbRef = ref(database, `patients/${recordId}`);
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
-      console.log("Retrieved encrypted patient data from Firebase:", snapshot.val());
-      const decryptedData = decryptData(snapshot.val(), secretKey);
-      console.log("Decrypted patient data:", decryptedData);
-      return decryptedData;
+      console.log("Retrieved patient data from Firebase:", snapshot.val());
+      return snapshot.val();
     } else {
       console.error("No data available for this Record ID");
       return null;
