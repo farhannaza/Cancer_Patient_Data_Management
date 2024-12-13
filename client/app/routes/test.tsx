@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import Web3 from "web3";
 import { v4 as uuidv4 } from "uuid";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, get } from "firebase/database";
 import CryptoJS from 'crypto-js';
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set, get } from "firebase/database";
+import { useLoaderData } from "@remix-run/react";
+import { json, LoaderFunction } from "@remix-run/node";
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyABd0P58Guvh0GyY08BuWnccZPnzxHerdw",
-  authDomain: "onchologychain-ff1d9.firebaseapp.com",
-  databaseURL: "https://onchologychain-ff1d9-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "onchologychain-ff1d9",
-  storageBucket: "onchologychain-ff1d9.firebasestorage.app",
-  messagingSenderId: "249856462590",
-  appId: "1:249856462590:web:9ce5383e04768ac38d9faf"
+// Add this loader function at the top of your file
+export const loader: LoaderFunction = async () => {
+  const firebaseConfig = {
+    apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.EXPO_PUBLIC_FIREBASE_DATABASE_URL,
+    projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID
+  };
+  
+  return json({ firebaseConfig });
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
 export default function TestIntegration() {
+  const { firebaseConfig } = useLoaderData<typeof loader>();
+
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
   const [name, setName] = useState("");
@@ -30,6 +34,9 @@ export default function TestIntegration() {
   const [blockchainData, setBlockchainData] = useState<any[]>([]);
   const [verifyRecordId, setVerifyRecordId] = useState("");
   const [verificationResult, setVerificationResult] = useState("");
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
 
   // Load Web3 and Blockchain Data
   const loadBlockchainData = async () => {
