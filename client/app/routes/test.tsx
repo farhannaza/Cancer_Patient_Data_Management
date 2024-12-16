@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import { v4 as uuidv4 } from "uuid";
 import CryptoJS from 'crypto-js';
@@ -6,26 +6,12 @@ import PatientRegistryABI from "./artifacts/PatientRegistry.json";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, get } from "firebase/database";
 import { useLoaderData } from "@remix-run/react";
-import { json, LoaderFunction } from "@remix-run/node";
+import { firebaseLoader } from "firebaseConfig"; 
 
-// Add this loader function at the top of your file
-export const loader: LoaderFunction = async () => {
-  const firebaseConfig = {
-    apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.EXPO_PUBLIC_FIREBASE_DATABASE_URL,
-    projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID
-  };
-  
-  return json({ firebaseConfig });
-};
+export { firebaseLoader as loader };
 
 export default function TestIntegration() {
-  const { firebaseConfig } = useLoaderData<typeof loader>();
-
+  const { firebaseConfig } = useLoaderData<typeof firebaseLoader>();
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
   const [name, setName] = useState("");
@@ -38,7 +24,10 @@ export default function TestIntegration() {
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
 
-  // Load Web3 and Blockchain Data
+  useEffect(() => {
+    loadBlockchainData();
+  }, []);
+
   const loadBlockchainData = async () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
@@ -151,7 +140,6 @@ export default function TestIntegration() {
 
   return (
     <div>
-      <button onClick={loadBlockchainData}>Connect to Blockchain</button>
       <div>
         <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
         <input type="text" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />

@@ -24,11 +24,22 @@ import {
 } from "~/components/ui/select";
 import { toast } from "~/hooks/use-toast";
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
+import { v4 as uuidv4 } from "uuid";
+import CryptoJS from 'crypto-js';
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set } from "firebase/database";
+import { useLoaderData } from "@remix-run/react";
+import { firebaseLoader } from "firebaseConfig"; 
+
+export { firebaseLoader as loader };
 
 export default function NewPatientForm() {
+  const { firebaseConfig } = useLoaderData<typeof firebaseLoader>();
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
-  const [patientHistory, setPatientHistory] = useState<any[]>([]);
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,33 +54,36 @@ export default function NewPatientForm() {
   });
 
   useEffect(() => {
-    loadWeb3();
     loadBlockchainData();
   }, []);
 
-  const loadWeb3 = async () => {
+  const loadBlockchainData = async () => {
     if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
+      const web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
+      const accounts = await web3.eth.getAccounts();
+      setAccount(accounts[0]);
+
+      const networkId = await web3.eth.net.getId();
+      const networkData = PatientRegistryABI.networks[networkId];
+
+      if (networkData) {
+        const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+        setPatientRegistry(registry);
+      } else {
+        window.alert('The smart contract is not deployed to the current network');
+      }
     } else {
       window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
     }
   };
 
-  const loadBlockchainData = async () => {
-    const web3 = new Web3(window.ethereum);
-    const accounts = await web3.eth.getAccounts();
-    setAccount(accounts[0]);
-
-    const networkId = await web3.eth.net.getId();
-    const networkData = PatientRegistryABI.networks[networkId];
-
-    if (networkData) {
-      const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
-      setPatientRegistry(registry);
-    } else {
-      window.alert('The smart contract is not deployed to the current network');
-    }
+  const generateHash = (data: any) => {
+    const sortedData = Object.keys(data).sort().reduce((result: any, key: string) => {
+      result[key] = data[key];
+      return result;
+    }, {});
+    return CryptoJS.SHA256(JSON.stringify(sortedData)).toString();
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -78,44 +92,40 @@ export default function NewPatientForm() {
       return;
     }
 
+    const recordId = uuidv4();
+    const patientData = {
+      address: values.address,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      contactNumber: values.contactNumber,
+      gender: values.gender,
+      cancerType: values.cancerType,
+    };
+
+    const dataHash = generateHash(patientData);
+
+    // Store data in Firebase
+    const dbRef = ref(database, `patients/${recordId}`);
+    await set(dbRef, patientData);
+
+    // Register patient on blockchain with hash
     try {
       await patientRegistry.methods.registerPatient(
-        values.address,
-        values.firstName,
-        values.lastName,
-        values.contactNumber,
-        values.gender,
-        values.cancerType
+        account,
+        recordId,
+        dataHash
       ).send({ from: account });
 
       toast({
         title: "New patient data submitted",
         description: "The form was submitted successfully.",
       });
-
-      fetchPatientHistory(values.address);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
         title: "Error",
         description: `There was an error submitting the form: ${error.message}`,
       });
-    }
-  };
-
-  const fetchPatientHistory = async (patientAddress: string) => {
-    if (!patientRegistry) return;
-
-    try {
-      const count = await patientRegistry.methods.getPatientHistoryCount(patientAddress).call();
-      const history = [];
-      for (let i = 0; i < count; i++) {
-        const patient = await patientRegistry.methods.getPatientByIndex(patientAddress, i).call();
-        history.push(patient);
-      }
-      setPatientHistory(history);
-    } catch (error) {
-      console.error("Error fetching patient history:", error);
     }
   };
 
@@ -231,27 +241,6 @@ export default function NewPatientForm() {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
-
-      <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Patient History</h2>
-        {patientHistory.length > 0 ? (
-          <ul>
-            {patientHistory.map((patient, index) => (
-              <li key={index}>
-                <p>First Name: {patient.firstName}</p>
-                <p>Last Name: {patient.lastName}</p>
-                <p>Contact Number: {patient.contactNumber}</p>
-                <p>Gender: {patient.gender}</p>
-                <p>Cancer Type: {patient.cancerType}</p>
-                <p>Timestamp: {new Date(patient.timestamp * 1000).toLocaleString()}</p>
-                <hr />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No history available for this patient.</p>
-        )}
-      </div>
     </div>
   );
 }
