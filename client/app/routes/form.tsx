@@ -7,24 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema, z } from "./formCustom/zodt";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
 import { toast } from "~/hooks/use-toast";
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
-import { v4 as uuidv4 } from "uuid";
 import CryptoJS from 'crypto-js';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
@@ -50,6 +36,8 @@ export default function NewPatientForm() {
       contactNumber: "",
       gender: "",
       cancerType: "",
+      age: "", 
+      email: "", 
     },
   });
 
@@ -92,27 +80,27 @@ export default function NewPatientForm() {
       return;
     }
 
-    const recordId = uuidv4();
     const patientData = {
-      address: values.address,
       firstName: values.firstName,
       lastName: values.lastName,
       contactNumber: values.contactNumber,
       gender: values.gender,
       cancerType: values.cancerType,
+      age: values.age,  // Include new field
+      email: values.email,  // Include new field
+      timestamp: Math.floor(Date.now() / 1000)
     };
 
     const dataHash = generateHash(patientData);
 
-    // Store data in Firebase
-    const dbRef = ref(database, `patients/${recordId}`);
-    await set(dbRef, patientData);
-
-    // Register patient on blockchain with hash
     try {
+      // Store data in Firebase using patient address as the key
+      const dbRef = ref(database, `patients/${values.address}`);
+      await set(dbRef, patientData);
+
+      // Register patient on blockchain with hash
       await patientRegistry.methods.registerPatient(
-        account,
-        recordId,
+        values.address,  // patient address as identifier
         dataHash
       ).send({ from: account });
 
@@ -206,6 +194,34 @@ export default function NewPatientForm() {
                       <SelectItem value="female">Female</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="age"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Age</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Age" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Email" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
