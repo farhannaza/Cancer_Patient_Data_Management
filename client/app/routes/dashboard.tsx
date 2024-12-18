@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import { format } from "date-fns"
 import { Calendar, ChevronDown, Phone, Mail, MapPin, AlertCircle } from "lucide-react"
@@ -22,7 +21,7 @@ const fetchNewPatientData = async () => {
     {
       firstName: "Alia",
       lastName: "Kasrina",
-      dateOfBirth: new Date(1985, 5, 15),
+      age: 30,
       gender: "Female",
       contactNumber: "+60 1110152931",
       email: "alia.kasrinae@example.com",
@@ -31,30 +30,7 @@ const fetchNewPatientData = async () => {
       hash: "0xa53cb1ef2e82f5b9bf1168473b9824676bc29a6ccaac0daaff0365b312f7f1df",
       diagnosisDate: new Date(2023, 2, 10),
     },
-    {
-      firstName: "John",
-      lastName: "Abu",
-      dateOfBirth: new Date(1978, 11, 23),
-      gender: "Male",
-      contactNumber: "+601 23456789",
-      email: "john.abu@example.com",
-      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
-      cancerType: "Lung",
-      hash: "0x1bdd54d283ad8fdd84d7e794e4d17fa1b0ee987ae50db7c4178199c2b7980535",
-      diagnosisDate: new Date(2022, 5, 14),
-    },
-    {
-      firstName: "Alia",
-      lastName: "Kasrina",
-      dateOfBirth: new Date(1985, 5, 15),
-      gender: "Female",
-      contactNumber: "+60 1110152931",
-      email: "alia.kasrinae@example.com",
-      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
-      cancerType: "Breast",
-      hash: "0xa53cb1ef2e82f5b9bf1168473b9824676bc29a6ccaac0daaff0365b312f7f1df",
-      diagnosisDate: new Date(2023, 2, 10),
-    },
+    
   ]
 }
 
@@ -71,16 +47,6 @@ export default function PatientDashboard() {
     fetchData()
   }, [])
 
-  const calculateAge = (birthDate: Date) => {
-    const today = new Date()
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const monthDifference = today.getMonth() - birthDate.getMonth()
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      age--
-    }
-    return age
-  }
-
   return (
     <div className="container mx-auto p-4 space-y-6">
       {patients.map((patient, index) => (
@@ -94,7 +60,7 @@ export default function PatientDashboard() {
               <div>
                 <CardTitle className="text-2xl">{patient.firstName} {patient.lastName}</CardTitle>
                 <CardDescription>
-                  {calculateAge(patient.dateOfBirth)} years old • {patient.gender}
+                  {patient.age} years old • {patient.gender}
                 </CardDescription>
               </div>
             </div>

@@ -20,10 +20,10 @@ const formSchema = z.object({
       required_error: "Please select a cancer type.",
     }),
     age: z.string().min(1, {
-      message: "Age number must be at least 1 digits.",
+      message: "Age is required.",
     }),
-    email: z.string().min(1, {
-      message: "Email must has at least 1 '@'.",
+    email: z.string().email({
+      message: "Invalid email address.",
     }),
 })
 
