@@ -44,7 +44,7 @@ const fetchNewPatientData = async () => {
       diagnosisDate: new Date(2022, 5, 14),
     },
     {
-      firstName: "Alia",
+      firstName: "Aliaa",
       lastName: "Kasrina",
       dateOfBirth: new Date(1985, 5, 15),
       gender: "Female",
