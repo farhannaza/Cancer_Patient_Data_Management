@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { format } from "date-fns"
-import { Calendar, ChevronDown, Phone, Mail, MapPin, AlertCircle } from "lucide-react"
-import { Button } from "~/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
-import { Badge } from "~/components/ui/badge"
+import React, { useState } from "react";
+import { format } from "date-fns";
+import { Calendar, ChevronDown, Phone, Mail } from "lucide-react";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Badge } from "~/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,15 +14,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu"
+} from "~/components/ui/dropdown-menu";
+import { Input } from "~/components/ui/input";
+import { toast } from "~/hooks/use-toast";
 
 // Mock fetch function to simulate API call
-const fetchNewPatientData = async () => {
-  return [
-    {
+const fetchPatientDataByAddress = async (address) => {
+  // Replace this with actual API call
+  if (address === "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c") {
+    return {
       firstName: "Alia",
       lastName: "Kasrina",
-      dateOfBirth: new Date(1985, 5, 15),
+      age: 39,
       gender: "Female",
       contactNumber: "+60 1110152931",
       email: "alia.kasrinae@example.com",
@@ -30,61 +33,46 @@ const fetchNewPatientData = async () => {
       cancerType: "Breast",
       hash: "0xa53cb1ef2e82f5b9bf1168473b9824676bc29a6ccaac0daaff0365b312f7f1df",
       diagnosisDate: new Date(2023, 2, 10),
-    },
-    {
-      firstName: "John",
-      lastName: "Abu",
-      dateOfBirth: new Date(1978, 11, 23),
-      gender: "Male",
-      contactNumber: "+601 23456789",
-      email: "john.abu@example.com",
-      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
-      cancerType: "Lung",
-      hash: "0x1bdd54d283ad8fdd84d7e794e4d17fa1b0ee987ae50db7c4178199c2b7980535",
-      diagnosisDate: new Date(2022, 5, 14),
-    },
-    {
-      firstName: "Aliaa",
-      lastName: "Kasrina",
-      dateOfBirth: new Date(1985, 5, 15),
-      gender: "Female",
-      contactNumber: "+60 1110152931",
-      email: "alia.kasrinae@example.com",
-      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
-      cancerType: "Breast",
-      hash: "0xa53cb1ef2e82f5b9bf1168473b9824676bc29a6ccaac0daaff0365b312f7f1df",
-      diagnosisDate: new Date(2023, 2, 10),
-    },
-  ]
-}
+    };
+  } else {
+    throw new Error("Patient not found");
+  }
+};
 
 export default function PatientDashboard() {
-  const [patients, setPatients] = useState([])
+  const [patientAddress, setPatientAddress] = useState("");
+  const [patient, setPatient] = useState(null);
 
-  useEffect(() => {
-    // Simulate fetching new patient data from the backend
-    const fetchData = async () => {
-      const newPatientData = await fetchNewPatientData()
-      setPatients(newPatientData)
+  const handleFetchPatientData = async () => {
+    try {
+      const data = await fetchPatientDataByAddress(patientAddress);
+      setPatient(data);
+      toast({
+        title: "Patient data retrieved",
+        description: "Patient data has been successfully retrieved.",
+      });
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+      toast({
+        title: "Error",
+        description: `There was an error retrieving the patient data: ${error.message}`,
+      });
     }
-
-    fetchData()
-  }, [])
-
-  const calculateAge = (birthDate: Date) => {
-    const today = new Date()
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const monthDifference = today.getMonth() - birthDate.getMonth()
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      age--
-    }
-    return age
-  }
+  };
 
   return (
     <div className="container mx-auto p-4 space-y-6">
-      {patients.map((patient, index) => (
-        <Card key={index}>
+      <div className="mb-4">
+        <Input
+          placeholder="Enter Patient Address"
+          value={patientAddress}
+          onChange={(e) => setPatientAddress(e.target.value)}
+        />
+        <Button onClick={handleFetchPatientData} className="mt-2">Fetch Patient Data</Button>
+      </div>
+
+      {patient && (
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
@@ -94,7 +82,7 @@ export default function PatientDashboard() {
               <div>
                 <CardTitle className="text-2xl">{patient.firstName} {patient.lastName}</CardTitle>
                 <CardDescription>
-                  {calculateAge(patient.dateOfBirth)} years old • {patient.gender}
+                  {patient.age} years old • {patient.gender}
                 </CardDescription>
               </div>
             </div>
@@ -142,14 +130,14 @@ export default function PatientDashboard() {
                   <Badge variant="outline">{patient.hash}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Editor Address:</span>
-                <Badge variant="outline">{patient.address}</Badge>
+                  <span className="text-sm font-medium">Editor Address:</span>
+                  <Badge variant="outline">{patient.address}</Badge>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
-      ))}
+      )}
     </div>
-  )
+  );
 }
