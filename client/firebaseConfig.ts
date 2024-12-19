@@ -22,4 +22,4 @@ export const firebaseLoader: LoaderFunction = async () => {
   return json({ firebaseConfig });
 };
 
-export { app, database };
+export { app, database, firebaseConfig };
