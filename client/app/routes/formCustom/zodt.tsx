@@ -19,6 +19,12 @@ const formSchema = z.object({
     cancerType: z.string({
       required_error: "Please select a cancer type.",
     }),
+    age: z.string().min(1, {
+      message: "Age is required.",
+    }),
+    email: z.string().email({
+      message: "Invalid email address.",
+    }),
 })
 
 export { formSchema, z }

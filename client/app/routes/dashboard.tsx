@@ -1,4 +1,3 @@
-
 "use client"
 import { useState } from "react"
 import { format } from "date-fns"
@@ -16,49 +15,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
-import { Input } from "~/components/ui/input";
-import { toast } from "~/hooks/use-toast";
+} from "~/components/ui/dropdown-menu"
+import { initializeApp } from "firebase/app"
+import { getDatabase, ref, get } from "firebase/database"
+import { useLoaderData } from "@remix-run/react"
+import { firebaseLoader } from "firebaseConfig"
 
-// Mock fetch function to simulate API call
-const fetchPatientDataByAddress = async (address) => {
-  // Replace this with actual API call
-  if (address === "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c") {
-    return {
-      firstName: "Alia",
-      lastName: "Kasrina",
-      age: 39,
-      gender: "Female",
-      contactNumber: "+60 1110152931",
-      email: "alia.kasrinae@example.com",
-      address: "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c",
-      cancerType: "Breast",
-      hash: "0xa53cb1ef2e82f5b9bf1168473b9824676bc29a6ccaac0daaff0365b312f7f1df",
-      diagnosisDate: new Date(2023, 2, 10),
-    };
-  } else {
-    throw new Error("Patient not found");
-  }
-};
-
-export default function PatientDashboard() {
-  const [patientAddress, setPatientAddress] = useState("");
-  const [patient, setPatient] = useState(null);
-
-  const handleFetchPatientData = async () => {
-    try {
-      const data = await fetchPatientDataByAddress(patientAddress);
-      setPatient(data);
-      toast({
-        title: "Patient data retrieved",
-        description: "Patient data has been successfully retrieved.",
-      });
-    } catch (error) {
-      console.error("Error fetching patient data:", error);
-      toast({
-        title: "Error",
-        description: `There was an error retrieving the patient data: ${error.message}`,
-      });
 export { firebaseLoader as loader }
 
 interface PatientData {
@@ -131,15 +93,6 @@ export default function PatientDashboard() {
 
   return (
     <div className="container mx-auto p-4 space-y-6">
-      <div className="mb-4">
-        <Input
-          placeholder="Enter Patient Address"
-          value={patientAddress}
-          onChange={(e) => setPatientAddress(e.target.value)}
-        />
-        <Button onClick={handleFetchPatientData} className="mt-2">Fetch Patient Data</Button>
-      </div>
-
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Patient Dashboard</h1>
       </div>
@@ -212,8 +165,7 @@ export default function PatientDashboard() {
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
                   <Calendar className="h-4 w-4" />
-                  <span className="text-sm font-medium">Diagnosis Date:</span>
-                  <span className="text-sm">{format(patient.diagnosisDate, "MMM d, yyyy")}</span>
+                  <span className="text-sm font-medium">Diagnosed Date:</span>
                   <span className="text-sm">{patient.address}</span>
                 </div>
               </div>
@@ -227,8 +179,6 @@ export default function PatientDashboard() {
                   <Badge variant="outline">{patient.hash}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">Editor Address:</span>
-                  <Badge variant="outline">{patient.address}</Badge>
                   <span className="text-sm font-medium">Patient ID:</span>
                   <Badge variant="outline">{recordId}</Badge>
                 </div>
