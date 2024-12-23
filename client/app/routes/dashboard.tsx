@@ -1,14 +1,4 @@
-<<<<<<< Updated upstream
-"use client";
 
-import React, { useState } from "react";
-import { format } from "date-fns";
-import { Calendar, ChevronDown, Phone, Mail } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { Badge } from "~/components/ui/badge";
-=======
 "use client"
 import { useState } from "react"
 import { format } from "date-fns"
@@ -19,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { Badge } from "~/components/ui/badge"
 import { Input } from "~/components/ui/input"
 import { useToast } from "~/hooks/use-toast"
->>>>>>> Stashed changes
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,7 +20,6 @@ import {
 import { Input } from "~/components/ui/input";
 import { toast } from "~/hooks/use-toast";
 
-<<<<<<< Updated upstream
 // Mock fetch function to simulate API call
 const fetchPatientDataByAddress = async (address) => {
   // Replace this with actual API call
@@ -71,7 +59,6 @@ export default function PatientDashboard() {
         title: "Error",
         description: `There was an error retrieving the patient data: ${error.message}`,
       });
-=======
 export { firebaseLoader as loader }
 
 interface PatientData {
@@ -139,13 +126,11 @@ export default function PatientDashboard() {
       });
     } finally {
       setLoading(false);
->>>>>>> Stashed changes
     }
   };
 
   return (
     <div className="container mx-auto p-4 space-y-6">
-<<<<<<< Updated upstream
       <div className="mb-4">
         <Input
           placeholder="Enter Patient Address"
@@ -155,7 +140,6 @@ export default function PatientDashboard() {
         <Button onClick={handleFetchPatientData} className="mt-2">Fetch Patient Data</Button>
       </div>
 
-=======
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Patient Dashboard</h1>
       </div>
@@ -181,7 +165,6 @@ export default function PatientDashboard() {
         </div>
       )}
 
->>>>>>> Stashed changes
       {patient && (
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -230,11 +213,8 @@ export default function PatientDashboard() {
                 <div className="flex items-center space-x-2 text-sm">
                   <Calendar className="h-4 w-4" />
                   <span className="text-sm font-medium">Diagnosis Date:</span>
-<<<<<<< Updated upstream
                   <span className="text-sm">{format(patient.diagnosisDate, "MMM d, yyyy")}</span>
-=======
                   <span className="text-sm">{patient.address}</span>
->>>>>>> Stashed changes
                 </div>
               </div>
               <div className="space-y-2">
@@ -247,13 +227,10 @@ export default function PatientDashboard() {
                   <Badge variant="outline">{patient.hash}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
-<<<<<<< Updated upstream
                   <span className="text-sm font-medium">Editor Address:</span>
                   <Badge variant="outline">{patient.address}</Badge>
-=======
                   <span className="text-sm font-medium">Patient ID:</span>
                   <Badge variant="outline">{recordId}</Badge>
->>>>>>> Stashed changes
                 </div>
               </div>
             </div>
