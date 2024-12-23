@@ -64,6 +64,14 @@ export default function Navigation() {
                 Dashboard
               </Link>
             </NavigationMenuLink>
+            <NavigationMenuLink asChild>
+              <Link
+                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                to="dashtest"
+              >
+                Dashtest
+              </Link>
+            </NavigationMenuLink>
             <UserButton /> 
           </NavigationMenuList>
         </NavigationMenu>
