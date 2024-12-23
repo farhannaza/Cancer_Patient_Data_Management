@@ -72,7 +72,7 @@ contract PatientRegistry {
         returns (
             string memory firstName,
             string memory lastName,
-            string memory contactNumber,
+            string memory contactNumber,z
             string memory gender,
             string memory cancerType,
             uint256 timestamp
