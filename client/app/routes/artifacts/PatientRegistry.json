@@ -8340,12 +8340,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xe1574FeE89Adacd3596bc332179DB197e74b9d08",
-      "transactionHash": "0x4f20a1f371dfd50ba88699da92429c6335019db304e9844d261aa88d3180d7df"
+      "address": "0xad00c0A4c74384523DB18bfFbeb15CdC71faee93",
+      "transactionHash": "0xab57bf6a3a8684acc2aae009a340aed4f9a261445c66a38234e58573d047bfd2"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-12-23T11:21:17.145Z",
+  "updatedAt": "2024-12-24T11:08:08.797Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
