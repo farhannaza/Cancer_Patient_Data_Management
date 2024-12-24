@@ -1,8 +1,8 @@
 "use client"
-import { useState } from "react"
-import { format } from "date-fns"
-import { Calendar, ChevronDown, Phone, Mail, MapPin, Search } from "lucide-react"
+import { useState, useEffect } from "react"
+import Web3 from "web3"
 import { Button } from "~/components/ui/button"
+import { Calendar, ChevronDown, Phone, Mail, MapPin, Search } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { Badge } from "~/components/ui/badge"
@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
+import PatientRegistryABI from "./artifacts/PatientRegistry.json"
 import { initializeApp } from "firebase/app"
 import { getDatabase, ref, get } from "firebase/database"
 import { useLoaderData } from "@remix-run/react"
@@ -32,6 +33,8 @@ interface PatientData {
   email: string;
   address: string;
   cancerType: string;
+  diagnosedDate?: string;
+  transactionHash?: string;
   [key: string]: any;
 }
 
@@ -45,6 +48,34 @@ export default function PatientDashboard() {
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
+
+  const [account, setAccount] = useState<string>('');
+  const [patientRegistry, setPatientRegistry] = useState<any>(null);
+
+  useEffect(() => {
+    loadBlockchainData();
+  }, []);
+
+  const loadBlockchainData = async () => {
+    if (window.ethereum) {
+      const web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+      const accounts = await web3.eth.getAccounts();
+      setAccount(accounts[0]);
+
+      const networkId = await web3.eth.net.getId();
+      const networkData = PatientRegistryABI.networks[networkId];
+
+      if (networkData) {
+        const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+        setPatientRegistry(registry);
+      } else {
+        window.alert('The smart contract is not deployed to the current network');
+      }
+    } else {
+      window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
+    }
+  };
 
   const fetchPatientData = async () => {
     if (!recordId.trim()) {
@@ -63,8 +94,22 @@ export default function PatientDashboard() {
       const snapshot = await get(dbRef);
       
       if (snapshot.exists()) {
-        console.log("Retrieved patient data:", snapshot.val());
-        setPatient(snapshot.val());
+        const patientData = snapshot.val();
+        console.log("Retrieved patient data:", patientData);
+
+        // Fetch blockchain data
+        if (patientRegistry) {
+          const records = await patientRegistry.methods.getPatientRecords(account).call();
+          //const record = records.find((r: any) => r.recordId === recordId);
+
+           console.log("Retrieved blockchain data:", records[0][1]);
+          if (records) {
+            patientData.diagnosedDate = new Date(records[0][1] * 1000).toLocaleDateString();
+            patientData.transactionHash = records[0][0];
+          }
+        }
+
+        setPatient(patientData);
         toast({
           title: "Success",
           description: "Patient data retrieved successfully",
@@ -166,7 +211,7 @@ export default function PatientDashboard() {
                 <div className="flex items-center space-x-2 text-sm">
                   <Calendar className="h-4 w-4" />
                   <span className="text-sm font-medium">Diagnosed Date:</span>
-                  <span className="text-sm">{patient.address}</span>
+                  <span className="text-sm">{patient.diagnosedDate || 'N/A'}</span>
                 </div>
               </div>
               <div className="space-y-2">
@@ -176,7 +221,7 @@ export default function PatientDashboard() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Transaction Hash:</span>
-                  <Badge variant="outline">{patient.hash}</Badge>
+                  <Badge variant="outline">{patient.transactionHash || 'N/A'}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Patient ID:</span>
