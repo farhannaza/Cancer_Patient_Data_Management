@@ -106,7 +106,7 @@ export default function PatientDashboard() {
             console.log("Retrieved blockchain data for patient", recordId, ":", record);
             if (record) {
               patientData[recordId].diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
-              patientData[recordId].transactionHash = record.dataHash;
+              //patientData[recordId].transactionHash = record.dataHash;
             }
           }
         }

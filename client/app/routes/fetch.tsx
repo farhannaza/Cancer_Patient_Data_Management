@@ -104,7 +104,7 @@ export default function PatientDashboard() {
           if (record) {
             patientData.diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
             // Ensure transactionHash is retrieved from Firebase
-            patientData.transactionHash = patientData.transactionHash || 'N/A';
+            //patientData.transactionHash = patientData.transactionHash || 'N/A';
           }
         }
 
