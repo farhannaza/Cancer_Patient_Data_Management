@@ -2,11 +2,10 @@
 import { useState, useEffect } from "react"
 import Web3 from "web3"
 import { Button } from "~/components/ui/button"
-import { Calendar, ChevronDown, Phone, Mail, MapPin, Search } from "lucide-react"
+import { Calendar, ChevronDown, Phone, Mail } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { Badge } from "~/components/ui/badge"
-import { Input } from "~/components/ui/input"
 import { useToast } from "~/hooks/use-toast"
 import {
   DropdownMenu,
@@ -40,9 +39,8 @@ interface PatientData {
 
 export default function PatientDashboard() {
   const { firebaseConfig } = useLoaderData<typeof firebaseLoader>();
-  const [recordId, setRecordId] = useState<string>("");
-  const [patient, setPatient] = useState<PatientData | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [patients, setPatients] = useState<{ [key: string]: PatientData }>({});
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
@@ -53,7 +51,24 @@ export default function PatientDashboard() {
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
 
   useEffect(() => {
-    loadBlockchainData();
+    const loadData = async () => {
+      try {
+        await loadBlockchainData();
+        await fetchAllPatients();
+      } catch (err) {
+        console.error("Error loading data:", err);
+        setError("Error loading data");
+        toast({
+          title: "Error",
+          description: "Failed to load data",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
   const loadBlockchainData = async () => {
@@ -77,62 +92,47 @@ export default function PatientDashboard() {
     }
   };
 
-  const fetchPatientData = async () => {
-    if (!recordId.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter a record ID",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
+  const fetchAllPatients = async () => {
     try {
-      const dbRef = ref(database, `patients/${recordId}`);
+      const dbRef = ref(database, 'patients');
       const snapshot = await get(dbRef);
-      
+
       if (snapshot.exists()) {
         const patientData = snapshot.val();
-        console.log("Retrieved patient data:", patientData);
-
-        // Fetch blockchain data
+        // Fetch blockchain data for each patient
         if (patientRegistry) {
-          const records = await patientRegistry.methods.getPatientRecords(account).call();
-          //const record = records.find((r: any) => r.recordId === recordId);
-
-           console.log("Retrieved blockchain data:", records[0][1]);
-          if (records) {
-            patientData.diagnosedDate = new Date(records[0][1] * 1000).toLocaleDateString();
-            patientData.transactionHash = records[0][0];
+          for (const recordId of Object.keys(patientData)) {
+            const record = await patientRegistry.methods.getPatientRecord(recordId).call();
+            console.log("Retrieved blockchain data for patient", recordId, ":", record);
+            if (record) {
+              patientData[recordId].diagnosedDate = new Date(record.timestamp * 1000).toLocaleDateString();
+              patientData[recordId].transactionHash = record.dataHash;
+            }
           }
         }
 
-        setPatient(patientData);
+        setPatients(patientData);
         toast({
           title: "Success",
-          description: "Patient data retrieved successfully",
+          description: "All patient data retrieved successfully",
         });
       } else {
-        setError("No patient found with this record ID");
-        setPatient(null);
+        setError("No patient records found in the database");
+        setPatients({});
         toast({
           title: "Error",
-          description: "No patient found with this record ID",
+          description: "No patient records found in the database",
           variant: "destructive",
         });
       }
     } catch (err) {
       console.error("Error fetching data:", err);
-      setError("Error fetching patient record");
+      setError("Error fetching patient records");
       toast({
         title: "Error",
-        description: "Failed to fetch patient data",
+        description: "Failed to fetch patient records",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -140,22 +140,16 @@ export default function PatientDashboard() {
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Patient Dashboard</h1>
-      </div>
-
-      <div className="flex gap-4 mb-6">
-        <Input
-          placeholder="Enter Record ID"
-          value={recordId}
-          onChange={(e) => setRecordId(e.target.value)}
-          className="max-w-md"
-        />
-        <Button 
-          onClick={fetchPatientData} 
-          disabled={loading}
-        >
-          {loading ? "Searching..." : "Search"}
+        <Button onClick={fetchAllPatients} disabled={loading}>
+          {loading ? "Refreshing..." : "Refresh Data"}
         </Button>
       </div>
+
+      {loading && (
+        <div className="text-center">
+          <p>Loading data...</p>
+        </div>
+      )}
 
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
@@ -163,8 +157,8 @@ export default function PatientDashboard() {
         </div>
       )}
 
-      {patient && (
-        <Card>
+      {!loading && Object.entries(patients).map(([recordId, patient]) => (
+        <Card key={recordId}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
@@ -231,7 +225,7 @@ export default function PatientDashboard() {
             </div>
           </CardContent>
         </Card>
-      )}
+      ))}
     </div>
   );
 }

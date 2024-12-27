@@ -7,7 +7,7 @@ contract PatientRegistry {
         uint256 timestamp;
     }
     
-    mapping(address => PatientRecord[]) private patientRecords;
+    mapping(address => PatientRecord) private patientRecords;
     
     event PatientRegistered(address indexed patientAddress, string dataHash, uint256 timestamp);
 
@@ -17,12 +17,13 @@ contract PatientRegistry {
             timestamp: block.timestamp
         });
         
-        patientRecords[patientAddress].push(newRecord);
+        // Overwrite the existing record for the patient address
+        patientRecords[patientAddress] = newRecord;
         
         emit PatientRegistered(patientAddress, dataHash, block.timestamp);
     }
 
-    function getPatientRecords(address patientAddress) public view returns (PatientRecord[] memory) {
+    function getPatientRecord(address patientAddress) public view returns (PatientRecord memory) {
         return patientRecords[patientAddress];
     }
 }
