@@ -99,10 +99,15 @@ export default function NewPatientForm() {
       await set(dbRef, patientData);
 
       // Register patient on blockchain with hash
-      await patientRegistry.methods.registerPatient(
+      const receipt = await patientRegistry.methods.registerPatient(
         values.address,  // patient address as identifier
         dataHash
       ).send({ from: account });
+
+      console.log("Transaction successful with hash:", receipt.transactionHash);
+
+      // Store the transaction hash in Firebase
+      await set(ref(database, `patients/${values.address}/transactionHash`), receipt.transactionHash);
 
       toast({
         title: "New patient data submitted",

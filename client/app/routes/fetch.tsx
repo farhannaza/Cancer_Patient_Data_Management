@@ -102,8 +102,9 @@ export default function PatientDashboard() {
           const record = await patientRegistry.methods.getPatientRecord(recordId).call();
           console.log("Retrieved blockchain data:", record);
           if (record) {
-            patientData.diagnosedDate = new Date(record.timestamp * 1000).toLocaleDateString();
-            patientData.transactionHash = record.dataHash;
+            patientData.diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
+            // Ensure transactionHash is retrieved from Firebase
+            patientData.transactionHash = patientData.transactionHash || 'N/A';
           }
         }
 
@@ -137,7 +138,7 @@ export default function PatientDashboard() {
   return (
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Patient Dashboard</h1>
+        <h1 className="text-2xl font-bold">Fetch Patient's Data</h1>
       </div>
 
       <div className="flex gap-4 mb-6">

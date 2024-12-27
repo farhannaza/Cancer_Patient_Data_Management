@@ -7451,12 +7451,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xb3bbC8B15F789578642e0D7AE9c8b5C927dD9d51",
-      "transactionHash": "0xcdc44e13224c1be81fb592f37c1dcc28409b4621caa2af7365ad22f70aa38516"
+      "address": "0x96A5C92B610dF7362A78E4d46F9D43efEF0d69C7",
+      "transactionHash": "0xbba836fbde65ac92e618401098b24b5e5da5c76d5e661fe50301a83fa1a85652"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-12-24T11:33:51.153Z",
+  "updatedAt": "2024-12-27T10:54:13.938Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
