@@ -21,6 +21,7 @@ import { initializeApp } from "firebase/app"
 import { getDatabase, ref, get } from "firebase/database"
 import { useLoaderData } from "@remix-run/react"
 import { firebaseLoader } from "firebaseConfig"
+import CryptoJS from 'crypto-js'
 
 export { firebaseLoader as loader }
 
@@ -44,6 +45,7 @@ export default function PatientDashboard() {
   const [patient, setPatient] = useState<PatientData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [verificationResult, setVerificationResult] = useState<string>("");
   const { toast } = useToast();
 
   const app = initializeApp(firebaseConfig);
@@ -132,6 +134,51 @@ export default function PatientDashboard() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const generateHash = (data: any) => {
+    const relevantData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      contactNumber: data.contactNumber,
+      gender: data.gender,
+      cancerType: data.cancerType,
+      age: data.age,
+      email: data.email,
+      timestamp: data.timestamp
+    };
+  
+    const sortedData = Object.keys(relevantData).sort().reduce((result: any, key: string) => {
+      result[key] = relevantData[key];
+      return result;
+    }, {});
+  
+    return CryptoJS.SHA256(JSON.stringify(sortedData)).toString();
+  };
+  
+  const verifyDataIntegrity = async () => {
+    if (!patientRegistry || !patient) return;
+  
+    try {
+      // Use getPatientRecord to retrieve the patient record
+      const record = await patientRegistry.methods.getPatientRecord(recordId).call();
+      console.log("Retrieved patient record from blockchain:", record);
+  
+      const storedHash = record.dataHash; // Access the dataHash from the record
+      console.log("Stored hash from blockchain:", storedHash);
+  
+      const currentHash = generateHash(patient);
+      console.log("Computed hash from Firebase data:", currentHash);
+  
+      if (storedHash === currentHash) {
+        setVerificationResult('Data integrity verified: No alterations detected.');
+      } else {
+        setVerificationResult('Data integrity compromised: Alterations detected.');
+      }
+    } catch (error) {
+      console.error("Error verifying data integrity:", error);
+      setVerificationResult('Error verifying data integrity.');
     }
   };
 
@@ -230,6 +277,16 @@ export default function PatientDashboard() {
             </div>
           </CardContent>
         </Card>
+      )}
+
+      <Button onClick={verifyDataIntegrity} className="mt-6">
+        Verify Data Integrity
+      </Button>
+
+      {verificationResult && (
+        <div className="mt-4 p-4 bg-gray-100 border rounded">
+          {verificationResult}
+        </div>
       )}
     </div>
   );
