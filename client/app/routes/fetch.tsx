@@ -61,18 +61,21 @@ export default function PatientDashboard() {
   const loadBlockchainData = async () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-      const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setAccount(accounts[0]);
 
-      const networkId = await web3.eth.net.getId();
-      const networkData = PatientRegistryABI.networks[networkId];
+        const networkId = await web3.eth.net.getId();
+        const networkData = PatientRegistryABI.networks[networkId];
 
-      if (networkData) {
-        const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
-        setPatientRegistry(registry);
-      } else {
-        window.alert('The smart contract is not deployed to the current network');
+        if (networkData) {
+          const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+          setPatientRegistry(registry);
+        } else {
+          window.alert('The smart contract is not deployed to the current network');
+        }
+      } catch (error) {
+        console.error("User denied account access", error);
       }
     } else {
       window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
@@ -171,11 +174,23 @@ export default function PatientDashboard() {
       const currentHash = generateHash(patient);
       console.log("Computed hash from Firebase data:", currentHash);
   
+      let resultMessage = '';
+  
       if (storedHash === currentHash) {
-        setVerificationResult('Data integrity verified: No alterations detected.');
+        resultMessage += 'Data integrity verified: No alterations detected.';
       } else {
-        setVerificationResult('Data integrity compromised: Alterations detected.');
+        resultMessage += 'Data integrity compromised: Alterations detected.';
+  
+        // Show a red notification
+        toast({
+          title: "Data Integrity Compromised",
+          description: "Alterations detected in the data.",
+          variant: "destructive", // This makes the notification red
+        });
       }
+      resultMessage += `\nStored Hash in Blockchain: ${storedHash}\nComputed Hash from Database: ${currentHash}\n`;
+      setVerificationResult(resultMessage);
+
     } catch (error) {
       console.error("Error verifying data integrity:", error);
       setVerificationResult('Error verifying data integrity.');
@@ -279,12 +294,14 @@ export default function PatientDashboard() {
         </Card>
       )}
 
-      <Button onClick={verifyDataIntegrity} className="mt-6">
-        Verify Data Integrity
-      </Button>
+      {patient && (
+        <Button onClick={verifyDataIntegrity} className="mt-6">
+          Verify Data Integrity
+        </Button>
+      )}
 
       {verificationResult && (
-        <div className="mt-4 p-4 bg-gray-100 border rounded">
+        <div className="mt-4 p-4 bg-gray-100 border rounded" style={{ whiteSpace: 'pre-wrap' }}>
           {verificationResult}
         </div>
       )}

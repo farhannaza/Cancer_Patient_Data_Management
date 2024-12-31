@@ -18,6 +18,7 @@ export const loader: LoaderFunction = async (args) => {
   }
   return {}
 }
+
 export default function RootRoute() {
   return <Hero />;
 }
