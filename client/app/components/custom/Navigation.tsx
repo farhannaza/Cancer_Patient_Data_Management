@@ -10,6 +10,7 @@ import {
   NavigationMenu,
 } from "~/components/ui/navigation-menu";
 import { UserButton } from "@clerk/remix";
+import OrganizationProfilePage from "~/routes/organization-profile/$";
 
 
 export default function Navigation() {
@@ -35,14 +36,6 @@ export default function Navigation() {
             <NavigationMenuLink asChild>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="fetch"
-              >
-                Fetch
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
                 to="form"
               >
                 Form
@@ -51,9 +44,9 @@ export default function Navigation() {
             <NavigationMenuLink asChild>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="test"
+                to="fetch"
               >
-                Test
+                Fetch
               </Link>
             </NavigationMenuLink>
             <NavigationMenuLink asChild>

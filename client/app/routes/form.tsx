@@ -17,6 +17,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import { useLoaderData } from "@remix-run/react";
 import { firebaseLoader } from "firebaseConfig"; 
 
+
 export { firebaseLoader as loader };
 
 export default function NewPatientForm() {
