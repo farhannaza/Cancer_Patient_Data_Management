@@ -10,8 +10,7 @@ import {
   NavigationMenu,
 } from "~/components/ui/navigation-menu";
 import { UserButton } from "@clerk/remix";
-import OrganizationProfilePage from "~/routes/organization-profile/$";
-
+import { Protect } from "@clerk/remix";
 
 export default function Navigation() {
   return (
@@ -33,30 +32,34 @@ export default function Navigation() {
                 Home
               </Link>
             </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="form"
-              >
-                Form
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="fetch"
-              >
-                Fetch
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                to="dashboard"
-              >
-                Dashboard
-              </Link>
-            </NavigationMenuLink>
+            <Protect
+              permission="org:doctor:domain"
+            >
+              <NavigationMenuLink asChild>
+                <Link
+                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                  to="form"
+                >
+                  Form
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link
+                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                  to="fetch"
+                >
+                  Fetch
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link
+                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                  to="dashboard"
+                >
+                  Dashboard
+                </Link>
+              </NavigationMenuLink>
+            </Protect>
             <UserButton /> 
           </NavigationMenuList>
         </NavigationMenu>

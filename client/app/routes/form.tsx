@@ -15,10 +15,20 @@ import CryptoJS from 'crypto-js';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
 import { useLoaderData } from "@remix-run/react";
-import { firebaseLoader } from "firebaseConfig"; 
+import { firebaseConfig } from "firebaseConfig"; 
+import { redirect, LoaderFunction, json} from "@remix-run/node";
+import { getAuth } from '@clerk/remix/ssr.server';
 
 
-export { firebaseLoader as loader };
+// export { firebaseLoader as loader };
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
+  if (!userId) {
+    return redirect('/sign-in');
+  }
+
+  return json({ firebaseConfig });
+};
 
 export default function NewPatientForm() {
   const { firebaseConfig } = useLoaderData<typeof firebaseLoader>();
