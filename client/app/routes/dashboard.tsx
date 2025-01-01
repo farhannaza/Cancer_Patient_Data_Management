@@ -19,22 +19,20 @@ import PatientRegistryABI from "./artifacts/PatientRegistry.json";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get } from "firebase/database";
 import { useLoaderData } from "@remix-run/react";
-import { firebaseLoader} from "firebaseConfig";
-import { Protect } from '@clerk/remix';
+import { json, LoaderFunction } from "@remix-run/node";
+import { Protect, useUser } from '@clerk/remix'; 
 import { getAuth } from '@clerk/remix/ssr.server';
-import { LoaderFunction, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
+import { firebaseConfig } from "firebaseConfig"; 
 
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
+  if (!userId) {
+    return redirect('/sign-in');
+  }
 
-
-// export const loader: LoaderFunction = async (args) => {
-//   const { userId } = await getAuth(args);
-//   if (!userId) {
-//     return redirect('/sign-in');
-//   }
-//   return {};
-// };
-
-export { firebaseLoader as loader};
+  return json({ firebaseConfig });
+};
 
 interface PatientData {
   firstName: string;
@@ -51,7 +49,7 @@ interface PatientData {
 }
 
 export default function PatientDashboard() {
-  const { firebaseConfig } = useLoaderData<typeof firebaseLoader>();
+  const { firebaseConfig } = useLoaderData<typeof loader>();
   const [patients, setPatients] = useState<{ [key: string]: PatientData }>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -62,6 +60,7 @@ export default function PatientDashboard() {
 
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
+  const { isLoaded, isSignedIn, user } = useUser(); // Get user data from Clerk
 
   useEffect(() => {
     const loadData = async () => {
@@ -147,101 +146,110 @@ export default function PatientDashboard() {
     }
   };
 
+  // Conditionally render based on Clerk authentication status
+  if (!isLoaded) {
+    return <p>Loading...</p>;
+  }
+
+  if (!isSignedIn) {
+    return null; 
+  }
+
   return (
-    <Protect
-      permission="org:sys_domains:read"
-      fallback={<p>You are not allowed to see this section.</p>}
-    >
-      <div className="container mx-auto p-4 space-y-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Patient Dashboard</h1>
-          <Button onClick={fetchAllPatients} disabled={loading}>
-            {loading ? "Refreshing..." : "Refresh Data"}
-          </Button>
-        </div>
+    <div className="container mx-auto p-4 space-y-6">
+      {/* Display welcome message using user.firstName from Clerk */}
+      {user && (
+        <h2 className="text-xl font-semibold">Welcome back, {user.fullName}!</h2>
+      )}
 
-        {loading && (
-          <div className="text-center">
-            <p>Loading data...</p>
-          </div>
-        )}
-
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {error}
-          </div>
-        )}
-
-        {!loading && Object.entries(patients).map(([recordId, patient]) => (
-          <Card key={recordId}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="flex items-center space-x-4">
-                <Avatar className="h-20 w-20">
-                  <AvatarImage alt={`${patient.firstName} ${patient.lastName}`} />
-                  <AvatarFallback>{patient.firstName?.[0]}{patient.lastName?.[0]}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <CardTitle className="text-2xl">
-                    {patient.firstName} {patient.lastName}
-                  </CardTitle>
-                  <CardDescription>
-                    {patient.age} years old • {patient.gender}
-                  </CardDescription>
-                </div>
-              </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 p-0">
-                    <span className="sr-only">Open menu</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                  <DropdownMenuItem>Edit Patient Info</DropdownMenuItem>
-                  <DropdownMenuItem>View Medical Records</DropdownMenuItem>
-                  <DropdownMenuItem>Schedule Appointment</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Print Summary</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2 text-sm">
-                    <Phone className="h-4 w-4" />
-                    <span>{patient.contactNumber}</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm">
-                    <Mail className="h-4 w-4" />
-                    <span>{patient.email}</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm">
-                    <Calendar className="h-4 w-4" />
-                    <span className="text-sm font-medium">Diagnosed Date:</span>
-                    <span className="text-sm">{patient.diagnosedDate || 'N/A'}</span>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Cancer Type:</span>
-                    <Badge variant="secondary">{patient.cancerType}</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Transaction Hash:</span>
-                    <Badge variant="outline">{patient.transactionHash || 'N/A'}</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Patient ID:</span>
-                    <Badge variant="outline">{recordId}</Badge>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Patient Dashboard</h1>
+        <Button onClick={fetchAllPatients} disabled={loading}>
+          {loading ? "Refreshing..." : "Refresh Data"}
+        </Button>
       </div>
-    </Protect>
+
+      {loading && (
+        <div className="text-center">
+          <p>Loading data...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          {error}
+        </div>
+      )}
+
+      {!loading && Object.entries(patients).map(([recordId, patient]) => (
+        <Card key={recordId}>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-20 w-20">
+                <AvatarImage alt={`${patient.firstName} ${patient.lastName}`} />
+                <AvatarFallback>{patient.firstName?.[0]}{patient.lastName?.[0]}</AvatarFallback>
+              </Avatar>
+              <div>
+                <CardTitle className="text-2xl">
+                  {patient.firstName} {patient.lastName}
+                </CardTitle>
+                <CardDescription>
+                  {patient.age} years old • {patient.gender}
+                </CardDescription>
+              </div>
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem>Edit Patient Info</DropdownMenuItem>
+                <DropdownMenuItem>View Medical Records</DropdownMenuItem>
+                <DropdownMenuItem>Schedule Appointment</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Print Summary</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2 text-sm">
+                  <Phone className="h-4 w-4" />
+                  <span>{patient.contactNumber}</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm">
+                  <Mail className="h-4 w-4" />
+                  <span>{patient.email}</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm">
+                  <Calendar className="h-4 w-4" />
+                  <span className="text-sm font-medium">Diagnosed Date:</span>
+                  <span className="text-sm">{patient.diagnosedDate || 'N/A'}</span>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Cancer Type:</span>
+                  <Badge variant="secondary">{patient.cancerType}</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Transaction Hash:</span>
+                  <Badge variant="outline">{patient.transactionHash || 'N/A'}</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Patient ID:</span>
+                  <Badge variant="outline">{recordId}</Badge>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
   );
 }
