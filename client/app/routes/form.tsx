@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema, z } from "./formCustom/zodt";
+// import { formSchema, z } from "./formCustom/zodt";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form";
@@ -18,6 +18,34 @@ import { useLoaderData } from "@remix-run/react";
 import { firebaseConfig } from "firebaseConfig"; 
 import { redirect, LoaderFunction, json} from "@remix-run/node";
 import { getAuth } from '@clerk/remix/ssr.server';
+import * as z from "zod"
+
+const formSchema = z.object({
+    address: z.string().min(10, {
+      message: "First name must be at least 10 digits.",
+    }),
+    firstName: z.string().min(2, {
+      message: "First name must be at least 2 characters.",
+    }),
+    lastName: z.string().min(2, {
+      message: "Last name must be at least 2 characters.",
+    }),
+    gender: z.string({
+      required_error: "Please select a gender.",
+    }),
+    contactNumber: z.string().min(10, {
+      message: "Contact number must be at least 10 digits.",
+    }),
+    cancerType: z.string({
+      required_error: "Please select a cancer type.",
+    }),
+    age: z.string().min(1, {
+      message: "Age is required.",
+    }),
+    email: z.string().email({
+      message: "Invalid email address.",
+    }),
+})
 
 
 // export { firebaseLoader as loader };
@@ -31,7 +59,7 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function NewPatientForm() {
-  const { firebaseConfig } = useLoaderData<typeof firebaseLoader>();
+  const { firebaseConfig } = useLoaderData<any>();
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
 

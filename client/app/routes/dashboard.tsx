@@ -3,7 +3,13 @@ import { useState, useEffect } from "react";
 import Web3 from "web3";
 import { Button } from "~/components/ui/button";
 import { Calendar, ChevronDown, Phone, Mail } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardHeader, 
+  CardTitle 
+} from "~/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
 import { useToast } from "~/hooks/use-toast";
@@ -18,11 +24,10 @@ import {
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get } from "firebase/database";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, redirect, useNavigate } from "@remix-run/react"; 
 import { json, LoaderFunction } from "@remix-run/node";
 import { Protect, useUser } from '@clerk/remix'; 
 import { getAuth } from '@clerk/remix/ssr.server';
-import { redirect } from '@remix-run/node';
 import { firebaseConfig } from "firebaseConfig"; 
 
 export const loader: LoaderFunction = async (args) => {
@@ -54,13 +59,14 @@ export default function PatientDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate(); // Use Remix's useNavigate
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
 
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
-  const { isLoaded, isSignedIn, user } = useUser(); // Get user data from Clerk
+  const { isLoaded, isSignedIn, user } = useUser(); 
 
   useEffect(() => {
     const loadData = async () => {
@@ -146,6 +152,13 @@ export default function PatientDashboard() {
     }
   };
 
+  // Function to handle the "Edit Patient Info" click
+  const handleEditClick = (patient: PatientData) => {
+    // Construct the URL with patient data as query parameters
+    const url = `/form?address=${encodeURIComponent(patient.address)}&firstName=${encodeURIComponent(patient.firstName)}&lastName=${encodeURIComponent(patient.lastName)}&age=${encodeURIComponent(patient.age)}&gender=${encodeURIComponent(patient.gender)}&contactNumber=${encodeURIComponent(patient.contactNumber)}&email=${encodeURIComponent(patient.email)}&cancerType=${encodeURIComponent(patient.cancerType)}`;
+    navigate(url); // Now using navigate from Remix
+  };
+
   // Conditionally render based on Clerk authentication status
   if (!isLoaded) {
     return <p>Loading...</p>;
@@ -159,7 +172,7 @@ export default function PatientDashboard() {
     <div className="container mx-auto p-4 space-y-6">
       {/* Display welcome message using user.firstName from Clerk */}
       {user && (
-        <h2 className="text-xl font-semibold">Welcome back, {user.fullName}!</h2>
+        <h2 className="text-xl font-semibold">Welcome back, {user.firstName}!</h2>
       )}
 
       <div className="flex justify-between items-center mb-6">
@@ -207,7 +220,11 @@ export default function PatientDashboard() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem>Edit Patient Info</DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => handleEditClick(patient)} 
+                >
+                  Edit Patient Info 
+                </DropdownMenuItem>
                 <DropdownMenuItem>View Medical Records</DropdownMenuItem>
                 <DropdownMenuItem>Schedule Appointment</DropdownMenuItem>
                 <DropdownMenuSeparator />
