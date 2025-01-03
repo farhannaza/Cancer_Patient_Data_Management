@@ -117,8 +117,10 @@ export default function PatientDashboard() {
 
       if (snapshot.exists()) {
         const patientData = snapshot.val();
+        console.log("patient data: ", patientData)
         if (patientRegistry) {
           for (const recordId of Object.keys(patientData)) {
+            console.log("recordId: ", recordId)
             const record = await patientRegistry.methods.getPatientRecord(recordId).call();
             console.log("Retrieved blockchain data for patient", recordId, ":", record);
             if (record) {
@@ -153,9 +155,9 @@ export default function PatientDashboard() {
   };
 
   // Function to handle the "Edit Patient Info" click
-  const handleEditClick = (patient: PatientData) => {
+  const handleEditClick = (patient: PatientData, recordId: string) => {
     // Construct the URL with patient data as query parameters
-    const url = `/form?address=${encodeURIComponent(patient.address)}&firstName=${encodeURIComponent(patient.firstName)}&lastName=${encodeURIComponent(patient.lastName)}&age=${encodeURIComponent(patient.age)}&gender=${encodeURIComponent(patient.gender)}&contactNumber=${encodeURIComponent(patient.contactNumber)}&email=${encodeURIComponent(patient.email)}&cancerType=${encodeURIComponent(patient.cancerType)}`;
+    const url = `/form?address=${encodeURIComponent(recordId)}&firstName=${encodeURIComponent(patient.firstName)}&lastName=${encodeURIComponent(patient.lastName)}&age=${encodeURIComponent(patient.age)}&gender=${encodeURIComponent(patient.gender)}&contactNumber=${encodeURIComponent(patient.contactNumber)}&email=${encodeURIComponent(patient.email)}&cancerType=${encodeURIComponent(patient.cancerType)}`;
     navigate(url); // Now using navigate from Remix
   };
 
@@ -221,7 +223,7 @@ export default function PatientDashboard() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem 
-                  onClick={() => handleEditClick(patient)} 
+                  onClick={() => handleEditClick(patient,recordId)} 
                 >
                   Edit Patient Info 
                 </DropdownMenuItem>

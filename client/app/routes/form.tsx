@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { formSchema, z } from "./formCustom/zodt";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form";
@@ -74,6 +73,7 @@ export default function NewPatientForm() {
     email: searchParams.get("email") || "",
     cancerType: searchParams.get("cancerType") || "",
   };
+  console.log("initial value:",initialValues)
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
@@ -81,6 +81,7 @@ export default function NewPatientForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialValues, // Set initial values from query parameters
+    
   });
 
   useEffect(() => {
