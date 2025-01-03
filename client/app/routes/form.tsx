@@ -14,7 +14,7 @@ import PatientRegistryABI from "./artifacts/PatientRegistry.json";
 import CryptoJS from 'crypto-js';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useSearchParams } from "@remix-run/react";
 import { firebaseConfig } from "firebaseConfig"; 
 import { redirect, LoaderFunction, json} from "@remix-run/node";
 import { getAuth } from '@clerk/remix/ssr.server';
@@ -61,22 +61,26 @@ export default function NewPatientForm() {
   const { firebaseConfig } = useLoaderData<any>();
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
+  const [searchParams] = useSearchParams(); // Use useSearchParams to access query parameters
+
+  // Extract patient data from query parameters
+  const initialValues = {
+    address: searchParams.get("address") || "",
+    firstName: searchParams.get("firstName") || "",
+    lastName: searchParams.get("lastName") || "",
+    age: searchParams.get("age") || "",
+    gender: searchParams.get("gender") || "",
+    contactNumber: searchParams.get("contactNumber") || "",
+    email: searchParams.get("email") || "",
+    cancerType: searchParams.get("cancerType") || "",
+  };
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      address: "",
-      firstName: "",
-      lastName: "",
-      contactNumber: "",
-      gender: "",
-      cancerType: "",
-      age: "",  // New field
-      email: "",  // New field
-    },
+    defaultValues: initialValues, // Set initial values from query parameters
   });
 
   useEffect(() => {
