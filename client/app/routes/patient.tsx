@@ -1,13 +1,13 @@
-"use client";
-import { useState, useEffect } from "react";
-import Web3 from "web3";
-import { Button } from "~/components/ui/button";
-import { Calendar, ChevronDown, Phone, Mail } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { Badge } from "~/components/ui/badge";
-import { Input } from "~/components/ui/input";
-import { useToast } from "~/hooks/use-toast";
+"use client"
+import { useState, useEffect } from "react"
+import Web3 from "web3"
+import { Button } from "~/components/ui/button"
+import { Calendar, ChevronDown, Phone, Mail } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
+import { Badge } from "~/components/ui/badge"
+import { Input } from "~/components/ui/input"
+import { useToast } from "~/hooks/use-toast"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,16 +15,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
-import PatientRegistryABI from "./artifacts/PatientRegistry.json";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, query, orderByChild, equalTo } from "firebase/database";
-import { redirect, useLoaderData } from "@remix-run/react";
-import { firebaseConfig } from "firebaseConfig";
-import CryptoJS from 'crypto-js';
-import { json, LoaderFunction } from "@remix-run/node";
-import { getAuth } from "@clerk/remix/ssr.server";
+} from "~/components/ui/dropdown-menu"
+import PatientRegistryABI from "./artifacts/PatientRegistry.json"
+import { initializeApp } from "firebase/app"
+import { getDatabase, ref, get } from "firebase/database"
+import { redirect, useLoaderData } from "@remix-run/react"
+import { firebaseConfig } from "firebaseConfig"
+import CryptoJS from 'crypto-js'
+import { json, LoaderFunction } from "@remix-run/node"
+import { getAuth } from "@clerk/remix/ssr.server"
 
+// export { firebaseLoader as loader };
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
   if (!userId) {
@@ -48,15 +49,13 @@ interface PatientData {
   [key: string]: any;
 }
 
-export default function FetchPatientData() {
+export default function PatientDashboard() {
   const { firebaseConfig } = useLoaderData<any>();
-  const [address, setAddress] = useState<string>("");
-  const [name, setName] = useState<string>("");
+  const [recordId, setRecordId] = useState<string>("");
   const [patient, setPatient] = useState<PatientData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [verificationResult, setVerificationResult] = useState<string>("");
-  const [recordId, setRecordId] = useState<string>("");
   const { toast } = useToast();
 
   const app = initializeApp(firebaseConfig);
@@ -94,55 +93,47 @@ export default function FetchPatientData() {
   };
 
   const fetchPatientData = async () => {
-    if (!address.trim() && !name.trim()) {
+    if (!recordId.trim()) {
       toast({
         title: "Error",
-        description: "Please enter an address or name",
+        description: "Please enter a record ID",
         variant: "destructive",
       });
       return;
     }
-  
+
     setLoading(true);
     setError(null);
     try {
-      let dbRef;
-      if (address.trim()) {
-        dbRef = query(ref(database, 'patients'), orderByChild('address'), equalTo(address));
-      } else if (name.trim()) {
-        dbRef = query(ref(database, 'patients'), orderByChild('firstName'), equalTo(name));
-      }
-  
+      const dbRef = ref(database, `patients/${recordId}`);
       const snapshot = await get(dbRef);
-  
+      
       if (snapshot.exists()) {
         const patientData = snapshot.val();
-        console.log("Retrieved data:", patientData);
-  
-        // Extract the first key from the data object
-        const recordId = Object.keys(patientData)[0]; 
-        console.log("Record ID:", recordId); // This will log "0x5A8528c23b6A7aBe4AEafF130E798740603BFf7C"
-  
+        console.log("Retrieved patient data:", patientData);
+
+        // Fetch blockchain data
         if (patientRegistry) {
           const record = await patientRegistry.methods.getPatientRecord(recordId).call();
           console.log("Retrieved blockchain data:", record);
           if (record) {
-            patientData[recordId].diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
+            patientData.diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
+            // Ensure transactionHash is retrieved from Firebase
+            //patientData.transactionHash = patientData.transactionHash || 'N/A';
           }
         }
-  
-        setPatient(patientData[recordId]);
-        setRecordId(recordId);
+
+        setPatient(patientData);
         toast({
           title: "Success",
           description: "Patient data retrieved successfully",
         });
       } else {
-        setError("No patient found with the provided information");
+        setError("No patient found with this record ID");
         setPatient(null);
         toast({
           title: "Error",
-          description: "No patient found with the provided information",
+          description: "No patient found with this record ID",
           variant: "destructive",
         });
       }
@@ -158,7 +149,7 @@ export default function FetchPatientData() {
       setLoading(false);
     }
   };
-  
+
   const generateHash = (data: any) => {
     const relevantData = {
       firstName: data.firstName,
@@ -183,10 +174,11 @@ export default function FetchPatientData() {
     if (!patientRegistry || !patient) return;
   
     try {
+      // Use getPatientRecord to retrieve the patient record
       const record = await patientRegistry.methods.getPatientRecord(recordId).call();
       console.log("Retrieved patient record from blockchain:", record);
   
-      const storedHash = record.dataHash;
+      const storedHash = record.dataHash; // Access the dataHash from the record
       console.log("Stored hash from blockchain:", storedHash);
   
       const currentHash = generateHash(patient);
@@ -199,10 +191,11 @@ export default function FetchPatientData() {
       } else {
         resultMessage += 'Data integrity compromised: Alterations detected.';
   
+        // Show a red notification
         toast({
           title: "Data Integrity Compromised",
           description: "Alterations detected in the data.",
-          variant: "destructive",
+          variant: "destructive", // This makes the notification red
         });
       }
       resultMessage += `\nStored Hash in Blockchain: ${storedHash}\nComputed Hash from Database: ${currentHash}\n`;
@@ -222,15 +215,9 @@ export default function FetchPatientData() {
 
       <div className="flex gap-4 mb-6">
         <Input
-          placeholder="Enter Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className="max-w-md"
-        />
-        <Input
-          placeholder="Enter Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter Record ID"
+          value={recordId}
+          onChange={(e) => setRecordId(e.target.value)}
           className="max-w-md"
         />
         <Button 
