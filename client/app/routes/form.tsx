@@ -91,7 +91,7 @@ export default function NewPatientForm() {
   const loadBlockchainData = async () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
       const accounts = await web3.eth.getAccounts();
       setAccount(accounts[0]);
 

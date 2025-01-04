@@ -26,7 +26,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get } from "firebase/database";
 import { useLoaderData, redirect, useNavigate } from "@remix-run/react"; 
 import { json, LoaderFunction } from "@remix-run/node";
-import { Protect, useUser } from '@clerk/remix'; 
+import { useUser } from '@clerk/remix'; 
 import { getAuth } from '@clerk/remix/ssr.server';
 import { firebaseConfig } from "firebaseConfig"; 
 
@@ -92,7 +92,7 @@ export default function PatientDashboard() {
   const loadBlockchainData = async () => {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
       const accounts = await web3.eth.getAccounts();
       setAccount(accounts[0]);
 
