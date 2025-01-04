@@ -118,6 +118,7 @@ export default function PatientDashboard() {
       if (snapshot.exists()) {
         const patientData = snapshot.val();
         console.log("patient data: ", patientData)
+        
         if (patientRegistry) {
           for (const recordId of Object.keys(patientData)) {
             console.log("recordId: ", recordId)

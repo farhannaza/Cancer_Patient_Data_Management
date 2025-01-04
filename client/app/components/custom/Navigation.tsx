@@ -33,6 +33,18 @@ export default function Navigation() {
               </Link>
             </NavigationMenuLink>
             <Protect
+              permission="org:patient:data"
+            >
+            <NavigationMenuLink asChild>
+              <Link
+                to="patient"
+                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+              >
+                Profile
+              </Link>
+            </NavigationMenuLink>
+            </Protect>
+            <Protect
               permission="org:doctor:domain"
             >
               <NavigationMenuLink asChild>
