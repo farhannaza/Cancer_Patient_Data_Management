@@ -52,6 +52,5 @@ export function App() {
 export default ClerkApp(App, {
   appearance: {
     baseTheme: [dark] 
-    
   },
 })
