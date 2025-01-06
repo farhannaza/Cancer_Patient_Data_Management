@@ -72,6 +72,18 @@ export default function Navigation() {
                 </Link>
               </NavigationMenuLink>
             </Protect>
+            <Protect
+              permission="org:sys_domains:manage"
+            >
+              <NavigationMenuLink asChild>
+                <Link
+                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                  to="admin"
+                >
+                  Admin
+                </Link>
+              </NavigationMenuLink>
+            </Protect>
             <UserButton /> 
           </NavigationMenuList>
         </NavigationMenu>
