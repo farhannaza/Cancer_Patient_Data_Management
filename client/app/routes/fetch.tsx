@@ -215,7 +215,7 @@ export default function FetchPatientData() {
   };
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
+    <div className="container mx-auto p-4 space-y-6 bg-background text-foreground">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Fetch Patient's Data</h1>
       </div>
@@ -225,30 +225,31 @@ export default function FetchPatientData() {
           placeholder="Enter Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="max-w-md"
+          className="max-w-md bg-input text-foreground"
         />
         <Input
           placeholder="Enter Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="max-w-md"
+          className="max-w-md bg-input text-foreground"
         />
         <Button 
           onClick={fetchPatientData} 
           disabled={loading}
+          className="bg-primary text-primary-foreground"
         >
           {loading ? "Searching..." : "Search"}
         </Button>
       </div>
 
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+        <div className="bg-destructive text-destructive-foreground px-4 py-3 rounded">
           {error}
         </div>
       )}
 
       {patient && (
-        <Card>
+        <Card className="bg-card text-card-foreground">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
@@ -271,7 +272,7 @@ export default function FetchPatientData() {
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="bg-popover text-popover-foreground">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem>Edit Patient Info</DropdownMenuItem>
                 <DropdownMenuItem>View Medical Records</DropdownMenuItem>
@@ -301,15 +302,15 @@ export default function FetchPatientData() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Cancer Type:</span>
-                  <Badge variant="secondary">{patient.cancerType}</Badge>
+                  <Badge variant="secondary" className="bg-secondary text-secondary-foreground">{patient.cancerType}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Transaction Hash:</span>
-                  <Badge variant="outline">{patient.transactionHash || 'N/A'}</Badge>
+                  <Badge variant="outline" className="bg-muted text-muted-foreground">{patient.transactionHash || 'N/A'}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Patient ID:</span>
-                  <Badge variant="outline">{recordId}</Badge>
+                  <Badge variant="outline" className="bg-muted text-muted-foreground">{recordId}</Badge>
                 </div>
               </div>
             </div>
@@ -318,13 +319,13 @@ export default function FetchPatientData() {
       )}
 
       {patient && (
-        <Button onClick={verifyDataIntegrity} className="mt-6">
+        <Button onClick={verifyDataIntegrity} className="mt-6 bg-primary text-primary-foreground">
           Verify Data Integrity
         </Button>
       )}
 
       {verificationResult && (
-        <div className="mt-4 p-4 bg-gray-100 border rounded" style={{ whiteSpace: 'pre-wrap' }}>
+        <div className="mt-4 p-4 bg-muted text-muted-foreground border rounded" style={{ whiteSpace: 'pre-wrap' }}>
           {verificationResult}
         </div>
       )}

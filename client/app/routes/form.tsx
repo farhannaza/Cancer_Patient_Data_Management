@@ -166,9 +166,9 @@ export default function NewPatientForm() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-white shadow rounded-lg">
+    <div className="max-w-2xl mx-auto p-4 bg-background text-foreground shadow rounded-lg">
       <h1 className="text-2xl font-bold mb-6">New Cancer Patient Registration</h1>
-      <Form {...form} >
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
@@ -177,7 +177,7 @@ export default function NewPatientForm() {
               <FormItem>
                 <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="Address" {...field} />
+                  <Input placeholder="Address" {...field} className="bg-input text-foreground" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -191,7 +191,7 @@ export default function NewPatientForm() {
                 <FormItem>
                   <FormLabel>First name</FormLabel>
                   <FormControl>
-                    <Input placeholder="First name" {...field} />
+                    <Input placeholder="First name" {...field} className="bg-input text-foreground" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -204,7 +204,7 @@ export default function NewPatientForm() {
                 <FormItem>
                   <FormLabel>Last name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Last name" {...field} />
+                    <Input placeholder="Last name" {...field} className="bg-input text-foreground" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -219,7 +219,7 @@ export default function NewPatientForm() {
                 <FormItem>
                   <FormLabel>Contact number</FormLabel>
                   <FormControl>
-                    <Input placeholder="011-12345678" {...field} />
+                    <Input placeholder="011-12345678" {...field} className="bg-input text-foreground" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -233,7 +233,7 @@ export default function NewPatientForm() {
                   <FormLabel>Gender</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-input text-foreground">
                         <SelectValue placeholder="Select gender" />
                       </SelectTrigger>
                     </FormControl>
@@ -255,7 +255,7 @@ export default function NewPatientForm() {
                 <FormItem>
                   <FormLabel>Age</FormLabel>
                   <FormControl>
-                    <Input placeholder="Age" {...field} />
+                    <Input placeholder="Age" {...field} className="bg-input text-foreground" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -268,7 +268,7 @@ export default function NewPatientForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email" {...field} />
+                    <Input placeholder="Email" {...field} className="bg-input text-foreground" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -283,7 +283,7 @@ export default function NewPatientForm() {
                 <FormLabel>Cancer Type</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-input text-foreground">
                       <SelectValue placeholder="Select cancer type" />
                     </SelectTrigger>
                   </FormControl>
@@ -302,7 +302,7 @@ export default function NewPatientForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="bg-primary text-primary-foreground">Submit</Button>
         </form>
       </Form>
     </div>

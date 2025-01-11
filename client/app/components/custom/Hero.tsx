@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { motion } from "framer-motion"
-import { ChevronRight, Database, Shield, Activity, Users, ChevronDown } from 'lucide-react'
-import { Button } from "~/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { ChevronRight, Database, Shield, Activity, Users, ChevronDown } from "lucide-react";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 
 export default function LandingPage() {
-  const [mounted, setMounted] = useState(false)
-  const featuresRef = useRef<HTMLElement>(null)
+  const [mounted, setMounted] = useState(false);
+  const featuresRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   const scrollToFeatures = () => {
-    featuresRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+    featuresRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   if (!mounted) {
-    return null
+    return null;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white overflow-x-hidden">
-      <section className="h-screen flex flex-col justify-center items-center relative">
-        <motion.h1 
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <section className="h-screen flex flex-col justify-center items-center relative rounded-b-3xl">
+        <motion.h1
           className="text-6xl md:text-8xl font-extrabold mb-6 text-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ export default function LandingPage() {
         >
           OncologyChain
         </motion.h1>
-        <motion.p 
+        <motion.p
           className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-center px-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,7 +60,7 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      <section id="features" ref={featuresRef} className="py-20 bg-gray-800">
+      <section id="features" ref={featuresRef} className="py-20 bg-secondary rounded-t-3xl rounded-b-3xl">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Key Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -70,9 +70,9 @@ export default function LandingPage() {
               { icon: Activity, title: "Real-time Updates", description: "Instant synchronization of patient data across the network" },
               { icon: Users, title: "Collaborative Care", description: "Seamless sharing of information between healthcare providers" },
             ].map((feature, index) => (
-              <Card 
-                key={index} 
-                className="bg-gray-700 border-gray-600 transition-all duration-300 ease-in-out hover:bg-gray-600 hover:shadow-lg hover:-translate-y-1"
+              <Card
+                key={index}
+                className="bg-card border-border transition-all duration-300 ease-in-out hover:bg-gray-600 hover:shadow-lg hover:-translate-y-1 rounded-xl"
               >
                 <CardHeader>
                   <feature.icon className="h-12 w-12 mb-4 text-blue-400 transition-transform duration-300 ease-in-out group-hover:scale-110" />
@@ -83,7 +83,7 @@ export default function LandingPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-gray-300">{feature.description}</CardDescription>
+                  <CardDescription className="text-card-foreground">{feature.description}</CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -91,37 +91,36 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="about" className="py-20">
+      <section id="about" className="py-20 bg-gray-900 rounded-t-3xl rounded-b-3xl">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">About OncologyChain</h2>
           <p className="text-lg mb-8 max-w-3xl mx-auto text-center">
-            OncologyChain leverages blockchain technology to create a secure, transparent, and efficient ecosystem for managing cancer patient data. Our platform ensures data integrity, facilitates collaboration among healthcare providers, and empowers patients with control over their medical information.
+            OncologyChain leverages blockchain technology to create a secure, transparent, and efficient ecosystem for managing cancer patient
+            data. Our platform ensures data integrity, facilitates collaboration among healthcare providers, and empowers patients with control
+            over their medical information.
           </p>
           <div className="flex justify-center">
-            <Button variant="outline" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-colors duration-300">
+            <Button
+              variant="outline"
+              className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-colors duration-300 rounded-full"
+            >
               Learn More
             </Button>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-gray-800">
+      <section id="contact" className="py-20 bg-secondary rounded-t-3xl rounded-b-3xl">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Get in Touch</h2>
           <p className="text-lg mb-8">
             Interested in implementing OncologyChain in your healthcare facility? Contact us for a demo.
           </p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-300">
+          <Button size="lg" className="bg-primary text-foreground transition-colors duration-300 rounded-full">
             Request a Demo
           </Button>
         </div>
       </section>
-
-      {/* <footer className="bg-gray-900 py-8">
-        <div className="container mx-auto px-4 text-center text-gray-400">
-          <p>&copy; 2023 OncologyChain. All rights reserved.</p>
-        </div>
-      </footer> */}
 
       <div className="fixed inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
@@ -149,5 +148,5 @@ export default function LandingPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }
