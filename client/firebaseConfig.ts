@@ -13,12 +13,15 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
+// Initialize Firebase only if all required config values are present
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// Loader function for Remix routes
+// Add validation for the loader
 export const firebaseLoader: LoaderFunction = async () => {
+  if (!process.env.EXPO_PUBLIC_FIREBASE_DATABASE_URL) {
+    throw new Error("Firebase Database URL is not configured");
+  }
   return json({ firebaseConfig });
 };
 
