@@ -274,13 +274,13 @@ export default function FetchPatientData() {
       )}
 
       {patient && (
-        <Button onClick={verifyDataIntegrity} className="mt-6">
+        <Button onClick={verifyDataIntegrity} className="mt-6 bg-primary text-primary-foreground">
           Verify Data Integrity
         </Button>
       )}
 
       {verificationResult && (
-        <div className="mt-4 p-4 bg-gray-100 border rounded" style={{ whiteSpace: 'pre-wrap' }}>
+        <div className="mt-4 p-4 bg-muted text-muted-foreground border rounded" style={{ whiteSpace: 'pre-wrap' }}>
           {verificationResult}
         </div>
       )}
