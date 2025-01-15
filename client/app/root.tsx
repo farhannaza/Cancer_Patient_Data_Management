@@ -18,6 +18,7 @@ import { ClerkApp } from "@clerk/remix";
 // Import rootAuthLoader
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { dark,neobrutalism, shadesOfPurple } from '@clerk/themes'
+import { ThemeProvider } from "./components/theme-provider"
 
 
 export const loader: LoaderFunction = (args) => rootAuthLoader(args)
@@ -29,7 +30,7 @@ export const links: LinksFunction = () => [
 
 export function App() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,13 +38,15 @@ export function App() {
         <Links />
       </head>
       <body className="container mx-auto">
-        <Toaster/>
-        <Navigation />
-        <main><Outlet /></main>
-        <Footer />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <ThemeProvider defaultTheme="system">
+          <Toaster/>
+          <Navigation />
+          <main><Outlet /></main>
+          <Footer />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </ThemeProvider>
       </body>
     </html>
   );

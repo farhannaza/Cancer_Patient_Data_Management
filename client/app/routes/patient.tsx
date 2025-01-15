@@ -7,14 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/com
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
 import { useToast } from "~/hooks/use-toast";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, query, orderByChild, equalTo } from "firebase/database";
@@ -24,6 +16,13 @@ import CryptoJS from 'crypto-js';
 import { json, LoaderFunction, redirect } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { useUser } from "@clerk/remix";
+import { AbiItem } from 'web3-utils';
+
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
@@ -42,6 +41,8 @@ interface PatientData {
   email: string;
   address: string;
   cancerType: string;
+  clerkId: string;
+  blockchainAddress: string;
   diagnosedDate?: string;
   transactionHash?: string;
   [key: string]: any;
@@ -79,10 +80,10 @@ export default function FetchPatientData() {
         setAccount(accounts[0]);
 
         const networkId = await web3.eth.net.getId();
-        const networkData = PatientRegistryABI.networks[networkId];
+        const networkData = PatientRegistryABI.networks[networkId.toString()];
 
         if (networkData) {
-          const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+          const registry = new web3.eth.Contract(PatientRegistryABI.abi as AbiItem[], networkData.address);
           setPatientRegistry(registry);
         } else {
           window.alert('The smart contract is not deployed to the current network');
@@ -151,7 +152,7 @@ export default function FetchPatientData() {
   
 
   const generateHash = (data: any) => {
-    const relevantData = {
+    const relevantData: { [key: string]: any } = {
       firstName: data.firstName,
       lastName: data.lastName,
       contactNumber: data.contactNumber,
@@ -162,7 +163,7 @@ export default function FetchPatientData() {
       timestamp: data.timestamp
     };
 
-    const sortedData = Object.keys(relevantData).sort().reduce((result: any, key: string) => {
+    const sortedData = Object.keys(relevantData).sort().reduce((result: { [key: string]: any }, key: string) => {
       result[key] = relevantData[key];
       return result;
     }, {});
