@@ -29,6 +29,8 @@ import { json, LoaderFunction } from "@remix-run/node";
 import { useUser } from '@clerk/remix'; 
 import { getAuth } from '@clerk/remix/ssr.server';
 import { firebaseConfig } from "firebaseConfig"; 
+import { AbiItem } from 'web3-utils';
+
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
@@ -100,7 +102,7 @@ export default function PatientDashboard() {
       const networkData = PatientRegistryABI.networks[networkId];
 
       if (networkData) {
-        const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+        const registry = new web3.eth.Contract(PatientRegistryABI.abi as AbiItem[], networkData.address);
         setPatientRegistry(registry);
       } else {
         window.alert('The smart contract is not deployed to the current network');

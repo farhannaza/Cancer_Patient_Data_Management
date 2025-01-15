@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
+
 "use client";
 import { useState, useEffect } from "react";
 import Web3 from "web3";
@@ -24,6 +30,7 @@ import { firebaseConfig } from "firebaseConfig";
 import CryptoJS from 'crypto-js';
 import { json, LoaderFunction } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
+import { AbiItem } from 'web3-utils';
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
@@ -43,6 +50,7 @@ interface PatientData {
   email: string;
   address: string;
   cancerType: string;
+  blockchainAddress: string;
   diagnosedDate?: string;
   transactionHash?: string;
   [key: string]: any;
@@ -77,10 +85,10 @@ export default function FetchPatientData() {
         setAccount(accounts[0]);
 
         const networkId = await web3.eth.net.getId();
-        const networkData = PatientRegistryABI.networks[networkId];
+        const networkData = PatientRegistryABI.networks[networkId.toString()];
 
         if (networkData) {
-          const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+          const registry = new web3.eth.Contract(PatientRegistryABI.abi as AbiItem[], networkData.address);
           setPatientRegistry(registry);
         } else {
           window.alert('The smart contract is not deployed to the current network');
@@ -102,37 +110,65 @@ export default function FetchPatientData() {
       });
       return;
     }
-  
+
     setLoading(true);
     setError(null);
     try {
-      let dbRef;
+      let dbRef: any;
       if (address.trim()) {
-        dbRef = query(ref(database, 'patients'), orderByChild('address'), equalTo(address));
+        dbRef = ref(database, `patients/${address.trim()}`);
       } else if (name.trim()) {
         dbRef = query(ref(database, 'patients'), orderByChild('firstName'), equalTo(name));
       }
-  
+
+      if (!dbRef) return;
+
       const snapshot = await get(dbRef);
-  
+
       if (snapshot.exists()) {
         const patientData = snapshot.val();
         console.log("Retrieved data:", patientData);
-  
-        // Extract the first key from the data object
-        const recordId = Object.keys(patientData)[0]; 
-        console.log("Record ID:", recordId); // This will log "0x5A8528c23b6A7aBe4AEafF130E798740603BFf7C"
-  
-        if (patientRegistry) {
-          const record = await patientRegistry.methods.getPatientRecord(recordId).call();
-          console.log("Retrieved blockchain data:", record);
-          if (record) {
-            patientData[recordId].diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
+
+        let currentRecordId;
+        let currentPatient;
+
+        if (address.trim()) {
+          currentRecordId = address.trim();
+          currentPatient = patientData;
+        } else {
+          // For name search, we need to get the blockchain address from the patient data
+          const patientKey = Object.keys(patientData)[0];
+          currentPatient = patientData[patientKey];
+          // Assuming the blockchain address is stored in the patient data
+          currentRecordId = currentPatient.blockchainAddress || patientKey;
+        }
+
+        // Set the state with the current values
+        setPatient(currentPatient);
+        setRecordId(currentRecordId);
+
+        // Only verify on blockchain if we have a valid address
+        if (patientRegistry && currentRecordId && Web3.utils.isAddress(currentRecordId)) {
+          try {
+            const record = await patientRegistry.methods.getPatientRecord(currentRecordId).call();
+            console.log("Retrieved blockchain data:", record);
+            if (record) {
+              setPatient(prev => ({
+                ...prev,
+                diagnosedDate: new Date(record.timestamp * 1000).toLocaleString()
+              } as PatientData));
+            }
+          } catch (blockchainError) {
+            console.error("Blockchain verification error:", blockchainError);
+            // Don't fail the entire operation if blockchain verification fails
+            toast({
+              title: "Warning",
+              description: "Could not verify blockchain data",
+              variant: "destructive",
+            });
           }
         }
-  
-        setPatient(patientData[recordId]);
-        setRecordId(recordId);
+
         toast({
           title: "Success",
           description: "Patient data retrieved successfully",
@@ -160,7 +196,7 @@ export default function FetchPatientData() {
   };
   
   const generateHash = (data: any) => {
-    const relevantData = {
+    const relevantData: { [key: string]: any } = {
       firstName: data.firstName,
       lastName: data.lastName,
       contactNumber: data.contactNumber,
@@ -171,7 +207,7 @@ export default function FetchPatientData() {
       timestamp: data.timestamp
     };
   
-    const sortedData = Object.keys(relevantData).sort().reduce((result: any, key: string) => {
+    const sortedData = Object.keys(relevantData).sort().reduce((result: { [key: string]: any }, key: string) => {
       result[key] = relevantData[key];
       return result;
     }, {});
