@@ -11,6 +11,7 @@ import {
 } from "~/components/ui/navigation-menu";
 import { UserButton } from "@clerk/remix";
 import { Protect } from "@clerk/remix";
+import { ThemeToggle } from "../theme-toggle"
 
 export default function Navigation() {
   return (
@@ -79,6 +80,7 @@ export default function Navigation() {
               </NavigationMenuLink>
             </Protect>
             <UserButton />
+            <ThemeToggle />
           </NavigationMenuList>
         </NavigationMenu>
       </div>

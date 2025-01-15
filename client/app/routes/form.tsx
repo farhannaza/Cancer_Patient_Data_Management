@@ -18,6 +18,7 @@ import { firebaseConfig } from "firebaseConfig";
 import { redirect, LoaderFunction, json} from "@remix-run/node";
 import { getAuth } from '@clerk/remix/ssr.server';
 import * as z from "zod"
+import { AbiItem } from 'web3-utils';
 
 const formSchema = z.object({
     address: z.string().min(10, {
@@ -99,7 +100,7 @@ export default function NewPatientForm() {
       const networkData = PatientRegistryABI.networks[networkId];
 
       if (networkData) {
-        const registry = new web3.eth.Contract(PatientRegistryABI.abi, networkData.address);
+        const registry = new web3.eth.Contract(PatientRegistryABI.abi as AbiItem[], networkData.address);
         setPatientRegistry(registry);
       } else {
         window.alert('The smart contract is not deployed to the current network');
