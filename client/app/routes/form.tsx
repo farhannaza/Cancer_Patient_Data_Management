@@ -97,7 +97,7 @@ export default function NewPatientForm() {
       setAccount(accounts[0]);
 
       const networkId = await web3.eth.net.getId();
-      const networkData = PatientRegistryABI.networks[networkId];
+      const networkData = (PatientRegistryABI.networks as any)[networkId.toString()];
 
       if (networkData) {
         const registry = new web3.eth.Contract(PatientRegistryABI.abi as AbiItem[], networkData.address);
@@ -161,7 +161,7 @@ export default function NewPatientForm() {
       console.error("Error submitting form:", error);
       toast({
         title: "Error",
-        description: `There was an error submitting the form: ${error.message}`,
+        description: `There was an error submitting the form: ${error instanceof Error ? error.message : 'Unknown error'}`,
       });
     }
   };
