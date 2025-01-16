@@ -4,24 +4,27 @@ import { getDatabase } from "firebase/database";
 import { json, LoaderFunction } from "@remix-run/node";
 
 const firebaseConfig = {
-  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.EXPO_PUBLIC_FIREBASE_DATABASE_URL,
-  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID
+  apiKey: "AIzaSyABd0P58Guvh0GyY08BuWnccZPnzxHerdw",
+  authDomain: "onchologychain-ff1d9.firebaseapp.com",
+  databaseURL: "https://onchologychain-ff1d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "onchologychain-ff1d9",
+  storageBucket: "onchologychain-ff1d9.firebasestorage.app",
+  messagingSenderId: "249856462590",
+  appId: "1:249856462590:web:9ce5383e04768ac38d9faf"
 };
 
-// Initialize Firebase only if all required config values are present
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// Initialize Firebase
+let app;
+let database;
 
-// Add validation for the loader
+try {
+  app = initializeApp(firebaseConfig);
+  database = getDatabase(app);
+} catch (error) {
+  console.error("Firebase initialization error:", error);
+}
+
 export const firebaseLoader: LoaderFunction = async () => {
-  if (!process.env.EXPO_PUBLIC_FIREBASE_DATABASE_URL) {
-    throw new Error("Firebase Database URL is not configured");
-  }
   return json({ firebaseConfig });
 };
 
