@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Web3 from "web3";
 import { Button } from "~/components/ui/button";
-import { Calendar, ChevronDown, Phone, Mail } from "lucide-react";
+import { Calendar, ChevronDown, Phone, Mail, CheckCircle, XCircle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
@@ -17,6 +17,7 @@ import { json, LoaderFunction, redirect } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { useUser } from "@clerk/remix";
 import { AbiItem } from 'web3-utils';
+import { motion } from "framer-motion";
 
 declare global {
   interface Window {
@@ -63,6 +64,7 @@ export default function FetchPatientData() {
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
   const { isLoaded, isSignedIn, user } = useUser();
+  const [isVerifying, setIsVerifying] = useState(false);
 
   useEffect(() => {
     loadBlockchainData();
@@ -80,7 +82,7 @@ export default function FetchPatientData() {
         setAccount(accounts[0]);
 
         const networkId = await web3.eth.net.getId();
-        const networkData = PatientRegistryABI.networks[networkId.toString()];
+        const networkData = (PatientRegistryABI.networks as any)[networkId.toString()];
 
         if (networkData) {
           const registry = new web3.eth.Contract(PatientRegistryABI.abi as AbiItem[], networkData.address);
@@ -104,26 +106,37 @@ export default function FetchPatientData() {
       const dbRef = query(ref(database, 'patients'), orderByChild('clerkId'), equalTo(userId));
 
       const snapshot = await get(dbRef);
-  
+
       if (snapshot.exists()) {
         const patientData = snapshot.val();
         console.log("Retrieved firebase data:", patientData);
-  
+
         // Extract the first key from the data object
         const recordId = Object.keys(patientData)[0]; 
-  
-        if (patientRegistry) {
-          const record = await patientRegistry.methods.getPatientRecord(recordId).call();
-          console.log("timestamp:", record.timestamp)
-          console.log("Retrieved blockchain data:", record);
-          if (record) {
-            patientData[recordId].diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
+        const currentPatient = patientData[recordId];
 
+        // Set initial patient data
+        setPatient(currentPatient);
+        setRecordId(recordId);
+
+        // Fetch blockchain data if registry is available
+        if (patientRegistry && recordId) {
+          try {
+            const record = await patientRegistry.methods.getPatientRecord(recordId).call();
+            console.log("Retrieved blockchain data:", record);
+            
+            if (record && record.timestamp) {
+              // Update patient data with diagnosed date
+              setPatient(prev => ({
+                ...prev!,
+                diagnosedDate: new Date(record.timestamp * 1000).toLocaleString()
+              }));
+            }
+          } catch (blockchainError) {
+            console.error("Error fetching blockchain data:", blockchainError);
           }
         }
-  
-        setPatient(patientData[recordId]);
-        setRecordId(recordId);
+
         toast({
           title: "Success",
           description: "User data retrieved successfully",
@@ -174,23 +187,26 @@ export default function FetchPatientData() {
   const verifyDataIntegrity = async () => {
     if (!patientRegistry || !patient) return;
 
+    setVerificationResult('');
+    
     try {
+      setIsVerifying(true);
       const record = await patientRegistry.methods.getPatientRecord(recordId).call();
       console.log("Retrieved patient record from blockchain:", record);
 
       const storedHash = record.dataHash;
-      console.log("Stored hash from blockchain:", storedHash);
-
       const currentHash = generateHash(patient);
-      console.log("Computed hash from Firebase data:", currentHash);
+
+      // Add delay for animation
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       let resultMessage = '';
+      const isMatch = storedHash === currentHash;
 
-      if (storedHash === currentHash) {
+      if (isMatch) {
         resultMessage += 'Data integrity verified: No alterations detected.';
       } else {
         resultMessage += 'Data integrity compromised: Alterations detected.';
-
         toast({
           title: "Data Integrity Compromised",
           description: "Alterations detected in the data.",
@@ -203,6 +219,8 @@ export default function FetchPatientData() {
     } catch (error) {
       console.error("Error verifying data integrity:", error);
       setVerificationResult('Error verifying data integrity.');
+    } finally {
+      setIsVerifying(false);
     }
   };
 
@@ -275,14 +293,67 @@ export default function FetchPatientData() {
       )}
 
       {patient && (
-        <Button onClick={verifyDataIntegrity} className="mt-6 bg-primary text-primary-foreground">
-          Verify Data Integrity
-        </Button>
-      )}
+        <div className="space-y-4">
+          <Button 
+            onClick={verifyDataIntegrity} 
+            disabled={isVerifying}
+            className="mt-6 bg-primary text-primary-foreground"
+          >
+            {isVerifying ? "Verifying..." : "Verify Data Integrity"}
+          </Button>
 
-      {verificationResult && (
-        <div className="mt-4 p-4 bg-muted text-muted-foreground border rounded" style={{ whiteSpace: 'pre-wrap' }}>
-          {verificationResult}
+          {isVerifying && (
+            <div className="mt-6 relative h-40 bg-secondary/20 rounded-lg overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="blockchain-animation flex items-center space-x-4">
+                  {[...Array(5)].map((_, index) => (
+                    <motion.div
+                      key={index}
+                      className="block w-12 h-12 bg-primary rounded-md flex items-center justify-center text-primary-foreground font-bold"
+                      initial={{ scale: 1, x: -100, opacity: 0 }}
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        x: 0,
+                        opacity: 1,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        delay: index * 0.2,
+                        repeat: Infinity,
+                        repeatDelay: 2
+                      }}
+                    >
+                      {index + 1}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent"
+                initial={{ x: '-100%' }}
+                animate={{ x: '100%' }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
+          )}
+
+          {verificationResult && (
+            <div className="mt-4 p-4 bg-muted text-muted-foreground border rounded space-y-2">
+              <div className="flex items-center gap-2">
+                {verificationResult.includes('No alterations detected') ? (
+                  <CheckCircle className="text-green-500" />
+                ) : (
+                  <XCircle className="text-red-500" />
+                )}
+                <span className="font-medium">
+                  {verificationResult.split('\n')[0]}
+                </span>
+              </div>
+              <pre className="mt-2 whitespace-pre-wrap text-sm">
+                {verificationResult.split('\n').slice(1).join('\n')}
+              </pre>
+            </div>
+          )}
         </div>
       )}
     </div>

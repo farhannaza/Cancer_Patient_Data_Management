@@ -36,13 +36,13 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 222.2 47% 11%;
     --foreground: 210 40% 98%;
 
-    --card: 217.2 32.6% 17.5%;
+    --card: 217.2 32.6% 20%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 217.2 32.6% 17.5%;
+    --popover: 217.2 32.6% 20%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 217.2 91.2% 59.8%;
@@ -71,6 +71,21 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
   }
+  html {
+    scrollbar-gutter: stable;
+  }
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+html, body {
+  @apply antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
 }

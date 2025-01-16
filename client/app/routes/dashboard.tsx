@@ -99,7 +99,7 @@ export default function PatientDashboard() {
       setAccount(accounts[0]);
 
       const networkId = await web3.eth.net.getId();
-      const networkData = PatientRegistryABI.networks[networkId];
+        const networkData = (PatientRegistryABI.networks as any)[networkId.toString()];
 
       if (networkData) {
         const registry = new web3.eth.Contract(PatientRegistryABI.abi as AbiItem[], networkData.address);

@@ -37,12 +37,14 @@ export function App() {
         <Meta />
         <Links />
       </head>
-      <body className="container mx-auto">
+      <body className="min-h-screen bg-background antialiased">
         <ThemeProvider defaultTheme="system">
-          <Toaster/>
-          <Navigation />
-          <main><Outlet /></main>
-          <Footer />
+          <div className="relative flex min-h-screen flex-col">
+            <Toaster/>
+            <Navigation />
+            <main className="flex-1"><Outlet /></main>
+            <Footer />
+          </div>
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
