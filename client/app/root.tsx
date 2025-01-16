@@ -15,13 +15,31 @@ import Footer from "./components/custom/Footer";
 import { Toaster } from "./components/ui/toaster"
 
 import { ClerkApp } from "@clerk/remix";
-// Import rootAuthLoader
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
-import { dark,neobrutalism, shadesOfPurple } from '@clerk/themes'
+import { dark } from '@clerk/themes'
 import { ThemeProvider } from "./components/theme-provider"
 
+export const loader: LoaderFunction = (args) => {
+  if (!process.env.CLERK_SECRET_KEY) {
+    throw new Error("Missing CLERK_SECRET_KEY");
+  }
+  return rootAuthLoader(args);
+};
 
-export const loader: LoaderFunction = (args) => rootAuthLoader(args)
+export function ErrorBoundary() {
+  return (
+    <html>
+      <head>
+        <title>Error</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
