@@ -42,6 +42,14 @@ export default function Navigation() {
                   Profile
                 </Link>
               </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link
+                  to="http://192.168.1.6:3000/medical-profile"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Risk Analysis
+                </Link>
+              </NavigationMenuLink>
             </Protect>
             <Protect permission="org:doctor:domain">
               <NavigationMenuLink asChild>
@@ -66,6 +74,14 @@ export default function Navigation() {
                   to="dashboard"
                 >
                   Dashboard
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link
+                  className="text-muted-foreground hover:text-foreground"
+                  to="http://192.168.1.6:3000/upload-form"
+                >
+                  CancerCare(Zahin)
                 </Link>
               </NavigationMenuLink>
             </Protect>
