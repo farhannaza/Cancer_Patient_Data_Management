@@ -49,6 +49,11 @@ interface PatientData {
   [key: string]: any;
 }
 
+// Add this utility function to encode emails
+const encodeEmail = (email: string) => {
+  return email.replace(/\./g, ',');
+};
+
 export default function FetchPatientData() {
   const { firebaseConfig } = useLoaderData<any>();
   const [patient, setPatient] = useState<PatientData | null>(null);
@@ -98,12 +103,14 @@ export default function FetchPatientData() {
     }
   };
 
+  // Use the encoded email for Firebase operations
   const fetchPatientData = async (email: string) => {
+    const encodedEmail = encodeEmail(email);
     setLoading(true);
     setError(null);
     try {
       console.log("Fetching data for userId:", email);
-      const dbRef = query(ref(database, 'patients'), orderByChild('email'), equalTo(email));
+      const dbRef = query(ref(database, 'patients'), orderByChild('email'), equalTo(encodedEmail));
 
       const snapshot = await get(dbRef);
 

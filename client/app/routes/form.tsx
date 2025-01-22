@@ -118,6 +118,10 @@ export default function NewPatientForm() {
     return CryptoJS.SHA256(JSON.stringify(sortedData)).toString();
   };
 
+  const encodeEmail = (email: string) => {
+    return email.replace(/\./g, ',');
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (!patientRegistry) {
       console.error("Contract is not initialized");
@@ -132,14 +136,16 @@ export default function NewPatientForm() {
       cancerType: values.cancerType,
       age: values.age,
       email: values.email,
+      blockchainAddress: values.address,  // Store the address as an attribute
       timestamp: Math.floor(Date.now() / 1000)
     };
 
     const dataHash = generateHash(patientData);
 
     try {
-      // Check if the address exists
-      const dbRef = ref(database, `patients/${values.address}`);
+      // Encode email to use as the unique identifier
+      const encodedEmail = encodeEmail(values.email);
+      const dbRef = ref(database, `patients/${encodedEmail}`);
       const snapshot = await get(dbRef);
       
       if (snapshot.exists()) {
@@ -150,9 +156,9 @@ export default function NewPatientForm() {
         await set(dbRef, patientData);
       }
 
-      // Register/Update on blockchain
+      // Register/Update on blockchain using the blockchain address
       const receipt = await patientRegistry.methods.registerPatient(
-        values.address,
+        values.address,  // Use blockchain address for the transaction
         dataHash
       ).send({ from: account });
 
