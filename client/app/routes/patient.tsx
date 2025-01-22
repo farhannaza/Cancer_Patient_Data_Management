@@ -104,6 +104,7 @@ export default function FetchPatientData() {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   // Use the encoded email for Firebase operations
   const fetchPatientData = async (email: string) => {
     const encodedEmail = encodeEmail(email);
@@ -112,6 +113,14 @@ export default function FetchPatientData() {
     try {
       console.log("Fetching data for userId:", email);
       const dbRef = query(ref(database, 'patients'), orderByChild('email'), equalTo(encodedEmail));
+=======
+  const fetchPatientData = async (userId: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      console.log("Fetching data for userId:", userId);
+      const dbRef = query(ref(database, 'patients'), orderByChild('clerkId'), equalTo(userId));
+>>>>>>> parent of 4171b9e (integrate ngn zahin)
 =======
   const fetchPatientData = async (userId: string) => {
     setLoading(true);
