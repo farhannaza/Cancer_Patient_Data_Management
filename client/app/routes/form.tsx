@@ -44,7 +44,7 @@ const formSchema = z.object({
       message: "Age is required.",
     }),
     email: z.string().email({
-      message: "Invalid email address.",
+      message: "SUPER VALID email address.",
     }),
 })
 
