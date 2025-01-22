@@ -103,6 +103,7 @@ export default function FetchPatientData() {
     }
   };
 
+<<<<<<< HEAD
 
   // Use the encoded email for Firebase operations
   const fetchPatientData = async (email: string) => {
@@ -124,6 +125,12 @@ export default function FetchPatientData() {
     setLoading(true);
     setError(null);
     try {
+=======
+  const fetchPatientData = async (userId: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+>>>>>>> parent of 4171b9e (integrate ngn zahin)
       console.log("Fetching data for userId:", userId);
       const dbRef = query(ref(database, 'patients'), orderByChild('clerkId'), equalTo(userId));
 
