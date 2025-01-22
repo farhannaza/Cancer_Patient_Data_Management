@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -311,4 +310,3 @@ export default function NewPatientForm() {
     </div>
   );
 }
->>>>>>> parent of 4171b9e (integrate ngn zahin)
