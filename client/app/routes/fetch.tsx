@@ -32,7 +32,6 @@ import { json, LoaderFunction } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { AbiItem } from 'web3-utils';
 import { motion } from "framer-motion";
-import { useUser } from "@clerk/remix";
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
@@ -60,16 +59,15 @@ interface PatientData {
 
 export default function FetchPatientData() {
   const { firebaseConfig } = useLoaderData<any>();
-  const { isLoaded, isSignedIn, user } = useUser();
-  const { toast } = useToast();
-  const [address, setAddress] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [address, setAddress] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [patient, setPatient] = useState<PatientData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [patient, setPatient] = useState<PatientData | null>(null);
   const [verificationResult, setVerificationResult] = useState<string>("");
   const [recordId, setRecordId] = useState<string>("");
   const [isVerifying, setIsVerifying] = useState(false);
+  const { toast } = useToast();
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
@@ -107,12 +105,6 @@ export default function FetchPatientData() {
     }
   };
 
-  // Add this utility function to encode emails
-  const encodeEmail = (email: string) => {
-    return email.replace(/\./g, ',');
-  };
-
-  // Use the encoded email for Firebase operations
   const fetchPatientData = async () => {
     if (!address.trim() && !name.trim()) {
       toast({
@@ -128,10 +120,8 @@ export default function FetchPatientData() {
     try {
       let dbRef: any;
       if (address.trim()) {
-        // Query by blockchain address
-        dbRef = query(ref(database, 'patients'), orderByChild('blockchainAddress'), equalTo(address.trim()));
+        dbRef = ref(database, `patients/${address.trim()}`);
       } else if (name.trim()) {
-        // Query by name
         dbRef = query(ref(database, 'patients'), orderByChild('firstName'), equalTo(name));
       }
 
@@ -141,26 +131,54 @@ export default function FetchPatientData() {
 
       if (snapshot.exists()) {
         const patientData = snapshot.val();
-        // Assuming patientData is an object with keys as record IDs
-        const firstKey = Object.keys(patientData)[0];
-        const currentPatient = patientData[firstKey];
+        console.log("Retrieved data:", patientData);
 
-        // Fetch blockchain data
-        const blockchainAddress = currentPatient.blockchainAddress;
-        if (blockchainAddress && Web3.utils.isAddress(blockchainAddress)) {
-          const record = await patientRegistry.methods.getPatientRecord(blockchainAddress).call();
-          console.log("Retrieved blockchain data:", record);
-          if (record) {
-            currentPatient.diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
+        let currentRecordId;
+        let currentPatient;
+
+        if (address.trim()) {
+          currentRecordId = address.trim();
+          currentPatient = patientData;
+        } else {
+          // For name search, we need to get the blockchain address from the patient data
+          const patientKey = Object.keys(patientData)[0];
+          currentPatient = patientData[patientKey];
+          // Assuming the blockchain address is stored in the patient data
+          currentRecordId = currentPatient.blockchainAddress || patientKey;
+        }
+
+        // Set the state with the current values
+        setPatient(currentPatient);
+        setRecordId(currentRecordId);
+
+        // Only verify on blockchain if we have a valid address
+        if (patientRegistry && currentRecordId && Web3.utils.isAddress(currentRecordId)) {
+          try {
+            const record = await patientRegistry.methods.getPatientRecord(currentRecordId).call();
+            console.log("Retrieved blockchain data:", record);
+            if (record) {
+              setPatient(prev => ({
+                ...prev,
+                diagnosedDate: new Date(record.timestamp * 1000).toLocaleString()
+              } as PatientData));
+            }
+          } catch (blockchainError) {
+            console.error("Blockchain verification error:", blockchainError);
+            // Don't fail the entire operation if blockchain verification fails
+            toast({
+              title: "Warning",
+              description: "Could not verify blockchain data",
+              variant: "destructive",
+            });
           }
         }
 
-        setPatient(currentPatient); // Set the patient with combined data
         toast({
           title: "Success",
           description: "Patient data retrieved successfully",
         });
       } else {
+        setError("No patient found with the provided information");
         setPatient(null);
         toast({
           title: "Error",
@@ -190,7 +208,6 @@ export default function FetchPatientData() {
       cancerType: data.cancerType,
       age: data.age,
       email: data.email,
-      blockchainAddress: data.address,  // Store the address as an attribute
       timestamp: data.timestamp
     };
   
@@ -205,16 +222,6 @@ export default function FetchPatientData() {
   const verifyDataIntegrity = async () => {
     if (!patientRegistry || !patient) return;
   
-    const blockchainAddress = patient.blockchainAddress;
-    if (!blockchainAddress || !Web3.utils.isAddress(blockchainAddress)) {
-      toast({
-        title: "Error",
-        description: "Invalid blockchain address",
-        variant: "destructive",
-      });
-      return;
-    }
-  
     setVerificationResult('');
     
     try {
@@ -223,40 +230,38 @@ export default function FetchPatientData() {
       // Scroll to the verification section
       verificationRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       
-      const record = await patientRegistry.methods.getPatientRecord(blockchainAddress).call();
+      const record = await patientRegistry.methods.getPatientRecord(recordId).call();
       console.log("Retrieved patient record from blockchain:", record);
   
-      if (record) {
-        // Compare the blockchain record with the local patient data
-        const localHash = generateHash(patient);
-        console.log("Local Hash:", localHash);
-        console.log("Blockchain Hash:", record.dataHash);
+      const storedHash = record.dataHash;
+      const currentHash = generateHash(patient);
   
-        if (localHash === record.dataHash) {
-          setVerificationResult('No alterations detected');
-        } else {
-          setVerificationResult('Data mismatch detected');
-        }
+      // Add delay for animation
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+  
+      let resultMessage = '';
+      const isMatch = storedHash === currentHash;
+  
+      if (isMatch) {
+        resultMessage += 'Data integrity verified: No alterations detected.';
+      } else {
+        resultMessage += 'Data integrity compromised: Alterations detected.';
+        toast({
+          title: "Data Integrity Compromised",
+          description: "Alterations detected in the data.",
+          variant: "destructive",
+        });
       }
+      resultMessage += `\nStored Hash in Blockchain: ${storedHash}\nComputed Hash from Database: ${currentHash}\n`;
+      setVerificationResult(resultMessage);
   
     } catch (error) {
       console.error("Error verifying data integrity:", error);
-      toast({
-        title: "Error",
-        description: "Failed to verify data integrity",
-        variant: "destructive",
-      });
+      setVerificationResult('Error verifying data integrity.');
     } finally {
       setIsVerifying(false);
     }
   };
-
-  // Call fetchPatientData with the user's email
-  useEffect(() => {
-    if (user) {
-      fetchPatientData();
-    }
-  }, [user]);
 
   return (
     <div className="container mx-auto p-4 space-y-6 bg-background text-foreground">
@@ -354,7 +359,7 @@ export default function FetchPatientData() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Patient ID:</span>
-                  <Badge variant="outline" className="bg-muted text-muted-foreground">{patient.blockchainAddress}</Badge>
+                  <Badge variant="outline" className="bg-muted text-muted-foreground">{recordId}</Badge>
                 </div>
               </div>
             </div>

@@ -52,14 +52,8 @@ interface PatientData {
   cancerType: string;
   diagnosedDate?: string;
   transactionHash?: string;
-  blockchainAddress?: string;
   [key: string]: any;
 }
-
-// Add this utility function to encode emails
-const encodeEmail = (email: string) => {
-  return email.replace(/\./g, ',');
-};
 
 export default function PatientDashboard() {
   const { firebaseConfig } = useLoaderData<typeof loader>();
@@ -75,27 +69,6 @@ export default function PatientDashboard() {
   const [account, setAccount] = useState<string>('');
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
   const { isLoaded, isSignedIn, user } = useUser(); 
-
-  // Use the encoded email for Firebase operations
-  const fetchDashboardData = async (email: string) => {
-    const encodedEmail = encodeEmail(email);
-    const dbRef = ref(database, `patients/${encodedEmail}`);
-    const snapshot = await get(dbRef);
-
-    if (snapshot.exists()) {
-      const patientData = snapshot.val();
-      // Handle patient data
-    } else {
-      // Handle case where no data is found
-    }
-  };
-
-  // Call fetchDashboardData with the user's email
-  useEffect(() => {
-    if (user) {
-      fetchDashboardData(user.emailAddresses[0].emailAddress);
-    }
-  }, [user]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -146,19 +119,15 @@ export default function PatientDashboard() {
 
       if (snapshot.exists()) {
         const patientData = snapshot.val();
-        console.log("patient data: ", patientData);
+        console.log("patient data: ", patientData)
         
         if (patientRegistry) {
           for (const recordId of Object.keys(patientData)) {
-            const patient = patientData[recordId];
-            const blockchainAddress = patient.blockchainAddress; // Use the blockchain address
-
-            if (blockchainAddress) {
-              const record = await patientRegistry.methods.getPatientRecord(blockchainAddress).call();
-              console.log("Retrieved blockchain data for patient", recordId, ":", record);
-              if (record) {
-                patientData[recordId].diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
-              }
+            console.log("recordId: ", recordId)
+            const record = await patientRegistry.methods.getPatientRecord(recordId).call();
+            console.log("Retrieved blockchain data for patient", recordId, ":", record);
+            if (record) {
+              patientData[recordId].diagnosedDate = new Date(record.timestamp * 1000).toLocaleString();
             }
           }
         }

@@ -9,9 +9,10 @@ import {
   NavigationMenuList,
   NavigationMenu,
 } from "~/components/ui/navigation-menu";
-import { UserButton } from "@clerk/remix";
+import { SignedIn, SignedOut, UserButton } from "@clerk/remix";
 import { Protect } from "@clerk/remix";
 import { ThemeToggle } from "../theme-toggle"
+
 
 export default function Navigation() {
   return (
@@ -33,6 +34,24 @@ export default function Navigation() {
                 Home
               </Link>
             </NavigationMenuLink>
+            <NavigationMenuLink asChild>
+              <Link
+                to="http://192.168.1.6:3000/upload-form"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Risk Analysis
+              </Link>
+            </NavigationMenuLink>
+            <SignedOut>
+            <NavigationMenuLink asChild>
+              <Link
+                to="sign-in"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Sign In
+              </Link>
+            </NavigationMenuLink>
+            </SignedOut>
             <Protect permission="org:patient:data">
               <NavigationMenuLink asChild>
                 <Link
@@ -40,14 +59,6 @@ export default function Navigation() {
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Profile
-                </Link>
-              </NavigationMenuLink>
-              <NavigationMenuLink asChild>
-                <Link
-                  to="http://192.168.1.6:3000/medical-profile"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Risk Analysis
                 </Link>
               </NavigationMenuLink>
             </Protect>
