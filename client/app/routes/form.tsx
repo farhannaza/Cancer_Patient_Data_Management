@@ -12,7 +12,7 @@ import { toast } from "~/hooks/use-toast";
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
 import CryptoJS from 'crypto-js';
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, get, update } from "firebase/database";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
 import { firebaseConfig } from "firebaseConfig"; 
 import { redirect, LoaderFunction, json} from "@remix-run/node";
@@ -130,33 +130,47 @@ export default function NewPatientForm() {
       contactNumber: values.contactNumber,
       gender: values.gender,
       cancerType: values.cancerType,
-      age: values.age,  // Include new field
-      email: values.email,  // Include new field
+      age: values.age,
+      email: values.email,
       timestamp: Math.floor(Date.now() / 1000)
     };
 
     const dataHash = generateHash(patientData);
 
     try {
-      // Store data in Firebase using patient address as the key
+      // Check if the address exists
       const dbRef = ref(database, `patients/${values.address}`);
-      await set(dbRef, patientData);
+      const snapshot = await get(dbRef);
+      
+      if (snapshot.exists()) {
+        // Update existing patient data
+        await update(dbRef, patientData);
+      } else {
+        // Create new patient data
+        await set(dbRef, patientData);
+      }
 
-      // Register patient on blockchain with hash
+      // Register/Update on blockchain
       const receipt = await patientRegistry.methods.registerPatient(
-        values.address,  // patient address as identifier
+        values.address,
         dataHash
       ).send({ from: account });
 
       console.log("Transaction successful with hash:", receipt.transactionHash);
 
-      // Store the transaction hash in Firebase
-      await set(ref(database, `patients/${values.address}/transactionHash`), receipt.transactionHash);
-
-      toast({
-        title: "New patient data submitted",
-        description: "The form was submitted successfully.",
+      // Update transaction hash
+      await update(dbRef, {
+        transactionHash: receipt.transactionHash
       });
+
+      // Show success toast after blockchain transaction is complete
+      toast({
+        title: snapshot.exists() ? "Patient Updated" : "New Patient Added",
+        description: snapshot.exists() 
+          ? "Existing patient data has been updated successfully."
+          : "New patient data has been created successfully.",
+      });
+
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Web3 from "web3";
 import { Button } from "~/components/ui/button";
-import { Calendar, ChevronDown, Phone, Mail, CheckCircle, XCircle } from "lucide-react";
+import { Calendar, ChevronDown, Phone, Mail, CheckCircle, XCircle, RefreshCw } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
@@ -69,7 +69,7 @@ export default function FetchPatientData() {
   useEffect(() => {
     loadBlockchainData();
     if (isLoaded && isSignedIn && user) {
-      fetchPatientData(user.id);
+      fetchPatientData(user.emailAddresses[0].emailAddress);
     }
     
   }, [isLoaded, isSignedIn, user]);
@@ -98,12 +98,12 @@ export default function FetchPatientData() {
     }
   };
 
-  const fetchPatientData = async (userId: string) => {
+  const fetchPatientData = async (email: string) => {
     setLoading(true);
     setError(null);
     try {
-      console.log("Fetching data for userId:", userId);
-      const dbRef = query(ref(database, 'patients'), orderByChild('clerkId'), equalTo(userId));
+      console.log("Fetching data for userId:", email);
+      const dbRef = query(ref(database, 'patients'), orderByChild('email'), equalTo(email));
 
       const snapshot = await get(dbRef);
 
@@ -142,13 +142,7 @@ export default function FetchPatientData() {
           description: "User data retrieved successfully",
         });
       } else {
-        setError("No patient found with the provided information");
         setPatient(null);
-        toast({
-          title: "Error",
-          description: "No patient found with the provided information",
-          variant: "destructive",
-        });
       }
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -224,11 +218,33 @@ export default function FetchPatientData() {
     }
   };
 
+  const handleRefresh = async () => {
+    if (isLoaded && isSignedIn && user) {
+      setLoading(true);
+      await fetchPatientData(user.emailAddresses[0].emailAddress);
+      toast({
+        title: "Refreshed",
+        description: "Patient data has been refreshed",
+      });
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 space-y-6">
-       
-       {user && (
-        <h1 className="text-xl font-bold">Welcome back, {user.firstName}!</h1>
+      {user && (
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold">Welcome back, {user.firstName}!</h1>
+          <Button
+            onClick={handleRefresh}
+            variant="outline"
+            size="icon"
+            className="rounded-full"
+            disabled={loading}
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+            <span className="sr-only">Refresh data</span>
+          </Button>
+        </div>
       )}
 
       {error && (
@@ -237,31 +253,71 @@ export default function FetchPatientData() {
         </div>
       )}
 
-      {patient && (
+      {!patient && user && (
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
-                <AvatarImage alt={`${patient.firstName} ${patient.lastName}`} />
-                <AvatarFallback>{patient.firstName?.[0]}{patient.lastName?.[0]}</AvatarFallback>
+                <AvatarImage src={user.imageUrl} alt={`${user.firstName} ${user.lastName}`} />
+                <AvatarFallback>{user.firstName?.[0]}{user.lastName?.[0]}</AvatarFallback>
               </Avatar>
               <div>
                 <CardTitle className="text-2xl">
-                  {patient.firstName} {patient.lastName}
+                  {user.firstName} {user.lastName}
                 </CardTitle>
                 <CardDescription>
-                  {patient.age} years old • {patient.gender}
+                  Basic Profile
                 </CardDescription>
               </div>
             </div>
-            
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-sm">
                   <Phone className="h-4 w-4" />
-                  <span>{patient.contactNumber}</span>
+                  <span>{user.phoneNumbers?.[0]?.phoneNumber || 'N/A'}</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm">
+                  <Mail className="h-4 w-4" />
+                  <span>{user.emailAddresses[0].emailAddress}</span>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Patient ID:</span>
+                  <Badge variant="outline">{user.primaryWeb3Wallet?.web3Wallet || 'N/A'}</Badge>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {patient && (
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-20 w-20">
+              <AvatarImage src={user?.imageUrl} alt={`${user?.firstName} ${user?.lastName}`} />
+              <AvatarFallback>{user?.firstName?.[0]}{user?.lastName?.[0]}</AvatarFallback>
+              </Avatar>
+              <div>
+                <CardTitle className="text-2xl">
+                  {patient.firstName} {patient.lastName}
+                </CardTitle>
+                <CardDescription>
+                  {patient.age || 'N/A'} years old • {patient.gender || ''}
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2 text-sm">
+                  <Phone className="h-4 w-4" />
+                  <span>{patient.contactNumber || 'N/A'}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
                   <Mail className="h-4 w-4" />
@@ -276,7 +332,7 @@ export default function FetchPatientData() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Cancer Type:</span>
-                  <Badge variant="secondary">{patient.cancerType}</Badge>
+                  <Badge variant="secondary">{patient.cancerType || 'N/A'}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Transaction Hash:</span>
