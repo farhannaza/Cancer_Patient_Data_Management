@@ -9,7 +9,7 @@ import {
   NavigationMenuList,
   NavigationMenu,
 } from "~/components/ui/navigation-menu";
-import { SignedIn, SignedOut, UserButton } from "@clerk/remix";
+import { SignedOut, UserButton } from "@clerk/remix";
 import { Protect } from "@clerk/remix";
 import { ThemeToggle } from "../theme-toggle"
 
@@ -36,7 +36,7 @@ export default function Navigation() {
             </NavigationMenuLink>
             <NavigationMenuLink asChild>
               <Link
-                to="http://192.168.1.6:3000/upload-form"
+                to="http://192.168.1.6:3000/medical-profile"
                 className="text-muted-foreground hover:text-foreground"
               >
                 Risk Analysis

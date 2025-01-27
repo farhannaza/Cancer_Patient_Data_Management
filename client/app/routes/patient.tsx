@@ -9,7 +9,7 @@ import { Badge } from "~/components/ui/badge";
 import { useToast } from "~/hooks/use-toast";
 import PatientRegistryABI from "./artifacts/PatientRegistry.json";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, query, orderByChild, equalTo } from "firebase/database";
+import { getDatabase, ref, get, query, orderByChild, equalTo, onValue } from "firebase/database";
 import { useLoaderData } from "@remix-run/react";
 import { firebaseConfig } from "firebaseConfig";
 import CryptoJS from 'crypto-js';
@@ -18,6 +18,9 @@ import { getAuth } from "@clerk/remix/ssr.server";
 import { useUser } from "@clerk/remix";
 import { AbiItem } from 'web3-utils';
 import { motion } from "framer-motion";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "~/components/ui/chart";
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 declare global {
   interface Window {
@@ -46,7 +49,17 @@ interface PatientData {
   blockchainAddress: string;
   diagnosedDate?: string;
   transactionHash?: string;
+  prediction?: {
+    prediction: string;
+    timestamp: number;
+  };
   [key: string]: any;
+}
+
+interface HeartRateDataPoint {
+  bpm: number;
+  readable_date: string;
+  timestamp: number;
 }
 
 export default function FetchPatientData() {
@@ -65,6 +78,8 @@ export default function FetchPatientData() {
   const [patientRegistry, setPatientRegistry] = useState<any>(null);
   const { isLoaded, isSignedIn, user } = useUser();
   const [isVerifying, setIsVerifying] = useState(false);
+  const [timeRange, setTimeRange] = useState("today");
+  const [data, setData] = useState<HeartRateDataPoint[]>([]);
 
   useEffect(() => {
     loadBlockchainData();
@@ -72,7 +87,46 @@ export default function FetchPatientData() {
       fetchPatientData(user.emailAddresses[0].emailAddress);
     }
     
-  }, [isLoaded, isSignedIn, user]);
+    const heartRateRef = ref(database, "heart_rate_data");
+
+    const unsubscribe = onValue(heartRateRef, (snapshot) => {
+      const rawData = snapshot.val();
+      if (rawData) {
+        const now = Date.now();
+        const startOfDay = new Date().setHours(0, 0, 0, 0);
+        const startOfYesterday = startOfDay - 24 * 60 * 60 * 1000;
+        const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime();
+        const startOfYear = new Date(new Date().getFullYear(), 0, 1).getTime();
+
+        const filteredData = Object.values(rawData)
+          .map((entry: any) => ({
+            bpm: entry.bpm,
+            readable_date: entry.readable_date,
+            timestamp: entry.timestamp * 1000,
+          }))
+          .filter((dataPoint: HeartRateDataPoint) => {
+            switch (timeRange) {
+              case "today":
+                return dataPoint.timestamp >= startOfDay;
+              case "yesterday":
+                return dataPoint.timestamp >= startOfYesterday && dataPoint.timestamp < startOfDay;
+              case "month":
+                return dataPoint.timestamp >= startOfMonth;
+              case "year":
+                return dataPoint.timestamp >= startOfYear;
+              default:
+                return true;
+            }
+          });
+
+        setData(filteredData);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [isLoaded, isSignedIn, user, timeRange]);
 
   const loadBlockchainData = async () => {
     if (window.ethereum) {
@@ -348,6 +402,27 @@ export default function FetchPatientData() {
         </Card>
       )}
 
+      {patient && recordId === "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c" && patient.prediction && (
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>Prediction Data</CardTitle>
+            <CardDescription>Latest prediction and timestamp</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Prediction:</span>
+                <Badge variant="outline">{patient.prediction.prediction}</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Timestamp:</span>
+                <Badge variant="outline">{new Date(patient.prediction.timestamp).toLocaleString()}</Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {patient && (
         <div className="space-y-4">
           <Button 
@@ -411,6 +486,65 @@ export default function FetchPatientData() {
             </div>
           )}
         </div>
+      )}
+
+      {recordId === "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c" && (
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>Heart Rate History</CardTitle>
+            <CardDescription>Patient&apos;s heart rate over time</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-4">
+              <Select value={timeRange} onValueChange={setTimeRange}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select time range" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="today">Today</SelectItem>
+                  <SelectItem value="yesterday">Yesterday</SelectItem>
+                  <SelectItem value="month">This Month</SelectItem>
+                  <SelectItem value="year">This Year</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <ChartContainer
+              config={{
+                heartRate: {
+                  label: "Heart Rate",
+                  color: "hsl(var(--chart-1))",
+                },
+              }}
+              className="h-[400px]"
+            >
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={data}>
+                  <XAxis
+                    dataKey="readable_date"
+                    tick={{ fill: "hsl(var(--foreground))" }}
+                    tickLine={{ stroke: "hsl(var(--foreground))" }}
+                  />
+                  <YAxis
+                    tick={{ fill: "hsl(var(--foreground))" }}
+                    tickLine={{ stroke: "hsl(var(--foreground))" }}
+                    domain={[40, 120]}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Line
+                    type="monotone"
+                    dataKey="bpm"
+                    stroke="#ff7300"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+            <div className="mt-4 text-sm text-muted-foreground">
+              Normal resting heart rate for adults: 60-100 beats per minute
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
