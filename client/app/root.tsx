@@ -16,7 +16,7 @@ import { Toaster } from "./components/ui/toaster"
 
 import { ClerkApp } from "@clerk/remix";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
-import { dark, neobrutalism } from '@clerk/themes'
+import { dark, neobrutalism, } from '@clerk/themes'
 import { ThemeProvider } from "./components/theme-provider"
 
 export const loader: LoaderFunction = (args) => {
@@ -73,7 +73,7 @@ export function App() {
 }
 
 export default ClerkApp(App, {
-  appearance: {
-    baseTheme: [dark] 
-  },
+  // appearance: {
+  //   baseTheme: [neobrutalism] 
+  // },
 })

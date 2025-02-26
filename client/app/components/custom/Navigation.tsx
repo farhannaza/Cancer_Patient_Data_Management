@@ -36,7 +36,7 @@ export default function Navigation() {
             </NavigationMenuLink>
             <NavigationMenuLink asChild>
               <Link
-                to="http://192.168.1.6:3000/medical-profile"
+                to="http://10.206.51.175:3000/medical-profile"
                 className="text-muted-foreground hover:text-foreground"
               >
                 Risk Analysis
@@ -90,7 +90,7 @@ export default function Navigation() {
               <NavigationMenuLink asChild>
                 <Link
                   className="text-muted-foreground hover:text-foreground"
-                  to="http://192.168.1.6:3000/upload-form"
+                  to="http://10.206.51.175:3000/upload-form"
                 >
                   CancerCare(Zahin)
                 </Link>

@@ -443,7 +443,7 @@ export default function FetchPatientData() {
       {patient && recordId === "0x2494d53Db3fB476Ffc53b6876DAD2bc881f2895c" && patient.prediction && (
         <Card className="w-full">
           <CardHeader>
-            <CardTitle>Prediction Data</CardTitle>
+            <CardTitle>Prediction Data (X-ray)</CardTitle>
             <CardDescription>Latest prediction and timestamp</CardDescription>
           </CardHeader>
           <CardContent>
